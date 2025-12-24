@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-6">
             @csrf
 
-            <!-- Email Address -->
+            
             <flux:input
                 name="email"
                 :label="__('Email Address')"
