@@ -3,14 +3,14 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
-         <flux:sidebar sticky collapsible class="bg-pink-50 dark:bg-pink-900 border-r border-zinc-200 dark:border-zinc-700">
+    <body class="min-h-screen bg-neutral-50 dark:bg-zinc-800 antialiased">
+         <flux:sidebar sticky collapsible class="bg-gray-300 border-r border-zinc-900 dark:bg-neutral-200 dark:border-zinc-700">
         <flux:sidebar.header>
             <flux:sidebar.brand
                 href="#"
                 logo="https://fluxui.dev/img/demo/logo.png"
                 logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
-                name="Checkpoint"
+                name="Jurnal Vodeco"
             />
             <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
         </flux:sidebar.header>
@@ -18,7 +18,10 @@
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
             </a>
 
-             <flux:sidebar.nav>
+            <a href="{{ route('absent') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            </a>
+
+             <flux:sidebar.nav class="text-lg">
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:sidebar.item>
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent')" :current="request()->routeIs('absent')" wire:navigate>{{ __('Absensi') }}</flux:sidebar.item>
             <flux:sidebar.item icon="notebook-pen" href="#">Isi Jurnal</flux:sidebar.item>
