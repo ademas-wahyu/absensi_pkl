@@ -17,10 +17,7 @@
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
             </a>
-
-            <a href="{{ route('absent') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-            </a>
-
+            
              <flux:sidebar.nav class="text-lg">
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:sidebar.item>
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent')" :current="request()->routeIs('absent')" wire:navigate>{{ __('Absensi') }}</flux:sidebar.item>
