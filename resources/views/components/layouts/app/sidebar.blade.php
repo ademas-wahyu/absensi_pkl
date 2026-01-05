@@ -4,12 +4,12 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-neutral-50 dark:bg-zinc-800 antialiased">
-         <flux:sidebar sticky collapsible class="bg-gray-300 border-r border-zinc-900 dark:bg-neutral-200 dark:border-zinc-700">
+         <flux:sidebar sticky collapsible class="bg-gray-300 border-r border-zinc-900 dark:bg-neutral-700 dark:border-zinc-700">
         <flux:sidebar.header>
             <flux:sidebar.brand
                 href="#"
-                logo="https://fluxui.dev/img/demo/logo.png"
-                logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png"
+                logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSryxZgadX3g2ikgH9Be7U37CId6DEudtxjFw&s"
+                logo:dark="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSryxZgadX3g2ikgH9Be7U37CId6DEudtxjFw&s"
                 name="Jurnal Vodeco"
             />
             <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
@@ -20,7 +20,7 @@
             
              <flux:sidebar.nav class="text-lg">
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:sidebar.item>
-            <flux:sidebar.item icon="calendar-date-range" :href="route('absent')" :current="request()->routeIs('absent')" wire:navigate>{{ __('Absensi') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')" :current="request()->routeIs('absent_users')" wire:navigate>{{ __('Absensi') }}</flux:sidebar.item>
             <flux:sidebar.item icon="notebook-pen" href="#">Isi Jurnal</flux:sidebar.item>
         </flux:sidebar.nav>
 

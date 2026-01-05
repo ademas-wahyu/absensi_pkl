@@ -11,9 +11,9 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('absent', 'absent')
+Route::view('absent_users', 'absent_users')
     ->middleware(['auth', 'verified'])
-    ->name('absent');
+    ->name('absent_users');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
