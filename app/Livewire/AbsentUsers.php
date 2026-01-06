@@ -1,16 +1,20 @@
 <?php
 
 namespace App\Livewire;
-
-use Livewire\Component;
 use App\Models\AbsentUser;
+use Livewire\Component;
+
 
 class AbsentUsers extends Component
 {
+    public $absentUsers;
+
+    public function mount()
+    {
+        $this->absentUsers = AbsentUser::all();
+    }
     public function render()
     {
-        $absentUsers = AbsentUser::orderBy('absent_date', 'desc')->get();
-
-        return view('livewire.absent-users', compact('absentUsers'));
+        return view('livewire.absent-users');
     }
 }

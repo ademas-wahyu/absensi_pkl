@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-neutral-50 dark:bg-zinc-800 antialiased">
+    <body class="h-screen w-screen bg-neutral-50 dark:bg-zinc-800 antialiased">
          <flux:sidebar sticky collapsible class="bg-gray-300 border-r border-zinc-900 dark:bg-neutral-700 dark:border-zinc-700">
         <flux:sidebar.header>
             <flux:sidebar.brand
@@ -21,7 +21,7 @@
              <flux:sidebar.nav class="text-lg">
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:sidebar.item>
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')" :current="request()->routeIs('absent_users')" wire:navigate>{{ __('Absensi') }}</flux:sidebar.item>
-            <flux:sidebar.item icon="notebook-pen" href="#">Isi Jurnal</flux:sidebar.item>
+            <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')" :current="request()->routeIs('jurnal_users')" wire:navigate>{{ __('Isi Jurnal') }}</flux:sidebar.item>
         </flux:sidebar.nav>
 
             <flux:spacer />

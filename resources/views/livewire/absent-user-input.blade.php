@@ -1,5 +1,5 @@
 <div>
-    <flux:modal name="input-absent-user" class="md:w-96">
+    <flux:modal name="input-absent-user" class="md:w-100">
     <div class="space-y-6">
         <div>
             <flux:heading size="lg">Input Absensi</flux:heading>
@@ -19,7 +19,7 @@
         <div class="flex">
             <flux:spacer />
 
-            <flux:button type="submit" variant="primary">Simpan</flux:button>
+            <flux:button type="submit" variant="primary" wire:click="submit" class="bg-blue">Simpan</flux:button>
         </div>
     </div>
 </flux:modal>

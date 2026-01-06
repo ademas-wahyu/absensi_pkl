@@ -142,7 +142,7 @@
         <path d="M16 18h.01"/>
     </svg>
     <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">Isi Absensi</p>
-    <a href="#"
+    <a href="{{ route('absent_users') }}"
    wire:navigate
    class="absolute bottom-5 right-6 flex items-center gap-1
           text-xs sm:text-sm font-semibold
@@ -193,7 +193,7 @@
     </svg>
     <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">Hari PKL</p>
     <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">Jurnal Diisi</p>
-  <a href="#"
+  <a href="{{ route('jurnal_users') }}"
    wire:navigate
    class="absolute bottom-5 right-6 flex items-center gap-1
           text-xs sm:text-sm font-semibold
