@@ -6,5 +6,5 @@
         </div>
     <flux:subheading size="lg" class="mb-3">{{ __('Silahkan Isi Jurnal Harian Anda') }}</flux:subheading>
     </div>
-<livewire:absent-users />
+<livewire:jurnal-users />
 </x-layouts.app>
