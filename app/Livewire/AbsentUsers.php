@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\AbsentUser;
 use Livewire\Component;
-
 
 class AbsentUsers extends Component
 {
@@ -13,6 +13,7 @@ class AbsentUsers extends Component
     {
         $this->absentUsers = AbsentUser::all();
     }
+
     public function render()
     {
         return view('livewire.absent-users');

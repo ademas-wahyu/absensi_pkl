@@ -46,7 +46,8 @@ Aplikasi web untuk mengelola absensi dan jurnal harian siswa/mahasiswa Praktik K
 | Database       | SQLite (default), MySQL/PostgreSQL (opsional) |
 | Authentication | Laravel Fortify                               |
 | Testing        | Pest PHP                                      |
-| Linting        | Laravel Pint                                  |
+| Linting PHP    | Laravel Pint                                  |
+| Linting JS     | BiomeJS                                       |
 
 ## 📋 Persyaratan Sistem
 
@@ -230,27 +231,31 @@ php artisan test
 ## 🔧 Perintah Artisan Berguna
 
 ```bash
-# Jalankan migrations
-php artisan migrate
-
-# Rollback migrations
-php artisan migrate:rollback
-
-# Fresh migration (reset + migrate)
-php artisan migrate:fresh
-
-# Run seeders
-php artisan db:seed
-
-# Clear all cache
-php artisan optimize:clear
-
-# Generate application key
-php artisan key:generate
-
-# Run code linting
-./vendor/bin/pint
+php artisan migrate              # Jalankan migrations
+php artisan migrate:rollback     # Rollback migrations
+php artisan migrate:fresh        # Fresh migration (reset + migrate)
+php artisan db:seed              # Run seeders
+php artisan optimize:clear       # Clear all cache
+php artisan key:generate         # Generate application key
 ```
+
+## 🔍 Linting & Formatting
+
+Proyek ini menggunakan **unified linting** yang menjalankan Laravel Pint (PHP) dan BiomeJS (JS) sekaligus:
+
+```bash
+npm run check     # Check semua (PHP + JS)
+npm run fix       # Auto-fix semua (PHP + JS)
+```
+
+**Perintah Individual:**
+
+| Perintah               | Deskripsi                     |
+| ---------------------- | ----------------------------- |
+| `npm run lint`         | Check file JavaScript (Biome) |
+| `npm run lint:fix`     | Auto-fix file JavaScript      |
+| `npm run lint:php`     | Check file PHP (Pint)         |
+| `npm run lint:php:fix` | Auto-fix file PHP             |
 
 ## 🚀 CI/CD
 

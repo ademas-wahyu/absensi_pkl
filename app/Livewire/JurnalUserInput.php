@@ -2,18 +2,21 @@
 
 namespace App\Livewire;
 
+use App\Models\JurnalUser;
 use Flux\Flux;
 use Livewire\Component;
-use App\Models\JurnalUser;
 
 class JurnalUserInput extends Component
 {
-    public $jurnal_date, $activity;
+    public $jurnal_date;
+
+    public $activity;
 
     public function render()
     {
         return view('livewire.jurnal-user-input');
     }
+
     public function submit()
     {
         $this->validate([
@@ -30,6 +33,7 @@ class JurnalUserInput extends Component
         $this->resetForms();
         Flux::modal('jurnalUserModal')->close();
     }
+
     private function resetForms()
     {
         $this->jurnal_date = null;
