@@ -1,6 +1,13 @@
 <div>
-    <div class="mb-4 flex justify-end">
-        <flux:modal.trigger name="input-jurnal-user">
+    <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left-icon lucide-chevron-left w-5 h-5" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Kembali</span>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <flux:modal.trigger name="input-jurnal-user">
 <flux:button
     class="
         bg-primary text-white
@@ -17,7 +24,8 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus w-5 h-5" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
     Input Jurnal
 </flux:button>
-        </flux:modal.trigger>
+            </flux:modal.trigger>
+        </div>
     </div>
 
 <livewire:jurnal-user-input />

@@ -31,7 +31,8 @@ class JurnalUserInput extends Component
         ]);
 
         $this->resetForms();
-        Flux::modal('jurnalUserModal')->close();
+        Flux::modal("input-jurnal-user")->close();
+        $this->dispatch(event: "reoloadJurnalUsers");
     }
 
     private function resetForms()
