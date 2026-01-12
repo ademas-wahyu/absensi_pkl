@@ -13,15 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            RolePermissionSeeder::class,
+        ]);
 
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
             [
-                'name' => 'Test User',
+                'name' => 'Admin User',
                 'password' => 'password',
                 'email_verified_at' => now(),
             ]
         );
+        $admin->assignRole('admin');
+
+        $murid = User::firstOrCreate(
+            ['email' => 'murid@example.com'],
+            [
+                'name' => 'Murid User',
+                'password' => 'password',
+                'email_verified_at' => now(),
+            ]
+        );
+        $murid->assignRole('murid');
     }
 }
