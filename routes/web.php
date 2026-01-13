@@ -19,6 +19,10 @@ Route::view('jurnal_users', 'jurnal_users')
     ->middleware(['auth', 'verified'])
     ->name('jurnal_users');
 
+    Route::view('divisi_users', 'divisi_users')
+    ->middleware(['auth', 'verified'])
+    ->name('divisi_users');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

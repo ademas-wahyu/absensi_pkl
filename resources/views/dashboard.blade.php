@@ -241,7 +241,7 @@
         <rect x="2" y="5" width="20" height="14" rx="2"/>
     </svg>
     <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">Dalam Divisi</p>
-  <a href="#"
+  <a href="{{ route('divisi_users') }}"
    wire:navigate
    class="absolute bottom-5 right-6 flex items-center gap-1
           text-xs sm:text-sm font-semibold
