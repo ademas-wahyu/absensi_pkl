@@ -120,7 +120,7 @@
     <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
     <!-- Card Absensi -->
 <div
-    class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700
+    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
            bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
            drop-shadow-sm hover:drop-shadow-sm transition-shadow
            aspect-[16/9] sm:aspect-video">
@@ -168,7 +168,7 @@
 
 <!-- Card Jurnal -->
 <div
-    class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700
+    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
            bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
            drop-shadow-sm hover:drop-shadow-sm transition-shadow
            aspect-[16/9] sm:aspect-video">
@@ -218,7 +218,7 @@
 
 <!-- Card Divisi -->
 <div
-    class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700
+    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
            bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
            drop-shadow-sm hover:drop-shadow-sm transition-shadow
            aspect-[16/9] sm:aspect-video">

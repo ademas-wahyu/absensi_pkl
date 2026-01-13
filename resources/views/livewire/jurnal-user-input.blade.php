@@ -1,13 +1,13 @@
 <div>
-    <flux:modal name="input-absent-user" class="md:w-100">
+    <flux:modal name="input-jurnal-user" class="md:w-100">
     <div class="space-y-6">
         <div>
             <flux:heading size="lg">Input Jurnal</flux:heading>
             <flux:text class="mt-2">Silahkan Isi Jurnal Anda</flux:text>
         </div>
 
-        <flux:input label="Tanggal " type="date" wire:model="jurnal_date" />
-        <flux:input label="Aktivitas" wire:model="activity" />
+        <flux:input label="jurnal_date" type="date" wire:model="jurnal_date" />
+        <flux:input label="activity" wire:model="activity" />
         <div class="flex">
             <flux:spacer />
 

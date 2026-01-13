@@ -2,13 +2,18 @@
 
 namespace App\Livewire;
 
+use App\Models\AbsentUser;
 use Flux\Flux;
 use Livewire\Component;
-use App\Models\AbsentUser;
 
 class AbsentUserInput extends Component
-{ 
-    public $absent_date,$status,$reason;
+{
+    public $absent_date;
+
+    public $status;
+
+    public $reason;
+
     public function render()
     {
         return view('livewire.absent-user-input');
@@ -31,6 +36,7 @@ class AbsentUserInput extends Component
         $this->resetForms();
         Flux::modal('absentUserModal')->close();
     }
+
     private function resetForms()
     {
         $this->absent_date = null;
