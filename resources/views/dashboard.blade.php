@@ -1,112 +1,14 @@
 <x-layouts.app :title="__('Dashboard')">
 
-<!-- FULL NAVBAR -->
-<nav
-    class="sticky top-0 z-50 w-full
-           border-b border-neutral-200 dark:border-neutral-700
-           bg-white/80 dark:dark:bg-zinc-800 rounded-b-lg">
-
-    <div class="flex h-14 items-center justify-between px-4 sm:px-6">
-
-        <!-- LEFT -->
-        <div class="flex items-center gap-3">
-            <span class="text-sm sm:text-base font-semibold
-                         text-neutral-800 dark:text-neutral-200">
-                Dashboard
-            </span>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="flex items-center gap-4">
-
-            <!-- Dark / Light Toggle -->
-            <button
-                x-data
-                @click="$dispatch('toggle-theme')"
-                class="rounded-lg border border-neutral-200 dark:border-neutral-700
-                       p-2 text-neutral-600 dark:text-neutral-300
-                       hover:bg-neutral-100 dark:hover:bg-neutral-800
-                       transition">
-
-                <!-- Sun -->
-                <svg class="h-5 w-5 dark:hidden"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" stroke-width="1.75">
-                    <circle cx="12" cy="12" r="4"/>
-                    <path d="M12 2v2"/>
-                    <path d="M12 20v2"/>
-                    <path d="M4.93 4.93l1.41 1.41"/>
-                    <path d="M17.66 17.66l1.41 1.41"/>
-                    <path d="M2 12h2"/>
-                    <path d="M20 12h2"/>
-                    <path d="M6.34 17.66l-1.41 1.41"/>
-                    <path d="M19.07 4.93l-1.41 1.41"/>
-                </svg>
-
-                <!-- Moon -->
-                <svg class="hidden h-5 w-5 dark:block"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" stroke-width="1.75">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3
-                             7 7 0 0 0 21 12.79z"/>
-                </svg>
-            </button>
-
-            <!-- PROFILE -->
-            <div class="relative" x-data="{ open: false }">
-                <button
-                    @click="open = !open"
-                    class="flex items-center gap-2">
-
-                    <img
-                        src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}"
-                        class="h-8 w-8 rounded-full"
-                        alt="Avatar">
-
-                    <span class="hidden sm:block text-sm font-medium
-                                 text-neutral-700 dark:text-neutral-200">
-                        {{ auth()->user()->name }}
-                    </span>
-                </button>
-
-                <!-- Dropdown -->
-                <div x-show="open"
-                     @click.outside="open = false"
-                     class="absolute right-0 mt-2 w-40
-                            overflow-hidden rounded-lg
-                            border border-neutral-200 dark:border-neutral-700
-                            bg-white dark:bg-neutral-800
-                            shadow-lg">
-
-                    <a href="{{ route('profile.edit') }}"
-                       class="block px-4 py-2 text-sm
-                              hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                        Profil
-                    </a>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button
-                            class="w-full text-left px-4 py-2 text-sm
-                                   hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</nav>
-
 <div class="flex h-full w-full flex-1 flex-col gap-4 
             bg-neutral-50 dark:dark:bg-zinc-800
             p-4 sm:p-6 lg:p-8">
 
         <!-- Header -->
         <div class="flex flex-col items-start gap-2 border-b border-secondary p-3 sm:p-4">
+            <div class="flex items-center gap-2">
+                    <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+                </div>
             <h2 class="text-base sm:text-xl font-semibold">
                 Welcome back, {{ auth()->user()->name }}!
             </h2>
@@ -120,9 +22,9 @@
     <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
     <!-- Card Absensi -->
 <div
-    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
-           bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
-           drop-shadow-sm hover:drop-shadow-sm transition-shadow
+    class="relative overflow-hidden rounded-xl border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800 p-4 space-y-2 sm:space-y-4
+           shadow-md hover:shadow-xl transition-shadow duration-200
            aspect-[16/9] sm:aspect-video">
     <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Absensi</h1>
     <svg xmlns="http://www.w3.org/2000/svg"
@@ -168,9 +70,9 @@
 
 <!-- Card Jurnal -->
 <div
-    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
-           bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
-           drop-shadow-sm hover:drop-shadow-sm transition-shadow
+    class="relative overflow-hidden rounded-xl border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800 p-4 space-y-2 sm:space-y-4
+           shadow-md hover:shadow-xl transition-shadow duration-200
            aspect-[16/9] sm:aspect-video">
     <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Jurnal Harian</h1>
      <svg xmlns="http://www.w3.org/2000/svg"
@@ -218,9 +120,9 @@
 
 <!-- Card Divisi -->
 <div
-    class="relative overflow-hidden rounded-xl  border border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
-           bg-stone-300 dark:bg-neutral-900 p-4 space-y-2 sm:space-y-4
-           drop-shadow-sm hover:drop-shadow-sm transition-shadow
+    class="relative overflow-hidden rounded-xl border-l-8 border-blue-500 border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800 p-4 space-y-2 sm:space-y-4
+           shadow-md hover:shadow-xl transition-shadow duration-200
            aspect-[16/9] sm:aspect-video">
     <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Divisi</h1>
     <svg xmlns="http://www.w3.org/2000/svg"
