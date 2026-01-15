@@ -8,7 +8,9 @@ class AbsentUser extends Model
 {
     protected $fillable = [
         'user_id',
+        'name',
         'absent_date',
+        'divisi',
         'status',
         'reason',
     ];

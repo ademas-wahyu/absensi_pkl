@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absent_admin', function (Blueprint $table) {
-            $table->id();
+        Schema::create('data_admins', function (Blueprint $table) {
+             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->date('absent_date');
-            $table->string('divisi');
-            $table->string('status');
-            $table->text('reason')->nullable();
+            $table->string('asal');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absent_admin');
+        Schema::dropIfExists('data_admins');
     }
 };
