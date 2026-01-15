@@ -13,16 +13,16 @@
                     name="Jurnal Vodeco"
                     class="!text-white [&_*]:!text-white"
                 />
-            <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
+            <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2 !text-white [&_*]:!text-white hover:bg-white/10" />
         </flux:sidebar.header>
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
             </a>
             
-             <flux:sidebar.nav class="text-lg text-white">
-            <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate class="text-white hover:text-white transition">{{ __('Dashboard') }}</flux:sidebar.item>
-            <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')" :current="request()->routeIs('absent_users')" wire:navigate class="text-white hover:text-white transition">{{ __('Absensi') }}</flux:sidebar.item>
-            <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')" :current="request()->routeIs('jurnal_users')" wire:navigate class="text-white hover:text-white transition">{{ __('Isi Jurnal') }}</flux:sidebar.item>
+             <flux:sidebar.nav>
+            <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate class="!text-white hover:text-white/80 [&_*]:!text-white data-[current]:!text-zinc-800 data-[current]:[&_*]:!text-zinc-800 transition">{{ __('Dashboard') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')" :current="request()->routeIs('absent_users')" wire:navigate class="!text-white hover:text-white/80 [&_*]:!text-white data-[current]:!text-zinc-800 data-[current]:[&_*]:!text-zinc-800 transition">{{ __('Absensi') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')" :current="request()->routeIs('jurnal_users')" wire:navigate class="!text-white hover:text-white/80 [&_*]:!text-white data-[current]:!text-zinc-800 data-[current]:[&_*]:!text-zinc-800 transition">{{ __('Isi Jurnal') }}</flux:sidebar.item>
         </flux:sidebar.nav>
 
             <flux:spacer />
@@ -34,6 +34,7 @@
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
                     data-test="sidebar-menu-button"
+                    class="!bg-white !text-zinc-800 [&_*]:!text-zinc-800 hover:!bg-white/90 p-2 rounded-lg"
                 />
 
                 <flux:menu class="w-[220px]">
@@ -42,7 +43,7 @@
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
                                     <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-white dark:bg-neutral-700 "
+                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-white"
                                     >
                                         {{ auth()->user()->initials() }}
                                     </span>
