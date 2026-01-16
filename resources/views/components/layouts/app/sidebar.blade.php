@@ -215,6 +215,8 @@
         </flux:sidebar.nav>
     </flux:header>
 
+    @include('components.layouts.navbar')
+
     {{ $slot }}
     @fluxScripts
 

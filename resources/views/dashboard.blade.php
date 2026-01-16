@@ -7,9 +7,8 @@
         <!-- Header -->
         <div class="flex flex-col items-start gap-2 border-b border-secondary p-3 sm:p-4">
             <div class="flex items-center gap-2">
-                <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
             </div>
-            <h2 class="text-base sm:text-xl font-semibold">
+            <h2 class="text-base sm:text-xl font-semibold dark:text-gray-300">
                 Welcome back, {{ auth()->user()->name }}!
             </h2>
 
