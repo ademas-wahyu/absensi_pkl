@@ -1,5 +1,4 @@
 <x-layouts.app.sidebar :title="$title ?? null">
-     @include('components.layouts.navbar')
     <flux:main>
        
 
