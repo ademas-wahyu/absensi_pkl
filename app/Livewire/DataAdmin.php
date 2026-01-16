@@ -5,17 +5,17 @@ namespace App\Livewire;
 use App\Models\AbsentUser;
 use Livewire\Component;
 
-class AbsentUsers extends Component
+class DataAdmin extends Component
 {
-    public $absentUsers;
+    public $dataAdmin;
 
     public function mount()
     {
-        $this->absentUsers = AbsentUser::all();
+        $this->dataAdmin = DataAdmin::all();
     }
 
     public function render()
     {
-        return view('livewire.absent-users');
+        return view('livewire.data-admin');
     }
 }
