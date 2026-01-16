@@ -12,3 +12,12 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+<script>
+    const theme = localStorage.getItem('theme') ?? 'system';
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+</script>
+

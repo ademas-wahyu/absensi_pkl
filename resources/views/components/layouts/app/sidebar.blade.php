@@ -111,6 +111,26 @@
                     {{ __('Settings') }}
                 </flux:menu.item>
 
+                <flux:menu.item 
+                    icon="sun" 
+                    onclick="
+                        const html = document.documentElement;
+                        const currentTheme = localStorage.getItem('theme') ?? 'system';
+                        let newTheme;
+                        if (currentTheme === 'light') {
+                            newTheme = 'dark';
+                            html.classList.add('dark');
+                        } else {
+                            newTheme = 'light';
+                            html.classList.remove('dark');
+                        }
+                        localStorage.setItem('theme', newTheme);
+                    "
+                    class="cursor-pointer"
+                >
+                    {{ __('Toggle Theme') }}
+                </flux:menu.item>
+
                 <flux:menu.separator />
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -125,49 +145,103 @@
 
     <!-- MOBILE BOTTOM NAV -->
 
-    <flux:header
-        class="lg:hidden fixed bottom-0 left-0 right-0 z-10
-                border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm">
-        <flux:sidebar.nav class="flex items-center justify-between px-3 py-2">
+    <!-- Mobile User Menu (fixed bottom on small screens) - horizontal layout -->
+    <flux:header class="lg:hidden fixed bottom-0 inset-x-0 z-10
+           bg-white dark:bg-neutral-900
+           border-t border-neutral-200 dark:border-neutral-700
+           shadow-sm">
 
+        <flux:sidebar.nav class="flex flex-row items-center justify-around px-2 py-2">
+
+            <!-- Dashboard -->
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
-                :current="request()->routeIs('dashboard')" wire:navigate class="
-                    text-zinc-700 dark:text-zinc-200
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:rounded-md
-                    px-3 py-1
-                " />
+                :current="request()->routeIs('dashboard')" wire:navigate 
+            class="
+            inline-flex w-auto shrink-0
+            flex-col items-center justify-center
+            gap-3
 
+            px-6 py-4
+            text-[11px] font-medium
+
+            text-neutral-500 dark:text-neutral-400
+            data-[current]:text-[#3526B3]
+            dark:data-[current]:text-[#8615D9]
+
+            transition
+            "
+            >
+            {{ __('Dashboard') }} 
+           </flux:sidebar.item>
+
+            <!-- Absensi -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
                 :current="request()->routeIs('absent_users')" wire:navigate class="
-                    text-zinc-700 dark:text-zinc-200
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:rounded-md
-                    px-3 py-1
-                " />
+                inline-flex w-auto shrink-0
+                flex-col items-center justify-center
+                gap-3
 
+                px-6 py-4
+                text-[11px] font-medium
+
+                text-neutral-500 dark:text-neutral-400
+                data-[current]:text-[#3526B3]
+                dark:data-[current]:text-[#8615D9]
+
+                transition
+            ">
+                {{ __('Absensi') }}
+            </flux:sidebar.item>
+
+            <!-- Isi Jurnal -->
             <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
                 :current="request()->routeIs('jurnal_users')" wire:navigate class="
-                    text-zinc-700 dark:text-zinc-200
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:rounded-md
-                    px-3 py-1
-                " />
+                inline-flex w-auto shrink-0
+                flex-col items-center justify-center
+                gap-3
+
+                px-6 py-4
+                text-[11px] font-medium
+
+                text-neutral-500 dark:text-neutral-400
+                data-[current]:text-[#3526B3]
+                dark:data-[current]:text-[#8615D9]
+
+                transition
+            ">
+               {{ __('Isi Jurnal') }}
+            </flux:sidebar.item>
+
         </flux:sidebar.nav>
     </flux:header>
 
     {{ $slot }}
-
     @fluxScripts
+
+    <script>
+        // Fungsi untuk mengatur tema
+        function applyTheme() {
+            const theme = localStorage.getItem('theme') ?? 'system';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Terapkan tema saat load
+        applyTheme();
+
+        // Dengarkan perubahan localStorage (untuk cross-tab atau jika diperlukan)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'theme') {
+                applyTheme();
+            }
+        });
+
+        // Jika menggunakan Livewire navigasi, pastikan tema diterapkan setelah navigasi
+        document.addEventListener('livewire:navigated', applyTheme);
+    </script>
 </body>
 
 </html>
