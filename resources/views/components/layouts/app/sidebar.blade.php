@@ -111,6 +111,26 @@
                     {{ __('Settings') }}
                 </flux:menu.item>
 
+                <flux:menu.item 
+                    icon="sun" 
+                    onclick="
+                        const html = document.documentElement;
+                        const currentTheme = localStorage.getItem('theme') ?? 'system';
+                        let newTheme;
+                        if (currentTheme === 'light') {
+                            newTheme = 'dark';
+                            html.classList.add('dark');
+                        } else {
+                            newTheme = 'light';
+                            html.classList.remove('dark');
+                        }
+                        localStorage.setItem('theme', newTheme);
+                    "
+                    class="cursor-pointer"
+                >
+                    {{ __('Toggle Theme') }}
+                </flux:menu.item>
+
                 <flux:menu.separator />
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -168,6 +188,31 @@
     {{ $slot }}
 
     @fluxScripts
+
+    <script>
+        // Fungsi untuk mengatur tema
+        function applyTheme() {
+            const theme = localStorage.getItem('theme') ?? 'system';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        // Terapkan tema saat load
+        applyTheme();
+
+        // Dengarkan perubahan localStorage (untuk cross-tab atau jika diperlukan)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'theme') {
+                applyTheme();
+            }
+        });
+
+        // Jika menggunakan Livewire navigasi, pastikan tema diterapkan setelah navigasi
+        document.addEventListener('livewire:navigated', applyTheme);
+    </script>
 </body>
 
 </html>
