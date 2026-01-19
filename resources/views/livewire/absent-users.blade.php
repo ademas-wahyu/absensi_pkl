@@ -50,7 +50,7 @@
                     dark:text-[#8615D9]
                     text-left
         ">
-
+                    
                     <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Tanggal</th>
                     <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Status</th>
                     <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Alasan</th>

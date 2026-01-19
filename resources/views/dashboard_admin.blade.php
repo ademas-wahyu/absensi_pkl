@@ -6,9 +6,6 @@
 
         <!-- Header -->
         <div class="flex flex-col items-start gap-2 border-b border-secondary p-3 sm:p-4">
-            <div class="flex items-center gap-2">
-                <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-            </div>
             <h2 class="text-base sm:text-xl font-semibold">
                 Welcome back, {{ auth()->user()->name }}!
             </h2>
@@ -72,7 +69,6 @@
                 </div>
                     <x-placeholder-pattern class="absolute inset-0 size-full" />
 
-                </a>
             </div>
 
             <!-- Card Absensi admin -->
@@ -96,14 +92,25 @@
                         </div>
                     </div>
                     <h1 class="mt-4 text-base sm:text-sm font-semibold dark:text-gray-400">
-                        Absensi
+                        Absensi Anak PKL Hari Ini
                     </h1>
                 </div>
                     <x-placeholder-pattern class="absolute inset-0 size-full" />
-
-                </a>
             </div>
         </div>
+        <!-- Chart Kehadiran PKL -->
+<div class="rounded-xl border border-neutral-200 dark:border-neutral-700
+            bg-white dark:bg-neutral-800 p-4 shadow-md hover:shadow-sm transition-shadow duration-200 mt-4">
+
+    <h2 class="text-sm sm:text-base font-semibold mb-4 text-neutral-800 dark:text-neutral-200">
+        Grafik Kehadiran Anak PKL
+    </h2>
+
+    <div class="relative h-[300px]">
+        <canvas id="pklAttendanceChart"></canvas>
+    </div>
+</div>
+
     </div>
 
 

@@ -3,9 +3,10 @@
 
 <head>
     @include('partials.head')
+    @include('components.layouts.navbar')
 </head>
 
-<body class="h-screen w-screen bg-slate-50 dark:bg-zinc-900 antialiased">
+<body class="h-fit-screen w-screen bg-slate-50 dark:bg-zinc-900 antialiased">
 
     <!-- SIDEBAR -->
     <flux:sidebar sticky collapsible class="bg-white text-zinc-700 border-r border-zinc-200 shadow-sm
@@ -23,7 +24,6 @@
 
         <!-- NAVIGATION -->
         <flux:sidebar.nav>
-
             <!-- Dashboard -->
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
                 :current="request()->routeIs('dashboard')" wire:navigate class="
@@ -41,6 +41,23 @@
                 ">
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
+
+             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard_admin')"
+                :current="request()->routeIs('dashboard_admin')" wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
+                    data-[current]:bg-gradient-to-r
+                    data-[current]:from-[#3526B3]
+                    data-[current]:to-[#8615D9]
+                    data-[current]:text-white
+                    data-[current]:shadow-md
+                    data-[current]:rounded-lg
+
+                    transition-all
+                ">
+                {{ __('Dashboard') }}
+            </flux:sidebar.item>
+
 
             <!-- Absensi -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
@@ -214,8 +231,6 @@
 
         </flux:sidebar.nav>
     </flux:header>
-
-    @include('components.layouts.navbar')
 
     {{ $slot }}
     @fluxScripts
