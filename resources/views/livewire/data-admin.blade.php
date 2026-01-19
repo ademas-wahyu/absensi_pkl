@@ -14,15 +14,17 @@
             </h2>
         </div>
         <flux:modal.trigger name="tambah-anak">
-            <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white hover:opacity-90">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <line x1="19" x2="19" y1="8" y2="14" />
-                    <line x1="22" x2="16" y1="11" y2="11" />
-                </svg>
-                Tambah Anak PKL
+            <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] !text-white hover:opacity-90">
+                <span class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <line x1="19" x2="19" y1="8" y2="14" />
+                        <line x1="22" x2="16" y1="11" y2="11" />
+                    </svg>
+                    <span>Tambah Anak PKL</span>
+                </span>
             </flux:button>
         </flux:modal.trigger>
     </div>
@@ -104,15 +106,17 @@
                     <flux:modal.close>
                         <flux:button variant="ghost" wire:click="resetForm">Batal</flux:button>
                     </flux:modal.close>
-                    <flux:button type="submit"
-                        class="flex items-center justify-center gap-2 bg-linear-to-r from-[#3526B3] to-[#8615D9] !text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                            <polyline points="17,21 17,13 7,13 7,21" />
-                            <polyline points="7,3 7,8 15,8" />
-                        </svg>
-                        Simpan
+                    <flux:button type="submit" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] !text-white">
+                        <span class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17,21 17,13 7,13 7,21" />
+                                <polyline points="7,3 7,8 15,8" />
+                            </svg>
+                            <span>Simpan</span>
+                        </span>
                     </flux:button>
                 </div>
             </form>
@@ -201,7 +205,7 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-8 h-8 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                flex items-center justify-center text-white font-semibold text-xs">
+                                                                        flex items-center justify-center text-white font-semibold text-xs">
                                     {{ strtoupper(substr($student->name, 0, 2)) }}
                                 </div>
                                 <span class="font-medium">{{ $student->name }}</span>
@@ -212,7 +216,7 @@
                             @if($student->divisi)
                                 <span
                                     class="px-2 py-1 rounded-full text-xs font-medium 
-                                                                                            bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                                                                                            bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                     {{ $student->divisi }}
                                 </span>
                             @else
