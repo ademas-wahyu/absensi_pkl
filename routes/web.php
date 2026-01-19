@@ -28,6 +28,10 @@ Route::view('jurnal_users', 'jurnal_users')
     ->middleware(['auth', 'verified'])
     ->name('dashboard_admin');
 
+    Route::view('jumlah_anak', 'jumlah_anak')
+    ->middleware(['auth', 'verified'])
+    ->name('jumlah_anak');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

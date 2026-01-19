@@ -41,8 +41,8 @@
                 ">
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
-
-             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard_admin')"
+            <!-- Dashboard Admin -->
+            <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard_admin')"
                 :current="request()->routeIs('dashboard_admin')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
@@ -95,6 +95,37 @@
                 {{ __('Isi Jurnal') }}
             </flux:sidebar.item>
 
+            <!-- Jumlah Anak -->
+            <flux:sidebar.group expandable icon="users" heading="Jumlah Anak" class="grid text-neutral-400">
+                <flux:sidebar.item :href="route('jumlah_anak')" :current="request()->routeIs('jumlah_anak')"
+                    wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
+
+                    data-[current]:bg-gradient-to-r
+                    data-[current]:from-[#3526B3]
+                    data-[current]:to-[#8615D9]
+                    data-[current]:text-white
+                    data-[current]:shadow-md
+                    data-[current]:rounded-lg
+
+                    transition-all
+                ">Data</flux:sidebar.item>
+
+                <flux:sidebar.group expandable class="grid position-relative text-black " heading="Divisi">
+                    <flux:sidebar.item href="#">SEO</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Project</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Tecnical Sport</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Media Sosial</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Custemer Servis</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Admin Pelunasan</flux:sidebar.item>
+                    <flux:sidebar.item href="#">Finance</flux:sidebar.item>
+
+
+
+                </flux:sidebar.group>
+
+            </flux:sidebar.group>
         </flux:sidebar.nav>
 
         <flux:spacer />
@@ -128,9 +159,7 @@
                     {{ __('Settings') }}
                 </flux:menu.item>
 
-                <flux:menu.item 
-                    icon="sun" 
-                    onclick="
+                <flux:menu.item icon="sun" onclick="
                         const html = document.documentElement;
                         const currentTheme = localStorage.getItem('theme') ?? 'system';
                         let newTheme;
@@ -142,9 +171,7 @@
                             html.classList.remove('dark');
                         }
                         localStorage.setItem('theme', newTheme);
-                    "
-                    class="cursor-pointer"
-                >
+                    " class="cursor-pointer">
                     {{ __('Toggle Theme') }}
                 </flux:menu.item>
 
@@ -172,8 +199,7 @@
 
             <!-- Dashboard -->
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
-                :current="request()->routeIs('dashboard')" wire:navigate 
-            class="
+                :current="request()->routeIs('dashboard')" wire:navigate class="
             inline-flex w-auto shrink-0
             flex-col items-center justify-center
             gap-3
@@ -186,10 +212,9 @@
             dark:data-[current]:text-[#8615D9]
 
             transition
-            "
-            >
-            {{ __('Dashboard') }} 
-           </flux:sidebar.item>
+            ">
+                {{ __('Dashboard') }}
+            </flux:sidebar.item>
 
             <!-- Absensi -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
@@ -226,7 +251,7 @@
 
                 transition
             ">
-               {{ __('Isi Jurnal') }}
+                {{ __('Isi Jurnal') }}
             </flux:sidebar.item>
 
         </flux:sidebar.nav>
