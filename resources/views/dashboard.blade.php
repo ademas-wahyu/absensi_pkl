@@ -13,11 +13,34 @@
             </h2>
 
             <p class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">
-                Here's a quick overview of your dashboard.
+                @role('admin')
+                    Panel admin untuk mengelola data PKL/Magang.
+                @else
+                    Here's a quick overview of your dashboard.
+                @endrole
             </p>
         </div>
 
-        <!-- Cards -->
+        {{-- ========== KONTEN ADMIN ========== --}}
+        @role('admin')
+        <!-- Cards Admin -->
+        <livewire:dashboard.stats />
+
+        <!-- Chart Kehadiran PKL -->
+        <div class="rounded-xl border border-neutral-200 dark:border-neutral-700
+                    bg-white dark:bg-neutral-800 p-4 shadow-md hover:shadow-lg transition-shadow duration-200 mt-4">
+
+            <h2 class="text-sm sm:text-base font-semibold mb-4 text-neutral-800 dark:text-neutral-200">
+                Grafik Kehadiran Anak PKL
+            </h2>
+
+                <livewire:dashboard.attendance-chart />
+        </div>
+        @endrole
+
+        {{-- ========== KONTEN MURID ========== --}}
+        @role('murid')
+        <!-- Cards Murid -->
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             <!-- Card Absensi -->
            <div class="relative overflow-hidden rounded-xl
@@ -168,8 +191,8 @@
                 </a>
             </div>
         </div>
+        @endrole
+
     </div>
-
-
 
 </x-layouts.app>

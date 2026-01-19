@@ -36,5 +36,15 @@ class DatabaseSeeder extends Seeder
             ]
         );
         $murid->assignRole('murid');
+
+        $mentor = User::firstOrCreate(
+            ['email' => 'mentor@example.com'],
+            [
+                'name' => 'Mentor User',
+                'password' => 'password',
+                'email_verified_at' => now(),
+            ]
+        );
+        $mentor->assignRole('mentor');
     }
 }

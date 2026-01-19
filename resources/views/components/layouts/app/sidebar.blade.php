@@ -5,11 +5,11 @@
     @include('partials.head')
 </head>
 
-<body class="h-fit-screen w-screen bg-slate-50 dark:bg-zinc-900 antialiased">
+<body class="h-fit-screen w-full overflow-x-hidden bg-slate-50 dark:bg-zinc-900 antialiased">
     @include('components.layouts.navbar')
 
     <!-- SIDEBAR -->
-    <flux:sidebar sticky collapsible class="bg-white text-zinc-700 border-r border-zinc-200 shadow-sm
+    <flux:sidebar sticky collapsible class="h-screen sticky top-0 bg-white text-zinc-700 border-r border-zinc-200 shadow-sm
                dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-200">
 
         <!-- HEADER -->
@@ -24,7 +24,7 @@
 
         <!-- NAVIGATION -->
         <flux:sidebar.nav>
-            <!-- Dashboard -->
+            {{-- Dashboard untuk semua role --}}
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
                 :current="request()->routeIs('dashboard')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
@@ -41,25 +41,9 @@
                 ">
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
-            <!-- Dashboard Admin -->
-            <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard_admin')"
-                :current="request()->routeIs('dashboard_admin')" wire:navigate class="
-                    text-zinc-700 dark:text-zinc-200
-                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
-                    data-current:bg-linear-to-r
-                    data-current:from-[#3526B3]
-                    data-current:to-[#8615D9]
-                    data-current:text-white
-                    data-current:shadow-md
-                    data-current:rounded-lg
-
-                    transition-all
-                ">
-                {{ __('Dashboard') }}
-            </flux:sidebar.item>
 
 
-            <!-- Absensi -->
+            <!-- Absensi (untuk semua) -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
                 :current="request()->routeIs('absent_users')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
@@ -77,7 +61,7 @@
                 {{ __('Absensi') }}
             </flux:sidebar.item>
 
-            <!-- Jurnal -->
+            <!-- Jurnal (untuk semua) -->
             <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
                 :current="request()->routeIs('jurnal_users')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
@@ -95,10 +79,10 @@
                 {{ __('Isi Jurnal') }}
             </flux:sidebar.item>
 
-            <!-- Jumlah Anak -->
-            <flux:sidebar.group expandable icon="users" heading="Jumlah Anak" class="grid text-neutral-400">
-                <flux:sidebar.item :href="route('jumlah_anak')" :current="request()->routeIs('jumlah_anak')"
-                    wire:navigate class="
+            {{-- Daftar Anak PKL (khusus Admin) --}}
+            @role('admin')
+            <flux:sidebar.item icon="users" :href="route('jumlah_anak')" :current="request()->routeIs('jumlah_anak')"
+                wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
@@ -110,22 +94,30 @@
                     data-current:rounded-lg
 
                     transition-all
-                ">Data</flux:sidebar.item>
+                ">
+                {{ __('Daftar Anak PKL') }}
+            </flux:sidebar.item>
+            @endrole
 
-                <flux:sidebar.group expandable class="grid position-relative text-black " heading="Divisi">
-                    <flux:sidebar.item href="#">SEO</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Project</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Tecnical Sport</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Media Sosial</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Custemer Servis</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Admin Pelunasan</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Finance</flux:sidebar.item>
+            {{-- Divisi untuk Murid --}}
+            @role('murid')
+            <flux:sidebar.item icon="id-card" :href="route('divisi_users')"
+                :current="request()->routeIs('divisi_users')" wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
-
-                </flux:sidebar.group>
-
-            </flux:sidebar.group>
+                    transition-all
+                ">
+                {{ __('Divisi') }}
+            </flux:sidebar.item>
+            @endrole
         </flux:sidebar.nav>
 
         <flux:spacer />
@@ -197,7 +189,7 @@
 
         <flux:sidebar.nav class="flex flex-row items-center justify-around px-2 py-2">
 
-            <!-- Dashboard -->
+            {{-- Dashboard untuk semua role --}}
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
                 :current="request()->routeIs('dashboard')" wire:navigate class="
             inline-flex w-auto shrink-0
@@ -216,7 +208,7 @@
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
 
-            <!-- Absensi -->
+            <!-- Absensi (untuk semua) -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
                 :current="request()->routeIs('absent_users')" wire:navigate class="
                 inline-flex w-auto shrink-0
@@ -235,7 +227,7 @@
                 {{ __('Absensi') }}
             </flux:sidebar.item>
 
-            <!-- Isi Jurnal -->
+            <!-- Isi Jurnal (untuk semua) -->
             <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
                 :current="request()->routeIs('jurnal_users')" wire:navigate class="
                 inline-flex w-auto shrink-0

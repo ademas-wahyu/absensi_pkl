@@ -8,29 +8,22 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+// Dashboard (untuk semua role - admin & murid)
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('absent_users', 'absent_users')
-    ->middleware(['auth', 'verified'])
-    ->name('absent_users');
+// Route khusus Admin (daftar anak)
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::view('daftar-anak', 'jumlah_anak')->name('jumlah_anak');
+});
 
-Route::view('jurnal_users', 'jurnal_users')
-    ->middleware(['auth', 'verified'])
-    ->name('jurnal_users');
-
-    Route::view('divisi_users', 'divisi_users')
-    ->middleware(['auth', 'verified'])
-    ->name('divisi_users');
-
-    Route::view('dashboard_admin', 'dashboard_admin')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard_admin');
-
-    Route::view('jumlah_anak', 'jumlah_anak')
-    ->middleware(['auth', 'verified'])
-    ->name('jumlah_anak');
+// Route untuk kedua role (admin & murid)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('absen', 'absent_users')->name('absent_users');
+    Route::view('jurnal', 'jurnal_users')->name('jurnal_users');
+    Route::view('divisi_users', 'divisi_users')->name('divisi_users');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -43,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
