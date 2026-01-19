@@ -22,11 +22,11 @@ new class extends Component {
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
         <div class="relative">
             <div class="flex items-start gap-4">
                 @svg('hugeicons-student', 'w-[60px] h-[60px] text-black dark:text-gray-300')
@@ -47,11 +47,11 @@ new class extends Component {
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
         <div class="relative">
             <div class="flex items-start gap-4">
                 @svg('hugeicons-mentor', 'w-[60px] h-[60px] text-black dark:text-gray-300')
@@ -72,11 +72,11 @@ new class extends Component {
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
 
         <div class="relative">
             <div class="flex items-start gap-4">

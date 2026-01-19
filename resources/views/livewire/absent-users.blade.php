@@ -52,16 +52,16 @@
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($students as $student)
                 <div class="relative overflow-hidden rounded-xl
-                    border border-neutral-200 dark:border-neutral-700
-                    bg-white dark:bg-neutral-800
-                    shadow-md hover:shadow-xl transition-shadow duration-200">
+                            border border-neutral-200 dark:border-neutral-700
+                            bg-white dark:bg-neutral-800
+                            shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                flex items-center justify-center text-white font-semibold text-lg">
+                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -76,7 +76,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-sm text-neutral-600 dark:text-neutral-400">Total Absensi</span>
                             <span class="px-2 py-1 rounded-full text-xs font-semibold
-                                bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                        bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                 {{ $student->absents->count() }} records
                             </span>
                         </div>
@@ -89,12 +89,13 @@
                                         <span class="text-xs text-neutral-600 dark:text-neutral-400">
                                             {{ \Carbon\Carbon::parse($absent->absent_date)->format('d M Y') }}
                                         </span>
-                                        <span class="px-2 py-0.5 rounded text-xs font-medium
-                                            @if($absent->status == 'hadir') bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
-                                            @elseif($absent->status == 'izin') bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400
-                                            @elseif($absent->status == 'sakit') bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
-                                            @else bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400
-                                            @endif">
+                                        <span @class([
+                                            'px-2 py-0.5 rounded text-xs font-medium',
+                                            'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absent->status == 'hadir',
+                                            'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absent->status == 'izin',
+                                            'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absent->status == 'sakit',
+                                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absent->status, ['hadir', 'izin', 'sakit'])
+                                        ])>
                                             {{ ucfirst($absent->status) }}
                                         </span>
                                     </div>
@@ -143,12 +144,13 @@
                                                 <td class="px-4 py-2">{{ \Carbon\Carbon::parse($absent->absent_date)->format('d M Y') }}
                                                 </td>
                                                 <td class="px-4 py-2">
-                                                    <span class="px-2 py-0.5 rounded text-xs font-medium
-                                                        @if($absent->status == 'hadir') bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
-                                                        @elseif($absent->status == 'izin') bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400
-                                                        @elseif($absent->status == 'sakit') bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
-                                                        @else bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400
-                                                        @endif">
+                                                    <span @class([
+                                                        'px-2 py-0.5 rounded text-xs font-medium',
+                                                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absent->status == 'hadir',
+                                                        'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absent->status == 'izin',
+                                                        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absent->status == 'sakit',
+                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absent->status, ['hadir', 'izin', 'sakit'])
+                                                    ])>
                                                         {{ ucfirst($absent->status) }}
                                                     </span>
                                                 </td>
@@ -178,12 +180,12 @@
             <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
                 <thead class="text-xs text-neutral-700 uppercase bg-neutral-50 dark:text-neutral-400">
                     <tr class="
-                        bg-[#3526B3]/10
-                        dark:bg-[#8615D9]/20
-                        text-[#3526B3]
-                        dark:text-[#8615D9]
-                        text-left
-            ">
+                            bg-[#3526B3]/10
+                            dark:bg-[#8615D9]/20
+                            text-[#3526B3]
+                            dark:text-[#8615D9]
+                            text-left
+                ">
 
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Tanggal</th>
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Status</th>
@@ -197,12 +199,13 @@
                                 {{ \Carbon\Carbon::parse($absentUser->absent_date)->format('d M Y') }}
                             </td>
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
-                                <span class="px-2 py-0.5 rounded text-xs font-medium
-                                        @if($absentUser->status == 'hadir') bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400
-                                        @elseif($absentUser->status == 'izin') bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400
-                                        @elseif($absentUser->status == 'sakit') bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400
-                                        @else bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400
-                                        @endif">
+                                <span @class([
+                                    'px-2 py-0.5 rounded text-xs font-medium',
+                                    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absentUser->status == 'hadir',
+                                    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absentUser->status == 'izin',
+                                    'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absentUser->status == 'sakit',
+                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absentUser->status, ['hadir', 'izin', 'sakit'])
+                                ])>
                                     {{ ucfirst($absentUser->status) }}
                                 </span>
                             </td>

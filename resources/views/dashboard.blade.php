@@ -46,11 +46,11 @@
            <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
                 <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Absensi</h1>
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="absolute top-7 right-7 w-[60px] h-[60px] text-black dark:text-gray-300" viewBox="0 0 24 24"
@@ -73,11 +73,11 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
                     cursor-pointer
                     transition-all duration-200 group">
 
@@ -98,11 +98,11 @@
             <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
                 <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Jurnal Harian</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-[60px] h-[60px]
                 text-black dark:text-gray-300
@@ -124,11 +124,11 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
                     cursor-pointer
                     transition-all duration-200 group">
                     <span>Lihat</span>
@@ -147,11 +147,11 @@
             <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
     before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
-    before:bg-gradient-to-b before:from-[#3526B3] before:to-[#8615D9]
+    before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
     shadow-md hover:shadow-xl transition-shadow duration-200
-    aspect-[16/9] sm:aspect-video">
+    aspect-video sm:aspect-video">
 
 
                 <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Divisi</h1>
@@ -172,11 +172,11 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
                     cursor-pointer
                     transition-all duration-200 group">
                     <span>Lihat</span>

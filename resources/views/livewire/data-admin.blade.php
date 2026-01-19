@@ -14,7 +14,7 @@
             </h2>
         </div>
         <flux:modal.trigger name="tambah-anak">
-            <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] !text-white hover:opacity-90">
+            <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                 <span class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -106,7 +106,7 @@
                     <flux:modal.close>
                         <flux:button variant="ghost" wire:click="resetForm">Batal</flux:button>
                     </flux:modal.close>
-                    <flux:button type="submit" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] !text-white">
+                    <flux:button type="submit" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white!">
                         <span class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -205,7 +205,7 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-8 h-8 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                        flex items-center justify-center text-white font-semibold text-xs">
+                                                                            flex items-center justify-center text-white font-semibold text-xs">
                                     {{ strtoupper(substr($student->name, 0, 2)) }}
                                 </div>
                                 <span class="font-medium">{{ $student->name }}</span>
@@ -216,7 +216,7 @@
                             @if($student->divisi)
                                 <span
                                     class="px-2 py-1 rounded-full text-xs font-medium 
-                                                                                                            bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                                                                                                    bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                     {{ $student->divisi }}
                                 </span>
                             @else
