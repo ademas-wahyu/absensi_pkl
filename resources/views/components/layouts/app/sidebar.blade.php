@@ -3,10 +3,10 @@
 
 <head>
     @include('partials.head')
-    @include('components.layouts.navbar')
 </head>
 
 <body class="h-fit-screen w-screen bg-slate-50 dark:bg-zinc-900 antialiased">
+    @include('components.layouts.navbar')
 
     <!-- SIDEBAR -->
     <flux:sidebar sticky collapsible class="bg-white text-zinc-700 border-r border-zinc-200 shadow-sm
@@ -30,12 +30,12 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
-                    data-[current]:rounded-lg
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
                     transition-all
                 ">
@@ -46,12 +46,12 @@
                 :current="request()->routeIs('dashboard_admin')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
-                    data-[current]:rounded-lg
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
                     transition-all
                 ">
@@ -65,12 +65,12 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
-                    data-[current]:rounded-lg
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
                     transition-all
                 ">
@@ -83,12 +83,12 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
-                    data-[current]:rounded-lg
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
                     transition-all
                 ">
@@ -102,12 +102,12 @@
                     text-zinc-700 dark:text-zinc-200
                     hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-                    data-[current]:bg-gradient-to-r
-                    data-[current]:from-[#3526B3]
-                    data-[current]:to-[#8615D9]
-                    data-[current]:text-white
-                    data-[current]:shadow-md
-                    data-[current]:rounded-lg
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
 
                     transition-all
                 ">Data</flux:sidebar.item>
@@ -134,8 +134,8 @@
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
             <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
                 icon:trailing="chevrons-up-down" class="
-                    bg-gradient-to-r from-[#3526B3] to-[#8615D9]
-                    text-white [&_*]:text-white
+                    bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                    text-white **:text-white
                     hover:opacity-90
                     p-2 rounded-xl shadow-md
                 " />
@@ -143,7 +143,7 @@
             <flux:menu class="w-[220px]">
                 <div class="px-2 py-2 flex items-center gap-2">
                     <span class="h-9 w-9 rounded-lg flex items-center justify-center
-                        bg-gradient-to-br from-[#3526B3] to-[#8615D9] text-white font-semibold">
+                        bg-linear-to-br from-[#3526B3] to-[#8615D9] text-white font-semibold">
                         {{ auth()->user()->initials() }}
                     </span>
 
@@ -208,8 +208,8 @@
             text-[11px] font-medium
 
             text-neutral-500 dark:text-neutral-400
-            data-[current]:text-[#3526B3]
-            dark:data-[current]:text-[#8615D9]
+            data-current:text-[#3526B3]
+            dark:data-current:text-[#8615D9]
 
             transition
             ">
@@ -227,8 +227,8 @@
                 text-[11px] font-medium
 
                 text-neutral-500 dark:text-neutral-400
-                data-[current]:text-[#3526B3]
-                dark:data-[current]:text-[#8615D9]
+                data-current:text-[#3526B3]
+                dark:data-current:text-[#8615D9]
 
                 transition
             ">
@@ -246,8 +246,8 @@
                 text-[11px] font-medium
 
                 text-neutral-500 dark:text-neutral-400
-                data-[current]:text-[#3526B3]
-                dark:data-[current]:text-[#8615D9]
+                data-current:text-[#3526B3]
+                dark:data-current:text-[#8615D9]
 
                 transition
             ">
