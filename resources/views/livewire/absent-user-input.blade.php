@@ -5,7 +5,6 @@
             <flux:heading size="lg">Input Absensi</flux:heading>
             <flux:text class="mt-2">Silahkan Isi Absensi Anda</flux:text>
         </div>
-        <flux:camera-input label="Foto Selfie" wire:model="selfie_photo" />
         <flux:input label="Tanggal Absensi" type="date" wire:model="absent_date" />
         <flux:select label="Status" wire:model="status">
             <option value="" disabled selected>Pilih Status</option>

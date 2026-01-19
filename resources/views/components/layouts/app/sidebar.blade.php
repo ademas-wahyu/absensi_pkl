@@ -117,8 +117,8 @@
                     </span>
 
                     <div class="leading-tight">
-                        <p class="font-semibold">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-zinc-500">{{ auth()->user()->email }}</p>
+                        <p class="font-semibold dark:text-white">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ auth()->user()->email }}</p>
                     </div>
                 </div>
 

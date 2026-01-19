@@ -100,7 +100,7 @@
         </div>
         <!-- Chart Kehadiran PKL -->
 <div class="rounded-xl border border-neutral-200 dark:border-neutral-700
-            bg-white dark:bg-neutral-800 p-4 shadow-md hover:shadow-sm transition-shadow duration-200 mt-4">
+            bg-white dark:bg-neutral-800 p-4 shadow-md hover:shadow-lg transition-shadow duration-200 mt-4">
 
     <h2 class="text-sm sm:text-base font-semibold mb-4 text-neutral-800 dark:text-neutral-200">
         Grafik Kehadiran Anak PKL
