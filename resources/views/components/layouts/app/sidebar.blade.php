@@ -120,9 +120,6 @@
                     <flux:sidebar.item href="#">Custemer Servis</flux:sidebar.item>
                     <flux:sidebar.item href="#">Admin Pelunasan</flux:sidebar.item>
                     <flux:sidebar.item href="#">Finance</flux:sidebar.item>
-
-
-
                 </flux:sidebar.group>
 
             </flux:sidebar.group>
