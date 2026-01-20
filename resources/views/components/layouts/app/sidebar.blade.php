@@ -99,19 +99,6 @@
             </flux:sidebar.item>
             @endrole
 
-<<<<<<< HEAD
-                <flux:sidebar.group expandable class="grid position-relative text-black " heading="Divisi">
-                    <flux:sidebar.item href="#">SEO</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Project</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Tecnical Sport</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Media Sosial</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Custemer Servis</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Admin Pelunasan</flux:sidebar.item>
-                    <flux:sidebar.item href="#">Finance</flux:sidebar.item>
-                </flux:sidebar.group>
-
-            </flux:sidebar.group>
-=======
             {{-- Divisi untuk Murid --}}
             @role('murid')
             <flux:sidebar.item icon="id-card" :href="route('divisi_users')"
@@ -131,7 +118,6 @@
                 {{ __('Divisi') }}
             </flux:sidebar.item>
             @endrole
->>>>>>> 6453fa6399e158557c9009f48f9eb84a8e2edfcd
         </flux:sidebar.nav>
 
         <flux:spacer />
@@ -206,11 +192,10 @@
             {{-- Dashboard untuk semua role --}}
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
                 :current="request()->routeIs('dashboard')" wire:navigate class="
-            inline-flex w-auto shrink-0
-            flex-col items-center justify-center
+            items-center justify-center
             gap-3
 
-            px-6 py-4
+            px-3 py-2
             text-[11px] font-medium
 
             text-neutral-500 dark:text-neutral-400
@@ -225,11 +210,10 @@
             <!-- Absensi (untuk semua) -->
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
                 :current="request()->routeIs('absent_users')" wire:navigate class="
-                inline-flex w-auto shrink-0
-                flex-col items-center justify-center
+                items-center justify-center
                 gap-3
 
-                px-6 py-4
+                px-3 py-2
                 text-[11px] font-medium
 
                 text-neutral-500 dark:text-neutral-400
@@ -244,11 +228,10 @@
             <!-- Isi Jurnal (untuk semua) -->
             <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
                 :current="request()->routeIs('jurnal_users')" wire:navigate class="
-                inline-flex w-auto shrink-0
-                flex-col items-center justify-center
+                items-center justify-center
                 gap-3
 
-                px-6 py-4
+                px-3 py-2
                 text-[11px] font-medium
 
                 text-neutral-500 dark:text-neutral-400
@@ -259,6 +242,45 @@
             ">
                 {{ __('Isi Jurnal') }}
             </flux:sidebar.item>
+
+             @role('murid')
+            <flux:sidebar.item icon="id-card" :href="route('divisi_users')"
+                :current="request()->routeIs('divisi_users')" wire:navigate class="
+            items-center justify-center
+            gap-3
+
+            px-6 py-4
+            text-[11px] font-medium
+
+            text-neutral-500 dark:text-neutral-400
+            data-current:text-[#3526B3]
+            dark:data-current:text-[#8615D9]
+
+            transition
+                ">
+                {{ __('Divisi') }}
+            </flux:sidebar.item>
+            @endrole
+
+            {{-- Daftar Anak PKL (khusus Admin) --}}
+            @role('admin')
+            <flux:sidebar.item icon="users" :href="route('jumlah_anak')" :current="request()->routeIs('jumlah_anak')"
+                wire:navigate class="
+            items-center justify-center
+            gap-3
+
+            px-3 py-2
+            text-[11px] font-medium
+
+            text-neutral-500 dark:text-neutral-400
+            data-current:text-[#3526B3]
+            dark:data-current:text-[#8615D9]
+
+            transition
+            ">
+                {{ __('Daftar Anak PKL') }}
+            </flux:sidebar.item>
+            @endrole
 
         </flux:sidebar.nav>
     </flux:header>
