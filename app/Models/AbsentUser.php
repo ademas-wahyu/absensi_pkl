@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AbsentUser extends Model
 {
@@ -12,4 +13,12 @@ class AbsentUser extends Model
         'status',
         'reason',
     ];
+
+    /**
+     * Get the user that owns the absent record.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

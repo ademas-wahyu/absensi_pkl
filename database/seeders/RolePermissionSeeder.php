@@ -46,5 +46,16 @@ class RolePermissionSeeder extends Seeder
 
         $muridRole = Role::firstOrCreate(['name' => 'murid']);
         $muridRole->givePermissionTo($studentPermissions);
+
+        // Mentor Config
+        $mentorPermissions = [
+            'view dashboard',
+            'view attendance',
+            'view jurnal',
+            'view reports',
+        ];
+
+        $mentorRole = Role::firstOrCreate(['name' => 'mentor']);
+        $mentorRole->givePermissionTo($mentorPermissions);
     }
 }

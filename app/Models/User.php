@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'divisi',
+        'sekolah',
     ];
 
     /**
@@ -58,7 +60,23 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * Get the user's absent records.
+     */
+    public function absents()
+    {
+        return $this->hasMany(AbsentUser::class);
+    }
+
+    /**
+     * Get the user's jurnal records.
+     */
+    public function jurnals()
+    {
+        return $this->hasMany(JurnalUser::class);
     }
 }
