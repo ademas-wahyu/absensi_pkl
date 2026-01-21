@@ -40,7 +40,7 @@
 
             <flux:menu class="w-48">
                 <flux:menu.item icon="cog" :href="route('profile.edit')" wire:navigate>
-                    Settings
+                    Profile
                 </flux:menu.item>
 
                 <flux:menu.separator />
