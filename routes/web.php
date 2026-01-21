@@ -18,6 +18,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('daftar-anak', 'jumlah_anak')->name('jumlah_anak');
 });
 
+// Route khusus Admin (setting)
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::view('setting', 'setting')->name('setting');
+});
+
 // Route untuk kedua role (admin & murid)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('absen', 'absent_users')->name('absent_users');

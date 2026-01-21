@@ -97,7 +97,7 @@
                 ">
                 {{ __('Daftar Anak PKL') }}
             </flux:sidebar.item>
-            @endrole
+            @endrole    
 
             {{-- Divisi untuk Murid --}}
             @role('murid')
@@ -116,6 +116,25 @@
                     transition-all
                 ">
                 {{ __('Divisi') }}
+            </flux:sidebar.item>
+            @endrole
+
+             @role('admin')
+            <flux:sidebar.item icon="settings" :href="route('setting')" :current="request()->routeIs('setting')"
+                wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
+
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
+
+                    transition-all
+                ">
+                {{ __('Settings') }}
             </flux:sidebar.item>
             @endrole
         </flux:sidebar.nav>
@@ -148,7 +167,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                    {{ __('Settings') }}
+                    {{ __('Profile') }}
                 </flux:menu.item>
 
                 <flux:menu.item icon="sun" onclick="
@@ -183,8 +202,7 @@
 
     <!-- Mobile User Menu (fixed bottom on small screens) - horizontal layout -->
     <flux:header class="lg:hidden fixed bottom-0 inset-x-0 z-10
-           bg-white dark:bg-neutral-900
-           border-t border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-900 text-bottom-0
            shadow-sm">
 
         <flux:sidebar.nav class="flex flex-row items-center justify-around px-2 py-2">
