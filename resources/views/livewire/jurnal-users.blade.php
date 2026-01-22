@@ -16,19 +16,7 @@
         @role('murid')
         <div class="flex items-center">
             <flux:modal.trigger name="input-jurnal-user">
-                <flux:button class="
-                   text-zinc-700 dark:text-zinc-200
-                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
-
-                    data-current:bg-linear-to-r
-                    data-current:from-[#3526B3]
-                    data-current:to-[#8615D9]
-                    data-current:text-white
-                    data-current:shadow-md
-                    data-current:rounded-lg
-
-                    transition-all
-                ">
+                <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-plus-icon lucide-plus w-5 h-5" aria-hidden="true">

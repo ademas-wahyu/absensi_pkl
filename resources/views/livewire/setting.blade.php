@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto space-y-6">
+<div class="max-w-xl mx-auto space-y-3">
      <div class="mb-4 flex items-center justify-between">
         <div class="flex items-center gap-2">
             <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300">
@@ -8,60 +8,147 @@
         </div>
 </div>
 
-    <!-- DIVISI -->
-    <div
-        class="bg-white dark:bg-neutral-800 shadow rounded-lg p-6 hover:shadow-lg transition">
-        <h3 class="text-lg font-semibold mb-4">
-            Pengaturan Divisi
-        </h3>
+  <!-- CARD SETTINGS -->
+        <div class="flex flex-row gap-2 sm:gap-3 flex-wrap justify-center">
+    <!-- CARD 1 : DIVISI -->
+   <div
+    class="flex flex-col gap-4
+           max-w-sm mx-auto
+           rounded-2xl
+           border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           px-6 py-6
+           shadow-md hover:shadow-lg
+           transition">
 
-        <div class="space-y-4">
+    
+
+        <!-- Header -->
+        <div class="mb-5 pl-4">
+            <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
+                Pengaturan Divisi
+            </h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                Tambahkan atau kelola divisi
+            </p>
+        </div>
+
+        <!-- Form -->
+        <div class="space-y-5 pl-4">
             <flux:input
-                wire:model="division"
-                :label="__('Divisi')"
-                type="text"
-                placeholder="Contoh: IT Support"
-                required
+                wire:model.defer="division"
+                :label="__('Nama Divisi')"
+                placeholder="IT Support"
             />
 
-            <flux:button wire:click="saveDivision" variant="primary" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                Simpan Divisi
+            <flux:button
+                wire:click="saveDivision"
+                class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                       text-white! hover:opacity-90">
+                Simpan Perubahan
             </flux:button>
 
-            @if (session()->has('division_saved'))
-                <p class="text-sm text-green-600">
-                    {{ session('division_saved') }}
-                </p>
-            @endif
+            <div class="pt-1 text-right">
+                <a href="{{ route('divisi_users') }}"
+                   class="text-sm text-neutral-500 dark:text-neutral-400
+                          hover:text-[#3526B3] hover:underline transition">
+                    Lihat Detail
+                </a>
+            </div>
         </div>
     </div>
 
-        <!-- ASAL SEKOLAH -->
+    <!-- CARD 2 : ASAL SEKOLAH -->
     <div
-        class="bg-white dark:bg-neutral-800 shadow rounded-lg p-6 hover:shadow-lg transition">
-        <h3 class="text-lg font-semibold mb-4">
-            Pengaturan Asal Sekolah
-        </h3>
+    class="flex flex-col gap-4
+           max-w-sm mx-auto
+           rounded-2xl
+           border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           px-6 py-6
+           shadow-md hover:shadow-lg
+           transition">
 
-        <div class="space-y-4">
+
+
+        <div class="mb-5 pl-4">
+            <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
+                Asal Sekolah
+            </h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                Kelola asal sekolah
+            </p>
+        </div>
+
+        <div class="space-y-5 pl-4">
             <flux:input
-                wire:model="school"
-                :label="__('Asal Sekolah')"
-                type="text"
-                placeholder="Contoh: SMK Negeri 1"
-                required
+                wire:model.defer="school"
+                :label="__('Nama Sekolah')"
+                placeholder="SMK Negeri 1"
             />
 
-            <flux:button wire:click="saveSchool" variant="primary" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                Simpan Asal Sekolah
+             <flux:button
+                wire:click="saveDivision"
+                class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                       text-white! hover:opacity-90">
+                Simpan Perubahan
             </flux:button>
 
-            @if (session()->has('school_saved'))
-                <p class="text-sm text-green-600">
-                    {{ session('school_saved') }}
-                </p>
-            @endif
+            <div class="pt-1 text-right">
+                <a href="{{ route('divisi_users') }}"
+                   class="text-sm text-neutral-500 dark:text-neutral-400
+                          hover:text-[#3526B3] hover:underline transition">
+                    Lihat Detail
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- CARD 3 : PERIODE PKL -->
+        <div
+    class="flex flex-col gap-4
+           max-w-sm mx-auto
+           rounded-2xl
+           border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           px-6 py-6
+           shadow-md hover:shadow-lg
+           transition">
+
+
+
+        <div class="mb-5 pl-4">
+            <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
+                Nama Mentor
+            </h3>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                Atur nama mentor
+            </p>
+        </div>
+
+        <div class="space-y-5 pl-4">
+            <flux:input
+                wire:model.defer="mentor"
+                :label="__('Nama Mentor')"
+                placeholder="Budi Santoso"
+            />
+
+            <flux:button
+                wire:click="saveDivision"
+                class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                       text-white! hover:opacity-90">
+                Simpan Perubahan
+            </flux:button>
+
+            <div class="pt-1 text-right">
+                <a href="{{ route('divisi_users') }}"
+                   class="text-sm text-neutral-500 dark:text-neutral-400
+                          hover:text-[#3526B3] hover:underline transition">
+                    Lihat Detail
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>

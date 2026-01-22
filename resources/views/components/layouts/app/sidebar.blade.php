@@ -42,8 +42,47 @@
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
 
+            <!--Progress admin-->
+            @role('admin')
+            <flux:sidebar.group expandable heading="Progress" icon="file-badge" class="grid">
+                <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
+                    :current="request()->routeIs('absent_users')" wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
 
-            <!-- Absensi (untuk semua) -->
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
+
+                    transition-all
+                ">
+                    {{ __('Absensi') }}
+                </flux:sidebar.item>
+                <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
+                    :current="request()->routeIs('jurnal_users')" wire:navigate class="
+                    text-zinc-700 dark:text-zinc-200
+                    hover:text-[#3526B3] dark:hover:text-[#8615D9]
+
+                    data-current:bg-linear-to-r
+                    data-current:from-[#3526B3]
+                    data-current:to-[#8615D9]
+                    data-current:text-white
+                    data-current:shadow-md
+                    data-current:rounded-lg
+
+                    transition-all
+                ">
+                    {{ __('Isi Jurnal') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
+            @endrole
+
+
+            <!--Absent murid-->
+            @role('murid')
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
                 :current="request()->routeIs('absent_users')" wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
@@ -78,6 +117,7 @@
                 ">
                 {{ __('Isi Jurnal') }}
             </flux:sidebar.item>
+            @endrole
 
             {{-- Daftar Anak PKL (khusus Admin) --}}
             @role('admin')
@@ -97,7 +137,7 @@
                 ">
                 {{ __('Daftar Anak PKL') }}
             </flux:sidebar.item>
-            @endrole    
+            @endrole
 
             {{-- Divisi untuk Murid --}}
             @role('murid')
@@ -119,7 +159,7 @@
             </flux:sidebar.item>
             @endrole
 
-             @role('admin')
+            @role('admin')
             <flux:sidebar.item icon="settings" :href="route('setting')" :current="request()->routeIs('setting')"
                 wire:navigate class="
                     text-zinc-700 dark:text-zinc-200
@@ -210,94 +250,115 @@
             {{-- Dashboard untuk semua role --}}
             <flux:sidebar.item icon="layout-dashboard" :href="route('dashboard')"
                 :current="request()->routeIs('dashboard')" wire:navigate class="
-            items-center justify-center
-            gap-3
-
-            px-3 py-2
-            text-[11px] font-medium
-
-            text-neutral-500 dark:text-neutral-400
-            data-current:text-[#3526B3]
-            dark:data-current:text-[#8615D9]
-
-            transition
-            ">
+           flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
                 {{ __('Dashboard') }}
             </flux:sidebar.item>
 
-            <!-- Absensi (untuk semua) -->
+            @role('admin')
+
+            {{-- Absensi --}}
             <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
-                :current="request()->routeIs('absent_users')" wire:navigate class="
-                items-center justify-center
-                gap-3
-
-                px-3 py-2
-                text-[11px] font-medium
-
-                text-neutral-500 dark:text-neutral-400
-                data-current:text-[#3526B3]
-                dark:data-current:text-[#8615D9]
-
-                transition
-            ">
+                :current="request()->routeIs('absent_users')" wire:navigate class="flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
                 {{ __('Absensi') }}
             </flux:sidebar.item>
 
-            <!-- Isi Jurnal (untuk semua) -->
+            {{-- Jurnal --}}
             <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
-                :current="request()->routeIs('jurnal_users')" wire:navigate class="
-                items-center justify-center
-                gap-3
+                :current="request()->routeIs('jurnal_users')" wire:navigate class="flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
+                {{ __('Jurnal') }}
+            </flux:sidebar.item>
+            @endrole
 
-                px-3 py-2
-                text-[11px] font-medium
 
-                text-neutral-500 dark:text-neutral-400
-                data-current:text-[#3526B3]
-                dark:data-current:text-[#8615D9]
-
-                transition
-            ">
-                {{ __('Isi Jurnal') }}
+            <!-- Absensi (murid) -->
+            @role('murid')
+            <flux:sidebar.item icon="calendar-date-range" :href="route('absent_users')"
+                :current="request()->routeIs('absent_users')" wire:navigate class="
+                flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
+                {{ __('Absensi') }}
             </flux:sidebar.item>
 
-             @role('murid')
+            <!-- Isi Jurnal (murid) -->
+            <flux:sidebar.item icon="notebook-pen" :href="route('jurnal_users')"
+                :current="request()->routeIs('jurnal_users')" wire:navigate class="
+                flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
+                {{ __('Isi Jurnal') }}
+            </flux:sidebar.item>
+            @endrole
+
+            {{-- Divisi untuk Murid --}}
+
+            @role('murid')
             <flux:sidebar.item icon="id-card" :href="route('divisi_users')"
                 :current="request()->routeIs('divisi_users')" wire:navigate class="
-            items-center justify-center
-            gap-3
-
-            px-6 py-4
-            text-[11px] font-medium
-
-            text-neutral-500 dark:text-neutral-400
-            data-current:text-[#3526B3]
-            dark:data-current:text-[#8615D9]
-
-            transition
-                ">
+            flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
                 {{ __('Divisi') }}
             </flux:sidebar.item>
             @endrole
 
             {{-- Daftar Anak PKL (khusus Admin) --}}
             @role('admin')
+            {{-- Daftar Anak PKL --}}
             <flux:sidebar.item icon="users" :href="route('jumlah_anak')" :current="request()->routeIs('jumlah_anak')"
-                wire:navigate class="
-            items-center justify-center
-            gap-3
-
-            px-3 py-2
-            text-[11px] font-medium
-
-            text-neutral-500 dark:text-neutral-400
-            data-current:text-[#3526B3]
-            dark:data-current:text-[#8615D9]
-
-            transition
-            ">
+                wire:navigate class="flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
                 {{ __('Daftar Anak PKL') }}
             </flux:sidebar.item>
+
+           <!-- Settings (admin) -->
+            <flux:sidebar.item icon="settings" :href="route('setting')" :current="request()->routeIs('setting')"
+                wire:navigate class="
+                    flex flex-col items-center justify-center gap-1
+           px-3 py-2
+           text-[10px] font-medium
+           text-neutral-500 dark:text-neutral-400
+           data-current:text-[#3526B3]
+           dark:data-current:text-[#8615D9]
+           transition">
+                {{ __('Settings') }}
+            </flux:sidebar.item>
+
             @endrole
 
         </flux:sidebar.nav>

@@ -18,7 +18,7 @@
         <div class="flex">
             <flux:spacer />
 
-            <flux:button type="submit" variant="primary" wire:click="submit" class="bg-blue">Simpan</flux:button>
+            <flux:button type="submit" variant="primary" wire:click="submit" class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">Simpan</flux:button>
         </div>
     </div>
 </flux:modal>

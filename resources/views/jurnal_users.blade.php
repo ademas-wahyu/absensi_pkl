@@ -4,7 +4,15 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen-icon lucide-notebook-pen dark:text-gray-300"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></svg>
     <flux:heading size="xl" level="1">{{ __('Jurnal Harian') }}</flux:heading>
         </div>
-    <flux:subheading size="lg" class="mb-3">{{ __('Silahkan Isi Jurnal Harian Anda') }}</flux:subheading>
-    </div>
+        <!--murid-->
+        @role('murid')
+        <flux:subheading size="lg" class="mb-3">{{ __('Silahkan Isi Jurnal Harian Anda') }}</flux:subheading>
+        @endrole
+
+        <!--admin-->
+        @role('admin')
+        <flux:subheading size="lg" class="mb-3">{{ __('Data Jurnal Harian PKL') }}</flux:subheading>
+        @endrole   
+     </div>
 <livewire:jurnal-users />
 </x-layouts.app>
