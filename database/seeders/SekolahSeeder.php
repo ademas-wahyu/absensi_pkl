@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Sekolah;
 
@@ -48,7 +47,7 @@ class SekolahSeeder extends Seeder
         ];
 
         foreach ($sekolahData as $sekolah) {
-            Sekolah::create($sekolah);
+            Sekolah::query()->create($sekolah);
         }
     }
 }

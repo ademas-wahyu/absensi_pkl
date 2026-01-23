@@ -48,7 +48,7 @@ new class extends Component {
     <!-- Card Absensi -->
     <div class="relative overflow-hidden rounded-xl
         border border-neutral-200 dark:border-neutral-700
-        before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+        before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
         before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
         bg-white dark:bg-neutral-800
         p-4 pl-5 space-y-2 sm:space-y-4
@@ -56,7 +56,7 @@ new class extends Component {
         aspect-video sm:aspect-video">
         <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Absensi</h1>
         <svg xmlns="http://www.w3.org/2000/svg"
-            class="absolute top-7 right-7 w-[60px] h-[60px] text-black dark:text-gray-300" viewBox="0 0 24 24"
+            class="absolute top-7 right-7 w-15 h-15 text-black dark:text-gray-300" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M8 2v4" />
@@ -95,14 +95,14 @@ new class extends Component {
     <!-- Card Jurnal -->
     <div class="relative overflow-hidden rounded-xl
         border border-neutral-200 dark:border-neutral-700
-        before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+        before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
         before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
         bg-white dark:bg-neutral-800
         p-4 pl-5 space-y-2 sm:space-y-4
         shadow-md hover:shadow-xl transition-shadow duration-200
         aspect-video sm:aspect-video">
         <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Jurnal Harian</h1>
-        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-[60px] h-[60px]
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-15 h-15
             text-black dark:text-gray-300
             opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
             stroke-linecap="round" stroke-linejoin="round">
@@ -146,14 +146,14 @@ new class extends Component {
     <!-- Card Divisi -->
     <div class="relative overflow-hidden rounded-xl
         border border-neutral-200 dark:border-neutral-700
-        before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+        before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
         before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
         bg-white dark:bg-neutral-800
         p-4 pl-5 space-y-2 sm:space-y-4
         shadow-md hover:shadow-xl transition-shadow duration-200
         aspect-video sm:aspect-video">
         <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Divisi</h1>
-        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-[60px] h-[60px]
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-15 h-15
             text-black dark:text-gray-300
             opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
             stroke-linecap="round" stroke-linejoin="round">

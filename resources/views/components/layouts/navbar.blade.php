@@ -35,22 +35,56 @@
 
         <!-- Profile -->
         <flux:dropdown position="bottom" align="end">
-            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()" class="bg-transparent!
-                           text-neutral-800 dark:text-neutral-200" />
+            <button class="h-9 w-9 rounded-full flex items-center justify-center
+                           bg-linear-to-br from-[#3526B3] to-[#8615D9]
+                           text-white font-semibold text-sm
+                           hover:opacity-90 transition-opacity
+                           shadow-md focus:outline-none">
+                {{ auth()->user()->initials() }}
+            </button>
 
-            <flux:menu class="w-48">
-                <flux:menu.item icon="cog" :href="route('profile.edit')" wire:navigate>
-                    Profile
-                </flux:menu.item>
+            <flux:menu class="w-56 shadow-xl border border-neutral-200 dark:border-neutral-700">
+                <!-- User Info Header -->
+                <div class="px-4 py-3 border-b border-neutral-200 dark:border-neutral-700">
+                    <div class="flex items-center gap-3">
+                        <div class="h-10 w-10 rounded-full flex items-center justify-center
+                                    bg-linear-to-br from-[#3526B3] to-[#8615D9]
+                                    text-white font-semibold">
+                            {{ auth()->user()->initials() }}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-neutral-800 dark:text-white truncate">
+                                {{ auth()->user()->name }}
+                            </p>
+                            <p class="text-xs text-neutral-500 dark:text-neutral-400 truncate">
+                                {{ auth()->user()->email }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                <flux:menu.separator />
-
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
-                        Logout
+                <!-- Menu Items -->
+                <div class="py-1">
+                    <flux:menu.item icon="user" :href="route('profile.edit')" wire:navigate
+                        class="text-neutral-700 dark:text-neutral-200
+                               hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
+                               hover:text-white transition-all">
+                        Profile
                     </flux:menu.item>
-                </form>
+
+                    <flux:menu.separator />
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle"
+                            class="text-red-600 dark:text-red-400
+                                   hover:bg-red-50 dark:hover:bg-red-900/20
+                                   hover:text-red-700 dark:hover:text-red-300
+                                   transition-all w-full">
+                            Logout
+                        </flux:menu.item>
+                    </form>
+                </div>
             </flux:menu>
         </flux:dropdown>
 

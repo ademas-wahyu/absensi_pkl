@@ -7,16 +7,18 @@ use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public string $name = '';
-    public string $email = '';
+    public string $name = "";
+    public string $email = "";
 
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        /** @var User $user */
+        $user = Auth::user();
+        $this->name = $user->name;
+        $this->email = $user->email;
     }
 
     /**
@@ -24,30 +26,31 @@ new class extends Component {
      */
     public function updateProfileInformation(): void
     {
+        /** @var User $user */
         $user = Auth::user();
 
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
+            "name" => ["required", "string", "max:255"],
 
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id)
+            "email" => [
+                "required",
+                "string",
+                "lowercase",
+                "email",
+                "max:255",
+                Rule::unique(User::class)->ignore($user->id),
             ],
         ]);
 
         $user->fill($validated);
 
-        if ($user->isDirty('email')) {
+        if ($user->isDirty("email")) {
             $user->email_verified_at = null;
         }
 
         $user->save();
 
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dispatch("profile-updated", name: $user->name);
     }
 
     /**
@@ -55,19 +58,23 @@ new class extends Component {
      */
     public function resendVerificationNotification(): void
     {
+        /** @var User $user */
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+            $this->redirectIntended(
+                default: route("dashboard", absolute: false),
+            );
 
             return;
         }
 
         $user->sendEmailVerificationNotification();
 
-        Session::flash('status', 'verification-link-sent');
+        Session::flash("status", "verification-link-sent");
     }
-}; ?>
+};
+?>
 
 <section class="w-full">
     @include('partials.settings-heading')
@@ -90,7 +97,7 @@ new class extends Component {
                         </flux:text>
 
                         @if (session('status') === 'verification-link-sent')
-                            <flux:text class="mt-2 font-medium !dark:text-green-400 !text-green-600">
+                            <flux:text class="mt-2 font-medium dark:text-green-400! text-green-600!">
                                 {{ __('A new verification link has been sent to your email address.') }}
                             </flux:text>
                         @endif

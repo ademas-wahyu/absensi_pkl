@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\DivisiAdmin;
 
@@ -47,7 +46,7 @@ class DivisiAdminSeeder extends Seeder
         ];
 
         foreach ($divisiData as $divisi) {
-            DivisiAdmin::create($divisi);
+            DivisiAdmin::query()->create($divisi);
         }
     }
 }

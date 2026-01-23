@@ -11,17 +11,28 @@ new class extends Component {
 
     public function mount()
     {
-        $this->totalInterns = User::role('murid')->count();
-        $this->totalMentors = User::role('mentor')->count();
-        $this->totalAttendanceToday = AbsentUser::whereDate('absent_date', today())->count();
+        $this->totalInterns = User::query()
+            ->whereHas("roles", function ($query) {
+                $query->where("name", "murid");
+            })
+            ->count();
+        $this->totalMentors = User::query()
+            ->whereHas("roles", function ($query) {
+                $query->where("name", "mentor");
+            })
+            ->count();
+        $this->totalAttendanceToday = AbsentUser::query()
+            ->whereDate("absent_date", today())
+            ->count();
     }
-}; ?>
+};
+?>
 
 <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
     <!-- Card jml anak -->
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
-    before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+    before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
     before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
@@ -29,8 +40,8 @@ new class extends Component {
     aspect-video sm:aspect-video">
         <div class="relative">
             <div class="flex items-start gap-4">
-                @svg('hugeicons-student', 'w-[60px] h-[60px] text-black dark:text-gray-300')
-                <div class="w-[72px] h-[72px] rounded-2xl bg-gray-300 dark:bg-zinc-700
+                @svg('hugeicons-student', 'w-15 h-15 text-black dark:text-gray-300')
+                <div class="w-18 h-18 rounded-2xl bg-gray-300 dark:bg-zinc-700
                     flex items-center justify-center
                     text-white text-2xl font-semibold">
                     {{ $totalInterns }}
@@ -46,7 +57,7 @@ new class extends Component {
     <!-- Card jml mentor -->
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
-    before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+    before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
     before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
@@ -54,8 +65,8 @@ new class extends Component {
     aspect-video sm:aspect-video">
         <div class="relative">
             <div class="flex items-start gap-4">
-                @svg('hugeicons-mentor', 'w-[60px] h-[60px] text-black dark:text-gray-300')
-                <div class="w-[72px] h-[72px] rounded-2xl bg-gray-300 dark:bg-zinc-700
+                @svg('hugeicons-mentor', 'w-15 h-15 text-black dark:text-gray-300')
+                <div class="w-18 h-18 rounded-2xl bg-gray-300 dark:bg-zinc-700
                     flex items-center justify-center
                     text-white text-2xl font-semibold">
                     {{ $totalMentors }}
@@ -71,7 +82,7 @@ new class extends Component {
     <!-- Card Absensi admin -->
     <div class="relative overflow-hidden rounded-xl
     border border-neutral-200 dark:border-neutral-700
-    before:absolute before:left-0 before:top-0 before:h-full before:w-[6px]
+    before:absolute before:left-0 before:top-0 before:h-full before:w-1.5
     before:bg-linear-to-b before:from-[#3526B3] before:to-[#8615D9]
     bg-white dark:bg-neutral-800
     p-4 pl-5 space-y-2 sm:space-y-4
@@ -80,8 +91,8 @@ new class extends Component {
 
         <div class="relative">
             <div class="flex items-start gap-4">
-                @svg('gmdi-co-present-o', 'w-[60px] h-[60px] text-black dark:text-gray-300')
-                <div class="w-[72px] h-[72px] rounded-2xl bg-gray-300 dark:bg-zinc-700
+                @svg('gmdi-co-present-o', 'w-15 h-15 text-black dark:text-gray-300')
+                <div class="w-18 h-18 rounded-2xl bg-gray-300 dark:bg-zinc-700
                     flex items-center justify-center
                     text-white text-2xl font-semibold">
                     {{ $totalAttendanceToday }}

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\DivisiAdmin;
 use App\Models\Sekolah;
 use App\Models\Mentor;
-use Livewire\Attributes\On;
+use Illuminate\Contracts\View\View;
 
 class Setting extends Component
 {
@@ -35,19 +35,34 @@ class Setting extends Component
     public $editMentorId = null;
 
     // DIVISI METHODS
-    public function openDivisiModal()
+    /**
+     * Open divisi modal for creating new divisi
+     *
+     * @return void
+     */
+    public function openDivisiModal(): void
     {
         $this->resetDivisiForm();
         $this->showDivisiModal = true;
     }
 
-    public function closeDivisiModal()
+    /**
+     * Close divisi modal
+     *
+     * @return void
+     */
+    public function closeDivisiModal(): void
     {
         $this->showDivisiModal = false;
         $this->resetDivisiForm();
     }
 
-    public function saveDivisi()
+    /**
+     * Save divisi (create or update)
+     *
+     * @return void
+     */
+    public function saveDivisi(): void
     {
         $this->validate([
             "nama_divisi" => "required|string|max:255",
@@ -55,14 +70,14 @@ class Setting extends Component
         ]);
 
         if ($this->editDivisiId) {
-            $divisi = DivisiAdmin::find($this->editDivisiId);
+            $divisi = DivisiAdmin::query()->find($this->editDivisiId);
             $divisi->update([
                 "nama_divisi" => $this->nama_divisi,
                 "deskripsi" => $this->deskripsi_divisi,
             ]);
             session()->flash("message", "Divisi berhasil diupdate!");
         } else {
-            DivisiAdmin::create([
+            DivisiAdmin::query()->create([
                 "nama_divisi" => $this->nama_divisi,
                 "deskripsi" => $this->deskripsi_divisi,
             ]);
@@ -72,22 +87,39 @@ class Setting extends Component
         $this->closeDivisiModal();
     }
 
-    public function editDivisi($id)
+    /**
+     * Edit existing divisi
+     *
+     * @param int $id
+     * @return void
+     */
+    public function editDivisi($id): void
     {
-        $divisi = DivisiAdmin::findOrFail($id);
+        $divisi = DivisiAdmin::query()->findOrFail($id);
         $this->editDivisiId = $id;
         $this->nama_divisi = $divisi->nama_divisi;
         $this->deskripsi_divisi = $divisi->deskripsi;
         $this->showDivisiModal = true;
     }
 
-    public function deleteDivisi($id)
+    /**
+     * Delete divisi
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteDivisi($id): void
     {
-        DivisiAdmin::find($id)->delete();
+        DivisiAdmin::query()->find($id)->delete();
         session()->flash("message", "Divisi berhasil dihapus!");
     }
 
-    private function resetDivisiForm()
+    /**
+     * Reset divisi form
+     *
+     * @return void
+     */
+    private function resetDivisiForm(): void
     {
         $this->editDivisiId = null;
         $this->nama_divisi = "";
@@ -96,19 +128,34 @@ class Setting extends Component
     }
 
     // SEKOLAH METHODS
-    public function openSekolahModal()
+    /**
+     * Open sekolah modal for creating new sekolah
+     *
+     * @return void
+     */
+    public function openSekolahModal(): void
     {
         $this->resetSekolahForm();
         $this->showSekolahModal = true;
     }
 
-    public function closeSekolahModal()
+    /**
+     * Close sekolah modal
+     *
+     * @return void
+     */
+    public function closeSekolahModal(): void
     {
         $this->showSekolahModal = false;
         $this->resetSekolahForm();
     }
 
-    public function saveSekolah()
+    /**
+     * Save sekolah (create or update)
+     *
+     * @return void
+     */
+    public function saveSekolah(): void
     {
         $this->validate([
             "nama_sekolah" => "required|string|max:255",
@@ -117,7 +164,7 @@ class Setting extends Component
         ]);
 
         if ($this->editSekolahId) {
-            $sekolah = Sekolah::find($this->editSekolahId);
+            $sekolah = Sekolah::query()->find($this->editSekolahId);
             $sekolah->update([
                 "nama_sekolah" => $this->nama_sekolah,
                 "alamat" => $this->alamat_sekolah,
@@ -125,7 +172,7 @@ class Setting extends Component
             ]);
             session()->flash("message", "Sekolah berhasil diupdate!");
         } else {
-            Sekolah::create([
+            Sekolah::query()->create([
                 "nama_sekolah" => $this->nama_sekolah,
                 "alamat" => $this->alamat_sekolah,
                 "no_telepon" => $this->no_telepon_sekolah,
@@ -136,9 +183,15 @@ class Setting extends Component
         $this->closeSekolahModal();
     }
 
-    public function editSekolah($id)
+    /**
+     * Edit existing sekolah
+     *
+     * @param int $id
+     * @return void
+     */
+    public function editSekolah($id): void
     {
-        $sekolah = Sekolah::findOrFail($id);
+        $sekolah = Sekolah::query()->findOrFail($id);
         $this->editSekolahId = $id;
         $this->nama_sekolah = $sekolah->nama_sekolah;
         $this->alamat_sekolah = $sekolah->alamat;
@@ -146,13 +199,24 @@ class Setting extends Component
         $this->showSekolahModal = true;
     }
 
-    public function deleteSekolah($id)
+    /**
+     * Delete sekolah
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteSekolah($id): void
     {
-        Sekolah::find($id)->delete();
+        Sekolah::query()->find($id)->delete();
         session()->flash("message", "Sekolah berhasil dihapus!");
     }
 
-    private function resetSekolahForm()
+    /**
+     * Reset sekolah form
+     *
+     * @return void
+     */
+    private function resetSekolahForm(): void
     {
         $this->editSekolahId = null;
         $this->nama_sekolah = "";
@@ -162,19 +226,34 @@ class Setting extends Component
     }
 
     // MENTOR METHODS
-    public function openMentorModal()
+    /**
+     * Open mentor modal for creating new mentor
+     *
+     * @return void
+     */
+    public function openMentorModal(): void
     {
         $this->resetMentorForm();
         $this->showMentorModal = true;
     }
 
-    public function closeMentorModal()
+    /**
+     * Close mentor modal
+     *
+     * @return void
+     */
+    public function closeMentorModal(): void
     {
         $this->showMentorModal = false;
         $this->resetMentorForm();
     }
 
-    public function saveMentor()
+    /**
+     * Save mentor (create or update)
+     *
+     * @return void
+     */
+    public function saveMentor(): void
     {
         $this->validate([
             "nama_mentor" => "required|string|max:255",
@@ -185,7 +264,7 @@ class Setting extends Component
         ]);
 
         if ($this->editMentorId) {
-            $mentor = Mentor::find($this->editMentorId);
+            $mentor = Mentor::query()->find($this->editMentorId);
             $mentor->update([
                 "nama_mentor" => $this->nama_mentor,
                 "email" => $this->email_mentor,
@@ -195,7 +274,7 @@ class Setting extends Component
             ]);
             session()->flash("message", "Mentor berhasil diupdate!");
         } else {
-            Mentor::create([
+            Mentor::query()->create([
                 "nama_mentor" => $this->nama_mentor,
                 "email" => $this->email_mentor,
                 "no_telepon" => $this->no_telepon_mentor,
@@ -208,9 +287,15 @@ class Setting extends Component
         $this->closeMentorModal();
     }
 
-    public function editMentor($id)
+    /**
+     * Edit existing mentor
+     *
+     * @param int $id
+     * @return void
+     */
+    public function editMentor($id): void
     {
-        $mentor = Mentor::findOrFail($id);
+        $mentor = Mentor::query()->findOrFail($id);
         $this->editMentorId = $id;
         $this->nama_mentor = $mentor->nama_mentor;
         $this->email_mentor = $mentor->email;
@@ -220,13 +305,24 @@ class Setting extends Component
         $this->showMentorModal = true;
     }
 
-    public function deleteMentor($id)
+    /**
+     * Delete mentor
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteMentor($id): void
     {
-        Mentor::find($id)->delete();
+        Mentor::query()->find($id)->delete();
         session()->flash("message", "Mentor berhasil dihapus!");
     }
 
-    private function resetMentorForm()
+    /**
+     * Reset mentor form
+     *
+     * @return void
+     */
+    private function resetMentorForm(): void
     {
         $this->editMentorId = null;
         $this->nama_mentor = "";
@@ -237,12 +333,17 @@ class Setting extends Component
         $this->resetErrorBag();
     }
 
-    public function render()
+    /**
+     * Render the component
+     *
+     * @return View
+     */
+    public function render(): View
     {
         return view("livewire.setting", [
-            "divisiList" => DivisiAdmin::latest()->get(),
-            "sekolahList" => Sekolah::latest()->get(),
-            "mentorList" => Mentor::with("divisi")->latest()->get(),
+            "divisiList" => DivisiAdmin::query()->latest()->get(),
+            "sekolahList" => Sekolah::query()->latest()->get(),
+            "mentorList" => Mentor::query()->with("divisi")->latest()->get(),
             "divisiOptions" => DivisiAdmin::all(),
         ]);
     }

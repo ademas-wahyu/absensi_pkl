@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Dashboard Admin')">
 
-    <div class="flex h-full w-full flex-1 flex-col gap-4 
+    <div class="flex h-full w-full flex-1 flex-col gap-4
             bg-neutral-50 dark:dark:bg-zinc-800
             p-4 sm:p-6 lg:p-8">
 
@@ -25,7 +25,7 @@
                 Grafik Kehadiran Anak PKL
             </h2>
 
-            <div class="relative h-[300px]">
+            <div class="relative h-75">
                 <canvas id="pklAttendanceChart"></canvas>
             </div>
         </div>

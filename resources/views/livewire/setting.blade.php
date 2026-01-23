@@ -25,7 +25,7 @@
     <!-- CARD SETTINGS -->
     <div class="flex flex-col gap-4 md:flex-row md:gap-6">
         <!-- CARD 1 : DIVISI -->
-        <div class="flex flex-col gap-4
+        <div class="flex flex-col
            w-full md:flex-1
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
@@ -45,28 +45,31 @@
             </div>
 
             <!-- Form -->
-            <div class="space-y-5 pl-4">
+            <div class="flex-1 space-y-5 pl-4">
                 <flux:input wire:model="nama_divisi" label="Nama Divisi" placeholder="IT Support" />
 
                 <flux:textarea wire:model="deskripsi_divisi" label="Deskripsi" placeholder="Deskripsi divisi"
                     rows="3" />
+            </div>
 
-                <div class="space-y-3">
-                    <flux:button wire:click="saveDivisi" class="w-full bg-gradient-to-r from-[#3526B3] to-[#8615D9] !text-white hover:opacity-90">
+            <!-- Buttons - Always at bottom -->
+            <div class="space-y-3 pl-4 mt-auto pt-5">
+                    <flux:button wire:click="saveDivisi" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                         Simpan Perubahan
                     </flux:button>
 
-                    <button wire:click="openDivisiModal" type="button"
-                        class="w-full text-sm text-neutral-500 dark:text-neutral-400
-                          hover:text-[#3526B3] hover:underline transition text-center py-2">
-                        Lihat Detail
-                    </button>
-                </div>
+                    <div class="text-right">
+                        <button wire:click="openDivisiModal" type="button"
+                            class="text-sm text-neutral-500 dark:text-neutral-400
+                              hover:text-[#3526B3] hover:underline transition">
+                            Lihat Detail →
+                        </button>
+                    </div>
             </div>
         </div>
 
         <!-- CARD 2 : ASAL SEKOLAH -->
-        <div class="flex flex-col gap-4
+        <div class="flex flex-col
            w-full md:flex-1
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
@@ -84,29 +87,32 @@
                 </p>
             </div>
 
-            <div class="space-y-5 pl-4">
+            <div class="flex-1 space-y-5 pl-4">
                 <flux:input wire:model="nama_sekolah" label="Nama Sekolah" placeholder="SMK Negeri 1" />
 
                 <flux:input wire:model="alamat_sekolah" label="Alamat" placeholder="Jl. Raya No. 123" />
 
                 <flux:input wire:model="no_telepon_sekolah" label="No. Telepon" placeholder="021-1234567" />
+            </div>
 
-                <div class="space-y-3">
-                    <flux:button wire:click="saveSekolah" class="w-full bg-gradient-to-r from-[#3526B3] to-[#8615D9] !text-white hover:opacity-90">
+            <!-- Buttons - Always at bottom -->
+            <div class="space-y-3 pl-4 mt-auto pt-5">
+                    <flux:button wire:click="saveSekolah" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                         Simpan Perubahan
                     </flux:button>
 
-                    <button wire:click="openSekolahModal" type="button"
-                        class="w-full text-sm text-neutral-500 dark:text-neutral-400
-                          hover:text-[#3526B3] hover:underline transition text-center py-2">
-                        Lihat Detail
-                    </button>
-                </div>
+                    <div class="text-right">
+                        <button wire:click="openSekolahModal" type="button"
+                            class="text-sm text-neutral-500 dark:text-neutral-400
+                              hover:text-[#3526B3] hover:underline transition">
+                            Lihat Detail →
+                        </button>
+                    </div>
             </div>
         </div>
 
         <!-- CARD 3 : MENTOR -->
-        <div class="flex flex-col gap-4
+        <div class="flex flex-col
            w-full md:flex-1
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
@@ -124,7 +130,7 @@
                 </p>
             </div>
 
-            <div class="space-y-5 pl-4">
+            <div class="flex-1 space-y-5 pl-4">
                 <flux:input wire:model="nama_mentor" label="Nama Mentor" placeholder="Budi Santoso" />
 
                 <flux:input wire:model="email_mentor" label="Email" placeholder="mentor@example.com" type="email" />
@@ -139,18 +145,21 @@
 
                 <flux:textarea wire:model="keahlian_mentor" label="Keahlian" placeholder="Frontend Development, UI/UX"
                     rows="3" />
+            </div>
 
-                <div class="space-y-3">
-                    <flux:button wire:click="saveMentor" class="w-full bg-gradient-to-r from-[#3526B3] to-[#8615D9] !text-white hover:opacity-90">
+            <!-- Buttons - Always at bottom -->
+            <div class="space-y-3 pl-4 mt-auto pt-5">
+                    <flux:button wire:click="saveMentor" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                         Simpan Perubahan
                     </flux:button>
 
-                    <button wire:click="openMentorModal" type="button"
-                        class="w-full text-sm text-neutral-500 dark:text-neutral-400
-                          hover:text-[#3526B3] hover:underline transition text-center py-2">
-                        Lihat Detail
-                    </button>
-                </div>
+                    <div class="text-right">
+                        <button wire:click="openMentorModal" type="button"
+                            class="text-sm text-neutral-500 dark:text-neutral-400
+                              hover:text-[#3526B3] hover:underline transition">
+                            Lihat Detail →
+                        </button>
+                    </div>
             </div>
         </div>
 
