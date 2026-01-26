@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_admins', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('asal');
-            $table->timestamps();
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('key')->unique()->after('id');
+            $table->text('value')->nullable()->after('key');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_admins');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn(['key', 'value']);
+        });
     }
 };

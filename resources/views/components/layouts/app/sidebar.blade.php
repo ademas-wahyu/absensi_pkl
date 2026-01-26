@@ -24,21 +24,21 @@
 
         @php
             $navItemClasses = '
-                text-zinc-700 dark:text-zinc-200
-                hover:text-white dark:hover:text-white
-                hover:!text-white dark:hover:!text-white
-                hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
-                hover:shadow-md hover:rounded-lg
+                            text-zinc-700 dark:text-zinc-200
+                            hover:text-white dark:hover:text-white
+                            hover:!text-white dark:hover:!text-white
+                            hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
+                            hover:shadow-md hover:rounded-lg
 
-                data-current:bg-linear-to-r
-                data-current:from-[#3526B3]
-                data-current:to-[#8615D9]
-                data-current:text-white
-                data-current:shadow-md
-                data-current:rounded-lg
+                            data-current:bg-linear-to-r
+                            data-current:from-[#3526B3]
+                            data-current:to-[#8615D9]
+                            data-current:text-white
+                            data-current:shadow-md
+                            data-current:rounded-lg
 
-                transition-all
-            ';
+                            transition-all
+                        ';
         @endphp
 
         <!-- NAVIGATION -->
@@ -116,12 +116,12 @@
 
             @php
                 $profileMenuClasses = '
-                    text-zinc-700 dark:text-zinc-200
-                    hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
-                    hover:text-white dark:hover:text-white hover:!text-white dark:hover:!text-white
-                    rounded-md
-                    transition-colors
-                ';
+                                    text-zinc-700 dark:text-zinc-200
+                                    hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
+                                    hover:text-white dark:hover:text-white hover:!text-white dark:hover:!text-white
+                                    rounded-md
+                                    transition-colors
+                                ';
             @endphp
 
             <flux:menu class="w-55">
@@ -159,69 +159,71 @@
 
     <!-- MOBILE FLOATING BUTTON - Tombol Absen dengan Toggle -->
     @unless(request()->routeIs('absent_users'))
-    <div id="mobile-absen-container" class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <div id="mobile-absen-container" class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
 
-        <!-- Tombol Absen (Expanded State) -->
-        <div id="absen-btn-expanded" class="transition-all duration-300 ease-in-out">
-            <div class="relative">
-                <a href="{{ route('absent_users') }}"
-                   class="flex flex-col items-center justify-center gap-1.5
-                          px-8 py-4
-                          bg-linear-to-r from-[#3526B3] to-[#8615D9]
-                          hover:from-[#2a1f8f] hover:to-[#6b11ab]
-                          text-white
-                          rounded-full
-                          shadow-2xl
-                          transition-all
-                          active:scale-95
-                          hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)]"
-                   wire:navigate>
-                    <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
-                    </svg>
-                    <span class="text-sm font-bold">Absen</span>
-                </a>
+            <!-- Tombol Absen (Expanded State) -->
+            <div id="absen-btn-expanded" class="transition-all duration-300 ease-in-out">
+                <div class="relative">
+                    <flux:modal.trigger name="input-absent-user">
+                        <button class="flex flex-col items-center justify-center gap-1.5
+                                px-8 py-4
+                                bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                                hover:from-[#2a1f8f] hover:to-[#6b11ab]
+                                text-white
+                                rounded-full
+                                shadow-2xl
+                                transition-all
+                                active:scale-95
+                                hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)] cursor-pointer">
+                            <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
+                            </svg>
+                            <span class="text-sm font-bold">Absen</span>
+                        </button>
+                    </flux:modal.trigger>
 
-                <!-- Tombol Hide (Panah Bawah) -->
-                <button id="hide-absen-btn"
-                        class="absolute -top-2 -right-2
-                               w-8 h-8
-                               bg-red-500 hover:bg-red-600
-                               text-white
-                               rounded-full
-                               shadow-lg
-                               flex items-center justify-center
-                               transition-all
-                               active:scale-95"
-                        onclick="toggleAbsenButton()">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                </button>
+                    <!-- Tombol Hide (Panah Bawah) -->
+                    <button id="hide-absen-btn" class="absolute -top-2 -right-2
+                                   w-8 h-8
+                                   bg-red-500 hover:bg-red-600
+                                   text-white
+                                   rounded-full
+                                   shadow-lg
+                                   flex items-center justify-center
+                                   transition-all
+                                   active:scale-95" onclick="toggleAbsenButton()">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- Tombol Show (Collapsed State - Hidden by default) -->
-        <button id="show-absen-btn"
-                class="w-12 h-12
-                       bg-linear-to-r from-[#3526B3] to-[#8615D9]
-                       hover:from-[#2a1f8f] hover:to-[#6b11ab]
-                       text-white
-                       rounded-full
-                       shadow-2xl
-                       flex items-center justify-center
-                       transition-all
-                       active:scale-95
-                       hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)]"
-                onclick="toggleAbsenButton()">
-            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-            </svg>
-        </button>
-    </div>
+            <!-- Tombol Show (Collapsed State - Hidden by default) -->
+            <button id="show-absen-btn" class="w-12 h-12
+                           bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                           hover:from-[#2a1f8f] hover:to-[#6b11ab]
+                           text-white
+                           rounded-full
+                           shadow-2xl
+                           flex items-center justify-center
+                           transition-all
+                           active:scale-95
+                           hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)]" onclick="toggleAbsenButton()">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                </svg>
+            </button>
+        </div>
     @endunless
 
     {{ $slot }}
+
+    <livewire:absent-user-input />
     @fluxScripts
 
     <script>

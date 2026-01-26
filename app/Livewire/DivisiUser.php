@@ -24,6 +24,7 @@ class DivisiUser extends Component
     {
         $this->show = false;
     }
+
     public function render()
     {
         return view('livewire.divisi-user');

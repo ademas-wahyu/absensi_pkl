@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -17,49 +17,49 @@ class RolePermissionSeeder extends Seeder
         $permissionRegistrar->forgetCachedPermissions();
 
         $permissions = [
-            "view dashboard",
-            "manage users",
-            "manage students",
-            "view attendance",
-            "create attendance",
-            "edit attendance",
-            "delete attendance",
-            "view jurnal",
-            "create jurnal",
-            "edit jurnal",
-            "delete jurnal",
-            "view reports",
-            "export reports",
+            'view dashboard',
+            'manage users',
+            'manage students',
+            'view attendance',
+            'create attendance',
+            'edit attendance',
+            'delete attendance',
+            'view jurnal',
+            'create jurnal',
+            'edit jurnal',
+            'delete jurnal',
+            'view reports',
+            'export reports',
         ];
 
         foreach ($permissions as $permission) {
-            Permission::query()->firstOrCreate(["name" => $permission]);
+            Permission::query()->firstOrCreate(['name' => $permission]);
         }
 
-        $adminRole = Role::query()->firstOrCreate(["name" => "admin"]);
+        $adminRole = Role::query()->firstOrCreate(['name' => 'admin']);
         $adminRole->givePermissionTo(Permission::all());
 
         $studentPermissions = [
-            "view dashboard",
-            "view attendance",
-            "create attendance",
-            "view jurnal",
-            "create jurnal",
-            "edit jurnal",
+            'view dashboard',
+            'view attendance',
+            'create attendance',
+            'view jurnal',
+            'create jurnal',
+            'edit jurnal',
         ];
 
-        $muridRole = Role::query()->firstOrCreate(["name" => "murid"]);
+        $muridRole = Role::query()->firstOrCreate(['name' => 'murid']);
         $muridRole->givePermissionTo($studentPermissions);
 
         // Mentor Config
         $mentorPermissions = [
-            "view dashboard",
-            "view attendance",
-            "view jurnal",
-            "view reports",
+            'view dashboard',
+            'view attendance',
+            'view jurnal',
+            'view reports',
         ];
 
-        $mentorRole = Role::query()->firstOrCreate(["name" => "mentor"]);
+        $mentorRole = Role::query()->firstOrCreate(['name' => 'mentor']);
         $mentorRole->givePermissionTo($mentorPermissions);
     }
 }

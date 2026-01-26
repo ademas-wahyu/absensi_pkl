@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\AbsentUser;
 use Livewire\Component;
 
 class AbsentAdmin extends Component

@@ -9,6 +9,8 @@ test('registration screen can be rendered', function () {
 });
 
 test('new users can register', function () {
+    \Spatie\Permission\Models\Role::create(['name' => 'murid']);
+
     $response = $this->post(route('register.store'), [
         'name' => 'John Doe',
         'email' => 'test@example.com',

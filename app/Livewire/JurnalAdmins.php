@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\JurnalUser;
 use Livewire\Component;
 
 class JurnalAdmins extends Component

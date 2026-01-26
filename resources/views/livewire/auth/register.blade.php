@@ -24,10 +24,10 @@
                 autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
 
             <!-- Role Selection -->
-            <flux:select label="Register as" name="role" placeholder="Choose role...">
-                <flux:option value="murid">Murid PKL</flux:option>
-                <flux:option value="mentor">Mentor</flux:option>
-            </flux:select>
+            <flux:radio.group label="Register as" name="role" variant="segmented">
+                <flux:radio value="murid" label="Murid PKL" />
+                <flux:radio value="mentor" label="Mentor" />
+            </flux:radio.group>
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">

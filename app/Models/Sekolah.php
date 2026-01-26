@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Sekolah latest($column = 'created_at')
  * @method static \Illuminate\Database\Eloquent\Collection|Sekolah[] all($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Collection|Sekolah[] get($columns = ['*'])
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Sekolah extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["nama_sekolah", "alamat", "no_telepon"];
+    protected $fillable = ['nama_sekolah', 'alamat', 'no_telepon'];
 }

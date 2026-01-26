@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DataAdmin extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'user_id',
         'name',
         'asal',

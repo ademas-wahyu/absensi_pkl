@@ -14,9 +14,11 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 dark:bg-green-900/30 dark:text-green-300" role="alert">
+        <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 dark:bg-green-900/30 dark:text-green-300"
+            role="alert">
             <svg class="inline w-4 h-4 me-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
             </svg>
             <span class="font-medium">Berhasil!</span> {{ session('message') }}
         </div>
@@ -54,17 +56,17 @@
 
             <!-- Buttons - Always at bottom -->
             <div class="space-y-3 pl-4 mt-auto pt-5">
-                    <flux:button wire:click="saveDivisi" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                        Simpan Perubahan
-                    </flux:button>
+                <flux:button wire:click="saveDivisi"
+                    class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                    Simpan Perubahan
+                </flux:button>
 
-                    <div class="text-right">
-                        <button wire:click="openDivisiModal" type="button"
-                            class="text-sm text-neutral-500 dark:text-neutral-400
+                <div class="text-right">
+                    <button wire:click="openDivisiModal" type="button" class="text-sm text-neutral-500 dark:text-neutral-400
                               hover:text-[#3526B3] hover:underline transition">
-                            Lihat Detail →
-                        </button>
-                    </div>
+                        Lihat Detail →
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -97,17 +99,17 @@
 
             <!-- Buttons - Always at bottom -->
             <div class="space-y-3 pl-4 mt-auto pt-5">
-                    <flux:button wire:click="saveSekolah" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                        Simpan Perubahan
-                    </flux:button>
+                <flux:button wire:click="saveSekolah"
+                    class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                    Simpan Perubahan
+                </flux:button>
 
-                    <div class="text-right">
-                        <button wire:click="openSekolahModal" type="button"
-                            class="text-sm text-neutral-500 dark:text-neutral-400
+                <div class="text-right">
+                    <button wire:click="openSekolahModal" type="button" class="text-sm text-neutral-500 dark:text-neutral-400
                               hover:text-[#3526B3] hover:underline transition">
-                            Lihat Detail →
-                        </button>
-                    </div>
+                        Lihat Detail →
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -149,21 +151,99 @@
 
             <!-- Buttons - Always at bottom -->
             <div class="space-y-3 pl-4 mt-auto pt-5">
-                    <flux:button wire:click="saveMentor" class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                        Simpan Perubahan
-                    </flux:button>
+                <flux:button wire:click="saveMentor"
+                    class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                    Simpan Perubahan
+                </flux:button>
 
-                    <div class="text-right">
-                        <button wire:click="openMentorModal" type="button"
-                            class="text-sm text-neutral-500 dark:text-neutral-400
+                <div class="text-right">
+                    <button wire:click="openMentorModal" type="button" class="text-sm text-neutral-500 dark:text-neutral-400
                               hover:text-[#3526B3] hover:underline transition">
-                            Lihat Detail →
-                        </button>
-                    </div>
+                        Lihat Detail →
+                    </button>
+                </div>
             </div>
         </div>
 
     </div>
+
+    <!-- ROW 2: QR CODE -->
+    <div class="mt-6 flex flex-col gap-4 md:flex-row md:gap-6">
+        <!-- CARD 4 : QR ABSENSI -->
+        <div class="flex flex-col
+           w-full md:w-1/3
+           rounded-2xl
+           border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           px-6 py-6
+           shadow-md hover:shadow-lg
+           transition">
+
+            <div class="mb-5 pl-4">
+                <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
+                    QR Code Absensi
+                </h3>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                    Scan QR ini untuk melakukan absensi
+                </p>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center space-y-5 pl-4 min-h-[200px]">
+                <canvas id="qrcode-canvas"></canvas>
+                @if(!$attendance_token)
+                    <p class="text-sm text-gray-500 italic block" id="no-qr-msg">Belum ada QR Code aktif</p>
+                @endif
+            </div>
+
+            <div class="space-y-3 pl-4 mt-auto pt-5">
+                @if(!$attendance_token)
+                    <flux:button wire:click="generateQrCode"
+                        class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                        Generate QR Code Baru
+                    </flux:button>
+                @else
+                    <div class="w-full p-3 text-center rounded-lg bg-green-50 text-green-700 border border-green-200">
+                        <span class="font-medium text-sm">QR Code Aktif (Permanent)</span>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    {{--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> --}}
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            const renderQr = (token) => {
+                const canvas = document.getElementById("qrcode-canvas");
+                if (!canvas) return;
+
+                // Clear canvas if needed, though toCanvas overwrites
+                if (token) {
+                    // Check if QRCode is loaded (it might take a moment if bunled differently, but usually fine in app.js module)
+                    if (window.QRCode) {
+                        window.QRCode.toCanvas(canvas, token, { width: 150, margin: 2 }, function (error) {
+                            if (error) console.error(error)
+                            console.log('success!');
+                        })
+                        const msg = document.getElementById('no-qr-msg');
+                        if (msg) msg.style.display = 'none';
+                    } else {
+                        console.error("QRCode library not found");
+                    }
+                }
+            };
+
+            // Init load
+            if (@json($attendance_token)) {
+                renderQr(@json($attendance_token));
+            }
+
+            Livewire.on('qr-code-generated', ({ token }) => {
+                renderQr(token);
+            });
+        });
+    </script>
 
     <!-- MODAL DIVISI -->
     @if ($showDivisiModal)
@@ -191,8 +271,7 @@
                                 <td class="px-6 py-4">{{ $divisi->deskripsi ?? '-' }}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex gap-2">
-                                        <flux:button wire:click="editDivisi({{ $divisi->id }})" size="sm"
-                                            variant="ghost">
+                                        <flux:button wire:click="editDivisi({{ $divisi->id }})" size="sm" variant="ghost">
                                             Edit
                                         </flux:button>
                                         <flux:button wire:click="deleteDivisi({{ $divisi->id }})"
@@ -248,8 +327,7 @@
                                 <td class="px-6 py-4">{{ $sekolah->no_telepon ?? '-' }}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex gap-2">
-                                        <flux:button wire:click="editSekolah({{ $sekolah->id }})" size="sm"
-                                            variant="ghost">
+                                        <flux:button wire:click="editSekolah({{ $sekolah->id }})" size="sm" variant="ghost">
                                             Edit
                                         </flux:button>
                                         <flux:button wire:click="deleteSekolah({{ $sekolah->id }})"
@@ -314,8 +392,7 @@
                                 <td class="px-6 py-4">{{ $mentor->keahlian ?? '-' }}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex gap-2">
-                                        <flux:button wire:click="editMentor({{ $mentor->id }})" size="sm"
-                                            variant="ghost">
+                                        <flux:button wire:click="editMentor({{ $mentor->id }})" size="sm" variant="ghost">
                                             Edit
                                         </flux:button>
                                         <flux:button wire:click="deleteMentor({{ $mentor->id }})"

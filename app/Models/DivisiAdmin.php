@@ -15,13 +15,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|DivisiAdmin latest($column = 'created_at')
  * @method static \Illuminate\Database\Eloquent\Collection|DivisiAdmin[] all($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Collection|DivisiAdmin[] get($columns = ['*'])
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class DivisiAdmin extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["nama_divisi", "deskripsi"];
+    protected $fillable = ['nama_divisi', 'deskripsi'];
 
     /**
      * Get the mentors for the divisi.
@@ -30,6 +31,6 @@ class DivisiAdmin extends Model
      */
     public function mentors(): HasMany
     {
-        return $this->hasMany(Mentor::class, "divisi_id");
+        return $this->hasMany(Mentor::class, 'divisi_id');
     }
 }

@@ -9,7 +9,9 @@ use Livewire\Component;
 class AbsentUsers extends Component
 {
     public $absentUsers;
+
     public $students = []; // Untuk admin: list murid dengan absensi mereka
+
     public $isAdmin = false;
 
     public function mount()
@@ -23,7 +25,7 @@ class AbsentUsers extends Component
                 ->with([
                     'absents' => function ($query) {
                         $query->orderBy('absent_date', 'desc');
-                    }
+                    },
                 ])
                 ->get();
         } else {

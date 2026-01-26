@@ -9,7 +9,9 @@ use Livewire\Component;
 class JurnalUsers extends Component
 {
     public $jurnalUsers;
+
     public $students = []; // Untuk admin: list murid dengan jurnal mereka
+
     public $isAdmin = false;
 
     public function mount()
@@ -23,7 +25,7 @@ class JurnalUsers extends Component
                 ->with([
                     'jurnals' => function ($query) {
                         $query->orderBy('jurnal_date', 'desc');
-                    }
+                    },
                 ])
                 ->get();
         } else {

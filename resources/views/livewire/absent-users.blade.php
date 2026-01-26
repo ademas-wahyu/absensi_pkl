@@ -15,6 +15,21 @@
         {{-- Tombol Input Absent hanya untuk Murid --}}
         @role('murid')
         <div class="flex items-center">
+            <flux:modal.trigger name="input-permission">
+                <flux:button class="bg-white hover:bg-neutral-50 border border-black text-black! mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-file-text w-5 h-5 mr-1">
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                        <path d="M10 9H8" />
+                        <path d="M16 13H8" />
+                        <path d="M16 17H8" />
+                    </svg>
+                    Izin
+                </flux:button>
+            </flux:modal.trigger>
+
             <flux:modal.trigger name="input-absent-user">
                 <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -23,7 +38,7 @@
                         <path d="M5 12h14" />
                         <path d="M12 5v14" />
                     </svg>
-                    Input Absent
+                    Absen
                 </flux:button>
             </flux:modal.trigger>
         </div>
@@ -32,7 +47,8 @@
 
     {{-- Modal Input Absent untuk Murid --}}
     @role('murid')
-    <livewire:absent-user-input />
+    {{-- Modal is global now --}}
+    <livewire:absent-permission-input />
     @endrole
 
     {{-- ========== TAMPILAN UNTUK ADMIN: Card per Murid ========== --}}
@@ -40,16 +56,17 @@
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($students as $student)
                 <div class="relative overflow-hidden rounded-xl
-                            border border-neutral-200 dark:border-neutral-700
-                            bg-white dark:bg-neutral-800
-                            shadow-md hover:shadow-xl transition-shadow duration-200">
+                                                            border border-neutral-200 dark:border-neutral-700
+                                                            bg-white dark:bg-neutral-800
+                                                            shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                        flex items-center justify-center text-white font-semibold text-lg">
+                            <div
+                                class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
+                                                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -63,8 +80,9 @@
                     <div class="p-4">
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-sm text-neutral-600 dark:text-neutral-400">Total Absensi</span>
-                            <span class="px-2 py-1 rounded-full text-xs font-semibold
-                                        bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                            <span
+                                class="px-2 py-1 rounded-full text-xs font-semibold
+                                                                        bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                 {{ $student->absents->count() }} records
                             </span>
                         </div>
@@ -79,10 +97,10 @@
                                         </span>
                                         <span @class([
                                             'px-2 py-0.5 rounded text-xs font-medium',
-                                            'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absent->status == 'hadir',
-                                            'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absent->status == 'izin',
-                                            'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absent->status == 'sakit',
-                                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absent->status, ['hadir', 'izin', 'sakit'])
+                                            'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => strtolower($absent->status) == 'hadir',
+                                            'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => strtolower($absent->status) == 'izin',
+                                            'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => strtolower($absent->status) == 'sakit',
+                                            'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array(strtolower($absent->status), ['hadir', 'izin', 'sakit'])
                                         ])>
                                             {{ ucfirst($absent->status) }}
                                         </span>
@@ -134,10 +152,10 @@
                                                 <td class="px-4 py-2">
                                                     <span @class([
                                                         'px-2 py-0.5 rounded text-xs font-medium',
-                                                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absent->status == 'hadir',
-                                                        'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absent->status == 'izin',
-                                                        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absent->status == 'sakit',
-                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absent->status, ['hadir', 'izin', 'sakit'])
+                                                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => strtolower($absent->status) == 'hadir',
+                                                        'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => strtolower($absent->status) == 'izin',
+                                                        'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => strtolower($absent->status) == 'sakit',
+                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array(strtolower($absent->status), ['hadir', 'izin', 'sakit'])
                                                     ])>
                                                         {{ ucfirst($absent->status) }}
                                                     </span>
@@ -168,12 +186,12 @@
             <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
                 <thead class="text-xs text-neutral-700 uppercase bg-neutral-50 dark:text-neutral-400">
                     <tr class="
-                            bg-[#3526B3]/10
-                            dark:bg-[#8615D9]/20
-                            text-[#3526B3]
-                            dark:text-[#8615D9]
-                            text-left
-                ">
+                                            bg-[#3526B3]/10
+                                            dark:bg-[#8615D9]/20
+                                            text-[#3526B3]
+                                            dark:text-[#8615D9]
+                                            text-left
+                                ">
 
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Tanggal</th>
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Status</th>
@@ -189,10 +207,10 @@
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
                                 <span @class([
                                     'px-2 py-0.5 rounded text-xs font-medium',
-                                    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => $absentUser->status == 'hadir',
-                                    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => $absentUser->status == 'izin',
-                                    'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => $absentUser->status == 'sakit',
-                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array($absentUser->status, ['hadir', 'izin', 'sakit'])
+                                    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => strtolower($absentUser->status) == 'hadir',
+                                    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' => strtolower($absentUser->status) == 'izin',
+                                    'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' => strtolower($absentUser->status) == 'sakit',
+                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' => !in_array(strtolower($absentUser->status), ['hadir', 'izin', 'sakit'])
                                 ])>
                                     {{ ucfirst($absentUser->status) }}
                                 </span>

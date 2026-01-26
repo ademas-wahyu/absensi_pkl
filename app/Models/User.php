@@ -14,20 +14,22 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ *
  * @phpstan-method static \Illuminate\Database\Eloquent\Builder<User> query()
  * @phpstan-method static \Illuminate\Database\Eloquent\Builder<User> role($roles, $guard = null)
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles;
+    use HasFactory, HasRoles, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $fillable = ["name", "email", "password", "divisi", "sekolah"];
+    protected $fillable = ['name', 'email', 'password', 'divisi', 'sekolah'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -35,10 +37,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        "password",
-        "two_factor_secret",
-        "two_factor_recovery_codes",
-        "remember_token",
+        'password',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
+        'remember_token',
     ];
 
     /**
@@ -49,8 +51,8 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            "email_verified_at" => "datetime",
-            "password" => "hashed",
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
         ];
     }
 
@@ -60,10 +62,10 @@ class User extends Authenticatable
     public function initials(): string
     {
         return Str::of($this->name)
-            ->explode(" ")
+            ->explode(' ')
             ->take(2)
-            ->map(fn($word) => Str::substr($word, 0, 1))
-            ->implode("");
+            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->implode('');
     }
 
     /**

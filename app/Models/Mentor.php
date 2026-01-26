@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Collection|Mentor[] all($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Collection|Mentor[] get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|Mentor with($relations)
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Mentor extends Model
@@ -23,11 +24,11 @@ class Mentor extends Model
     use HasFactory;
 
     protected $fillable = [
-        "nama_mentor",
-        "email",
-        "no_telepon",
-        "divisi_id",
-        "keahlian",
+        'nama_mentor',
+        'email',
+        'no_telepon',
+        'divisi_id',
+        'keahlian',
     ];
 
     /**
@@ -37,6 +38,6 @@ class Mentor extends Model
      */
     public function divisi(): BelongsTo
     {
-        return $this->belongsTo(DivisiAdmin::class, "divisi_id");
+        return $this->belongsTo(DivisiAdmin::class, 'divisi_id');
     }
 }
