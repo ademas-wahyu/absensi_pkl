@@ -36,9 +36,14 @@ class JurnalUsers extends Component
         }
     }
 
-    public function prepareEdit($id)
+    public function edit($id)
     {
-        $this->dispatch('edit-jurnal', id: $id);
+        $jurnal = JurnalUser::find($id);
+        if ($jurnal) {
+            $this->dispatch(event: 'openJurnalEdit', data: ['jurnal' => $jurnal]);   
+
+
+        }
     }
 
     public function prepareDelete($id)

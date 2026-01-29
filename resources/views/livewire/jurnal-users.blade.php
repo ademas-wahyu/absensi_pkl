@@ -173,7 +173,8 @@
                             </td>
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
                                 <div class="inline-flex items-center gap-2">
-                                    <button type="button" wire:click="prepareEdit({{ $jurnalUser->id }})"
+                                    <flux:modal.trigger name="edit-jurnal">
+                                    <flux:button type="button" wire:click="edit({{ $jurnalUser->id }})"
                                         class="text-blue-600 hover:text-blue-800 p-1 rounded" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                             fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
@@ -182,7 +183,8 @@
                                             <path
                                                 d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
                                         </svg>
-                                    </button>
+                                    </flux:button>
+                                    </flux:modal.trigger>
 
                                     <button type="button"
                                         onclick="confirm('Yakin ingin menghapus jurnal ini?') || event.stopImmediatePropagation()"
@@ -212,6 +214,11 @@
             </table>
         </div>
     @endif
+    <!-- Modal Edit Jurnal untuk Murid -->
+    @role('murid')
+    <livewire:jurnal-edit />
+    @endrole
+
 </div>
 <script>
     document.addEventListener('jurnal-saved', function () {
