@@ -174,17 +174,23 @@
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
                                 <div class="inline-flex items-center gap-2">
                                     <flux:modal.trigger name="edit-jurnal">
-                                    <flux:button type="button" wire:click="edit({{ $jurnalUser->id }})"
-                                        class="text-blue-600 hover:text-blue-800 p-1 rounded" title="Edit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="lucide lucide-square-pen-icon lucide-square-pen">
-                                            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                            <path
-                                                d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                                        </svg>
-                                    </flux:button>
-                                    </flux:modal.trigger>
+                    <flux:button
+                            type="button"
+                            wire:click="edit({{ $jurnalUser->id }})"
+                            variant="ghost"
+                             size="sm"
+                             class="!p-0 !bg-transparent !border-0 !shadow-none hover:!bg-transparent focus:!ring-0"
+                            title="Edit"
+                >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                         fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-square-pen">
+                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                                </svg>
+                    </flux:button>
+                </flux:modal.trigger>
+
 
                                     <button type="button"
                                         onclick="confirm('Yakin ingin menghapus jurnal ini?') || event.stopImmediatePropagation()"

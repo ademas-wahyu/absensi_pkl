@@ -12,17 +12,17 @@ class JurnalUserInput extends Component
 
     public $activity;
 
-    public function render()
+    protected function rules()
     {
-        return view('livewire.jurnal-user-input');
-    }
-
-    public function submit()
-    {
-        $this->validate([
+        return [
             'jurnal_date' => 'required|date',
             'activity' => 'required|string',
-        ]);
+        ];
+    }
+
+    public function save()
+    {
+        $this->validate();
 
         JurnalUser::create([
             'user_id' => auth()->id(),
@@ -30,14 +30,16 @@ class JurnalUserInput extends Component
             'activity' => $this->activity,
         ]);
 
-        $this->resetForms();
+        // Reset form fields
+        $this->reset();
+        // Close modal
         Flux::modal('input-jurnal-user')->close();
-        $this->dispatch(event: 'reoloadJurnalUsers');
     }
 
-    private function resetForms()
+    public function render()
     {
-        $this->jurnal_date = null;
-        $this->activity = null;
+        return view('livewire.jurnal-user-input');
     }
+
+    
 }

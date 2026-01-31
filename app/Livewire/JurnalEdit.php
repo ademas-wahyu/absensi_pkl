@@ -23,6 +23,9 @@ class JurnalEdit extends Component
         JurnalUser::find($jurnal->id);
         $this->jurnal_date = $jurnal->jurnal_date;
         $this->activity = $jurnal->activity;
-        Flux::modal("edit-jurnal")->show;
+        $this->resetValidation();
+        Flux::modal('edit-jurnal')->show();
     }
-}
+    }
+
+     

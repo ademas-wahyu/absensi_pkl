@@ -6,8 +6,8 @@
             <flux:text class="mt-2">Silahkan Isi Jurnal Anda</flux:text>
         </div>
 
-        <flux:input label="jurnal_date" type="date" wire:model="jurnal_date" />
-        <flux:input label="activity" wire:model="activity" />
+        <flux:input label="Tanggal" type="date" wire:model="jurnal_date" />
+        <flux:input label="Aktivitas" wire:model="activity" />
         <div class="flex">
             <flux:spacer />
 
