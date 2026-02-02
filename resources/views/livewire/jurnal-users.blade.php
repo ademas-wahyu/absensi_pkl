@@ -12,7 +12,6 @@
             </a>
         </div>
 
-        {{-- Tombol Input Jurnal hanya untuk Murid --}}
         @role('murid')
         <div class="flex items-center">
             <flux:modal.trigger name="input-jurnal-user">
@@ -30,26 +29,21 @@
         @endrole
     </div>
 
-    {{-- Modal Input Jurnal untuk Murid --}}
     @role('murid')
     <livewire:jurnal-user-input />
     @endrole
 
-    {{-- ========== TAMPILAN UNTUK ADMIN: Card per Murid ========== --}}
     @if($isAdmin)
+        {{-- TAMPILAN ADMIN --}}
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($students as $student)
-                <div class="relative overflow-hidden rounded-xl
-                    border border-neutral-200 dark:border-neutral-700
-                    bg-white dark:bg-neutral-800
-                    shadow-md hover:shadow-xl transition-shadow duration-200">
-
-                    {{-- Header Card --}}
-                    <div class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                <div
+                    class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-200">
+                    <div
+                        class="p-4 border-b border-neutral-200 dark:border-neutral-700 bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                flex items-center justify-center text-white font-semibold text-lg">
+                            <div
+                                class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -59,17 +53,15 @@
                         </div>
                     </div>
 
-                    {{-- Statistik Jurnal --}}
                     <div class="p-4">
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-sm text-neutral-600 dark:text-neutral-400">Total Jurnal</span>
-                            <span class="px-2 py-1 rounded-full text-xs font-semibold
-                                bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                            <span
+                                class="px-2 py-1 rounded-full text-xs font-semibold bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                 {{ $student->jurnals->count() }} entries
                             </span>
                         </div>
 
-                        {{-- Recent Jurnals --}}
                         @if($student->jurnals->count() > 0)
                             <div class="space-y-2 max-h-40 overflow-y-auto">
                                 @foreach($student->jurnals->take(3) as $jurnal)
@@ -86,13 +78,10 @@
                                 @endforeach
                             </div>
                         @else
-                            <p class="text-sm text-neutral-500 dark:text-neutral-400 text-center py-4">
-                                Belum ada data jurnal
-                            </p>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400 text-center py-4">Belum ada data jurnal</p>
                         @endif
                     </div>
 
-                    {{-- Footer: Lihat Detail --}}
                     <div class="p-4 border-t border-neutral-200 dark:border-neutral-700">
                         <flux:modal.trigger name="detail-jurnal-{{ $student->id }}">
                             <flux:button variant="ghost" class="w-full justify-center text-[#3526B3] dark:text-[#8615D9]">
@@ -107,15 +96,14 @@
                     </div>
                 </div>
 
-                {{-- Modal Detail Jurnal --}}
+                {{-- Modal Detail untuk Admin --}}
                 <flux:modal name="detail-jurnal-{{ $student->id }}" class="md:w-[700px]">
                     <div class="p-6">
                         <flux:heading size="lg" class="mb-4">Jurnal Harian: {{ $student->name }}</flux:heading>
-
                         @if($student->jurnals->count() > 0)
                             <div class="overflow-x-auto max-h-[60vh]">
-                                <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
-                                    <thead class="text-xs uppercase bg-neutral-50 dark:bg-neutral-700 sticky top-0">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="sticky top-0 bg-neutral-50 dark:bg-neutral-700">
                                         <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20">
                                             <th class="px-4 py-2">Tanggal</th>
                                             <th class="px-4 py-2">Aktivitas</th>
@@ -123,7 +111,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($student->jurnals as $jurnal)
-                                            <tr class="even:bg-neutral-50 dark:even:bg-neutral-700">
+                                            <tr class="border-b dark:border-neutral-700">
                                                 <td class="px-4 py-2 whitespace-nowrap">
                                                     {{ \Carbon\Carbon::parse($jurnal->jurnal_date)->format('d M Y') }}</td>
                                                 <td class="px-4 py-2">{{ $jurnal->activity }}</td>
@@ -133,34 +121,24 @@
                                 </table>
                             </div>
                         @else
-                            <p class="text-neutral-500 dark:text-neutral-400 text-center py-8">
-                                Belum ada data jurnal untuk murid ini.
-                            </p>
+                            <p class="text-center py-8">Tidak ada data.</p>
                         @endif
                     </div>
                 </flux:modal>
             @empty
-                <div class="col-span-full text-center py-12">
-                    <p class="text-neutral-500 dark:text-neutral-400">Tidak ada murid yang terdaftar.</p>
-                </div>
+                <div class="col-span-full text-center py-12">Tidak ada murid.</div>
             @endforelse
         </div>
 
     @else
-        {{-- ========== TAMPILAN UNTUK MURID: Tabel List Jurnal ========== --}}
+        {{-- TAMPILAN MURID --}}
         <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
-                <thead class="text-xs text-neutral-700 uppercase bg-neutral-50 dark:text-neutral-400">
-                    <tr class="
-                        bg-[#3526B3]/10
-                        dark:bg-[#8615D9]/20
-                        text-[#3526B3]
-                        dark:text-[#8615D9]
-                        text-left
-            ">
+            <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                    <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20 text-[#3526B3] dark:text-[#8615D9]">
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Tanggal</th>
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Aktivitas</th>
-                        <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Aksi</th>
+                        <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,65 +149,48 @@
                             </td>
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">{{ $jurnalUser->activity }}
                             </td>
-                            <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
-                                <div class="inline-flex items-center gap-2">
-                                    <flux:modal.trigger name="edit-jurnal">
-                    <flux:button
-                            type="button"
-                            wire:click="edit({{ $jurnalUser->id }})"
-                            variant="ghost"
-                             size="sm"
-                             class="!p-0 !bg-transparent !border-0 !shadow-none hover:!bg-transparent focus:!ring-0"
-                            title="Edit"
-                >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                         fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-square-pen">
-                        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                        <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-                                </svg>
-                    </flux:button>
-                </flux:modal.trigger>
-
+                            <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700 text-center">
+                                <div class="inline-flex items-center gap-3">
+                                    {{-- PERBAIKAN DI SINI: Tutup tag trigger --}}
+                                    <flux:button type="button" wire:click="edit({{ $jurnalUser->id }})" variant="ghost"
+                                        size="sm" class="!p-0 !bg-transparent !border-0 !shadow-none" title="Edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                            fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                            <path
+                                                d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+                                        </svg>
+                                    </flux:button>
 
                                     <button type="button"
                                         onclick="confirm('Yakin ingin menghapus jurnal ini?') || event.stopImmediatePropagation()"
                                         wire:click="prepareDelete({{ $jurnalUser->id }})"
-                                        class="text-red-600 hover:text-red-800 p-1 rounded" title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        class="text-red-600 hover:text-red-800" title="Hapus">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                                             fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2">
+                                            stroke-linejoin="round">
                                             <path d="M10 11v6" />
                                             <path d="M14 11v6" />
                                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
                                             <path d="M3 6h18" />
                                             <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                        </svg> </button>
+                                        </svg>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3"
-                                class="border border-neutral-300 px-4 py-8 dark:border-neutral-700 text-center text-neutral-500">
-                                Belum ada data jurnal. Silakan input jurnal pertama Anda.
-                            </td>
+                            <td colspan="3" class="px-4 py-8 text-center text-neutral-500">Belum ada data jurnal.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
     @endif
-    <!-- Modal Edit Jurnal untuk Murid -->
+
     @role('murid')
     <livewire:jurnal-edit />
     @endrole
-
 </div>
-<script>
-    document.addEventListener('jurnal-saved', function () {
-        if (window.Livewire && typeof Livewire.emit === 'function') {
-            Livewire.emit('refreshJurnalList');
-        }
-    });
-</script>
