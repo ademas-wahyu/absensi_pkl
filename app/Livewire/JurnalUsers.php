@@ -19,10 +19,11 @@ class JurnalUsers extends Component
         $this->isAdmin = $user->hasRole('admin');
     }
 
-    public function prepareEdit($id)
-    {
-        $this->dispatch('edit-jurnal', id: $id);
-    }
+   public function edit($id)
+{
+    // Mengirim event 'editJurnal' dengan parameter bernama 'id'
+    $this->dispatch('editJurnal', id: $id); 
+}
 
     public function prepareDelete($id)
     {
