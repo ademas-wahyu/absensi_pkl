@@ -13,7 +13,16 @@ class AbsentUser extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'absent_date', 'status', 'reason'];
+    protected $fillable = [
+        'user_id',
+        'absent_date',
+        'status',
+        'reason',
+        'selfie_path',
+        'latitude',
+        'longitude',
+        'verification_method',
+    ];
 
     /**
      * Get the user that owns the absent record.

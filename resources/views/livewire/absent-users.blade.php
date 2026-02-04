@@ -130,26 +130,29 @@
                 </div>
 
                 {{-- Modal Detail Absensi --}}
-                <flux:modal name="detail-absent-{{ $student->id }}" class="md:w-[600px]">
+                <flux:modal name="detail-absent-{{ $student->id }}" class="md:w-[800px]">
                     <div class="p-6">
                         <flux:heading size="lg" class="mb-4">Detail Absensi: {{ $student->name }}</flux:heading>
 
                         @if($student->absents->count() > 0)
-                            <div class="overflow-x-auto">
+                            <div class="overflow-x-auto max-h-[60vh]">
                                 <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
-                                    <thead class="text-xs uppercase bg-neutral-50 dark:bg-neutral-700">
+                                    <thead class="text-xs uppercase bg-neutral-50 dark:bg-neutral-700 sticky top-0">
                                         <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20">
-                                            <th class="px-4 py-2">Tanggal</th>
-                                            <th class="px-4 py-2">Status</th>
-                                            <th class="px-4 py-2">Alasan</th>
+                                            <th class="px-3 py-2">Tanggal</th>
+                                            <th class="px-3 py-2">Status</th>
+                                            <th class="px-3 py-2">Metode</th>
+                                            <th class="px-3 py-2">Foto</th>
+                                            <th class="px-3 py-2">Lokasi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($student->absents as $absent)
-                                            <tr class="even:bg-neutral-50 dark:even:bg-neutral-700">
-                                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($absent->absent_date)->format('d M Y') }}
+                                            <tr class="even:bg-neutral-50 dark:even:bg-neutral-700 border-b dark:border-neutral-600">
+                                                <td class="px-3 py-2 whitespace-nowrap">
+                                                    {{ \Carbon\Carbon::parse($absent->absent_date)->format('d M Y') }}
                                                 </td>
-                                                <td class="px-4 py-2">
+                                                <td class="px-3 py-2">
                                                     <span @class([
                                                         'px-2 py-0.5 rounded text-xs font-medium',
                                                         'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' => strtolower($absent->status) == 'hadir',
@@ -160,7 +163,60 @@
                                                         {{ ucfirst($absent->status) }}
                                                     </span>
                                                 </td>
-                                                <td class="px-4 py-2">{{ $absent->reason ?? '-' }}</td>
+                                                <td class="px-3 py-2">
+                                                    @if($absent->verification_method === 'selfie')
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1">
+                                                                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                                                                <circle cx="12" cy="13" r="3"/>
+                                                            </svg>
+                                                            Selfie
+                                                        </span>
+                                                    @else
+                                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1">
+                                                                <rect width="5" height="5" x="3" y="3" rx="1"/>
+                                                                <rect width="5" height="5" x="16" y="3" rx="1"/>
+                                                                <rect width="5" height="5" x="3" y="16" rx="1"/>
+                                                            </svg>
+                                                            QR Code
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                                <td class="px-3 py-2">
+                                                    @if($absent->selfie_path)
+                                                        <button type="button"
+                                                            x-data
+                                                            @click="$dispatch('show-selfie', { url: '{{ asset('storage/' . $absent->selfie_path) }}', date: '{{ \Carbon\Carbon::parse($absent->absent_date)->format('d M Y') }}' })"
+                                                            class="inline-flex items-center text-[#3526B3] dark:text-[#8615D9] hover:underline cursor-pointer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1">
+                                                                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                                                                <circle cx="9" cy="9" r="2"/>
+                                                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                                                            </svg>
+                                                            Lihat
+                                                        </button>
+                                                    @else
+                                                        <span class="text-neutral-400">-</span>
+                                                    @endif
+                                                </td>
+                                                <td class="px-3 py-2">
+                                                    @if($absent->latitude && $absent->longitude)
+                                                        <a href="https://www.google.com/maps?q={{ $absent->latitude }},{{ $absent->longitude }}" target="_blank"
+                                                            class="inline-flex items-center text-[#3526B3] dark:text-[#8615D9] hover:underline text-xs">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1">
+                                                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                                                <circle cx="12" cy="10" r="3"/>
+                                                            </svg>
+                                                            Maps
+                                                        </a>
+                                                        <div class="text-[10px] text-neutral-400 mt-0.5">
+                                                            {{ number_format($absent->latitude, 5) }}, {{ number_format($absent->longitude, 5) }}
+                                                        </div>
+                                                    @else
+                                                        <span class="text-neutral-400">-</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -245,4 +301,58 @@
             </div>
         @endif
     @endif
+
+    {{-- Modal Popup untuk Foto Selfie --}}
+    <div x-data="{ 
+            showModal: false, 
+            imageUrl: '', 
+            imageDate: '' 
+        }"
+        x-on:show-selfie.window="showModal = true; imageUrl = $event.detail.url; imageDate = $event.detail.date"
+        x-show="showModal"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @keydown.escape.window="showModal = false"
+        class="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+        style="display: none;">
+        
+        {{-- Backdrop --}}
+        <div class="absolute inset-0 bg-black/70" @click="showModal = false"></div>
+        
+        {{-- Modal Content --}}
+        <div class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95">
+            
+            {{-- Header --}}
+            <div class="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-700">
+                <div>
+                    <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-200">Foto Selfie</h3>
+                    <p class="text-sm text-neutral-500" x-text="imageDate"></p>
+                </div>
+                <button @click="showModal = false" 
+                    class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18"/>
+                        <path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            {{-- Image --}}
+            <div class="p-4">
+                <img :src="imageUrl" alt="Foto Selfie Absensi" 
+                    class="w-full h-auto max-h-[70vh] object-contain rounded-lg">
+            </div>
+        </div>
+    </div>
 </div>
