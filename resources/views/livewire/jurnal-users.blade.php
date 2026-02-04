@@ -40,16 +40,16 @@
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($students as $student)
                 <div class="relative overflow-hidden rounded-xl
-                    border border-neutral-200 dark:border-neutral-700
-                    bg-white dark:bg-neutral-800
-                    shadow-md hover:shadow-xl transition-shadow duration-200">
+                            border border-neutral-200 dark:border-neutral-700
+                            bg-white dark:bg-neutral-800
+                            shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                flex items-center justify-center text-white font-semibold text-lg">
+                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -64,7 +64,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <span class="text-sm text-neutral-600 dark:text-neutral-400">Total Jurnal</span>
                             <span class="px-2 py-1 rounded-full text-xs font-semibold
-                                bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                        bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                 {{ $student->jurnals->count() }} entries
                             </span>
                         </div>
@@ -125,7 +125,8 @@
                                         @foreach($student->jurnals as $jurnal)
                                             <tr class="even:bg-neutral-50 dark:even:bg-neutral-700">
                                                 <td class="px-4 py-2 whitespace-nowrap">
-                                                    {{ \Carbon\Carbon::parse($jurnal->jurnal_date)->format('d M Y') }}</td>
+                                                    {{ \Carbon\Carbon::parse($jurnal->jurnal_date)->format('d M Y') }}
+                                                </td>
                                                 <td class="px-4 py-2">{{ $jurnal->activity }}</td>
                                             </tr>
                                         @endforeach
@@ -146,18 +147,25 @@
             @endforelse
         </div>
 
+        {{-- Pagination Links untuk Admin --}}
+        @if($students && $students->hasPages())
+            <div class="mt-6">
+                {{ $students->links() }}
+            </div>
+        @endif
+
     @else
         {{-- ========== TAMPILAN UNTUK MURID: Tabel List Jurnal ========== --}}
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
                 <thead class="text-xs text-neutral-700 uppercase bg-neutral-50 dark:text-neutral-400">
                     <tr class="
-                        bg-[#3526B3]/10
-                        dark:bg-[#8615D9]/20
-                        text-[#3526B3]
-                        dark:text-[#8615D9]
-                        text-left
-            ">
+                            bg-[#3526B3]/10
+                            dark:bg-[#8615D9]/20
+                            text-[#3526B3]
+                            dark:text-[#8615D9]
+                            text-left
+                ">
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Tanggal</th>
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Aktivitas</th>
                         <th class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">Aksi</th>
@@ -211,6 +219,13 @@
                 </tbody>
             </table>
         </div>
+
+        {{-- Pagination Links untuk Murid --}}
+        @if($jurnalUsers && $jurnalUsers->hasPages())
+            <div class="mt-6">
+                {{ $jurnalUsers->links() }}
+            </div>
+        @endif
     @endif
 </div>
 <script>

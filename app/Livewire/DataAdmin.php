@@ -48,7 +48,7 @@ class DataAdmin extends Component
     {
         return [
             'name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email,'.$this->selectedUserId,
+            'email' => 'required|email|unique:users,email,' . $this->selectedUserId,
             'password' => $this->selectedUserId ? 'nullable|min:6' : 'required|min:6',
             'divisi' => 'required',
             'sekolah' => 'required',
@@ -123,7 +123,7 @@ class DataAdmin extends Component
             'sekolah' => $this->sekolah,
         ];
 
-        if (! empty($this->password)) {
+        if (!empty($this->password)) {
             $data['password'] = Hash::make($this->password);
         }
 
@@ -135,23 +135,25 @@ class DataAdmin extends Component
     {
         $students = User::role('murid')
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%'.$this->search.'%')
-                    ->orWhere('email', 'like', '%'.$this->search.'%');
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
             })
             ->when($this->filterDivisi, function ($query) {
                 $query->where('divisi', $this->filterDivisi);
             })
             ->when($this->filterSekolah, function ($query) {
-                $query->where('sekolah', 'like', '%'.$this->filterSekolah.'%');
+                $query->where('sekolah', 'like', '%' . $this->filterSekolah . '%');
             })
             ->orderBy('name')
             ->paginate(10);
 
-        // Get unique sekolah for filter dropdown
-        $sekolahList = User::role('murid')
-            ->whereNotNull('sekolah')
-            ->distinct()
-            ->pluck('sekolah');
+        // Get unique sekolah for filter dropdown (cached for 1 hour)
+        $sekolahList = cache()->remember('sekolah_list_murid', 3600, function () {
+            return User::role('murid')
+                ->whereNotNull('sekolah')
+                ->distinct()
+                ->pluck('sekolah');
+        });
 
         return view('livewire.data-admin', [
             'students' => $students,

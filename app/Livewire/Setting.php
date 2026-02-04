@@ -347,11 +347,13 @@ class Setting extends Component
      */
     public function render(): View
     {
+        $divisiList = DivisiAdmin::query()->latest()->get();
+
         return view('livewire.setting', [
-            'divisiList' => DivisiAdmin::query()->latest()->get(),
+            'divisiList' => $divisiList,
             'sekolahList' => Sekolah::query()->latest()->get(),
             'mentorList' => Mentor::query()->with('divisi')->latest()->get(),
-            'divisiOptions' => DivisiAdmin::all(),
+            'divisiOptions' => $divisiList,
         ]);
     }
 }

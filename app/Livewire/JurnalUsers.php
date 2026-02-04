@@ -5,12 +5,11 @@ namespace App\Livewire;
 use App\Models\JurnalUser;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class JurnalUsers extends Component
 {
-    public $jurnalUsers;
-
-    public $students = []; // Untuk admin: list murid dengan jurnal mereka
+    use WithPagination;
 
     public $isAdmin = false;
 
@@ -18,22 +17,6 @@ class JurnalUsers extends Component
     {
         $user = auth()->user();
         $this->isAdmin = $user->hasRole('admin');
-
-        if ($this->isAdmin) {
-            // Admin: ambil semua murid beserta jurnal mereka
-            $this->students = User::role('murid')
-                ->with([
-                    'jurnals' => function ($query) {
-                        $query->orderBy('jurnal_date', 'desc');
-                    },
-                ])
-                ->get();
-        } else {
-            // Murid: hanya lihat jurnal sendiri
-            $this->jurnalUsers = JurnalUser::where('user_id', $user->id)
-                ->orderBy('jurnal_date', 'desc')
-                ->get();
-        }
     }
 
     public function prepareEdit($id)
@@ -44,11 +27,36 @@ class JurnalUsers extends Component
     public function prepareDelete($id)
     {
         JurnalUser::find($id)?->delete();
-        $this->mount(); // Refresh data
     }
 
     public function render()
     {
-        return view('livewire.jurnal-users');
+        $user = auth()->user();
+
+        if ($this->isAdmin) {
+            // Admin: ambil semua murid dengan pagination, limit jurnals per user
+            $students = User::role('murid')
+                ->with([
+                    'jurnals' => function ($query) {
+                        $query->orderBy('jurnal_date', 'desc')->limit(20);
+                    },
+                ])
+                ->paginate(15);
+
+            return view('livewire.jurnal-users', [
+                'students' => $students,
+                'jurnalUsers' => null,
+            ]);
+        } else {
+            // Murid: hanya lihat jurnal sendiri dengan pagination
+            $jurnalUsers = JurnalUser::where('user_id', $user->id)
+                ->orderBy('jurnal_date', 'desc')
+                ->paginate(20);
+
+            return view('livewire.jurnal-users', [
+                'students' => null,
+                'jurnalUsers' => $jurnalUsers,
+            ]);
+        }
     }
 }
