@@ -29,7 +29,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'password', 'divisi', 'sekolah'];
+    protected $fillable = ['name', 'email', 'password', 'divisi', 'sekolah', 'mentor_id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -86,5 +86,15 @@ class User extends Authenticatable
     public function jurnals(): HasMany
     {
         return $this->hasMany(JurnalUser::class);
+    }
+
+    /**
+     * Get the user's mentor.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Mentor,User>
+     */
+    public function mentor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Mentor::class);
     }
 }

@@ -18,26 +18,21 @@
             <div class="flex-1 w-full">
                 <div class="flex items-start justify-between">
                     <div>
-                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">siti</h2>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-300">siti@gmail.com</p>
+                        <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">{{ $name }}</h2>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-300">{{ $email }}</p>
                     </div>
                 </div>
 
-                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="mt-4">
                     <div class="p-3 bg-gray-50 dark:bg-neutral-700 rounded">
                         <div class="text-xs text-neutral-500 dark:text-neutral-300">Divisi</div>
-                        <div class="text-sm font-medium text-neutral-800 dark:text-neutral-100">Project</div>
-                    </div>
-
-                    <div class="p-3 bg-gray-50 dark:bg-neutral-700 rounded">
-                        <div class="text-xs text-neutral-500 dark:text-neutral-300">Nomor Telepon</div>
-                        <div class="text-sm font-medium text-neutral-800 dark:text-neutral-100">08012345678</div>
+                        <div class="text-sm font-medium text-neutral-800 dark:text-neutral-100">{{ $divisi }}</div>
                     </div>
                 </div>
 
                 <div class="mt-4 p-4 bg-gray-50 dark:bg-neutral-700 rounded">
                     <div class="text-xs text-neutral-500 dark:text-neutral-300">Deskripsi</div>
-                    <div class="mt-2 text-sm text-neutral-800 dark:text-neutral-100">project yang menyenangkan</div>
+                    <div class="mt-2 text-sm text-neutral-800 dark:text-neutral-100">{{ $description }}</div>
                 </div>
             </div>
         </div>

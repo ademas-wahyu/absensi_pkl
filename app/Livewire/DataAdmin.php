@@ -29,6 +29,8 @@ class DataAdmin extends Component
 
     public $sekolah = '';
 
+    public $mentor_id = '';
+
     // List divisi yang tersedia
     public $divisiList = [
         'SEO',
@@ -51,7 +53,8 @@ class DataAdmin extends Component
             'email' => 'required|email|unique:users,email,' . $this->selectedUserId,
             'password' => $this->selectedUserId ? 'nullable|min:6' : 'required|min:6',
             'divisi' => 'required',
-            'sekolah' => 'required',
+            'sekolah' => $this->selectedUserId ? 'nullable' : 'required',
+            'mentor_id' => 'nullable|exists:mentors,id',
         ];
     }
 
@@ -65,7 +68,16 @@ class DataAdmin extends Component
         $this->password = '';
         $this->divisi = '';
         $this->sekolah = '';
+        $this->mentor_id = '';
         $this->resetValidation();
+    }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->filterDivisi = '';
+        $this->filterSekolah = '';
+        $this->resetPage();
     }
 
     public function edit($id)
@@ -76,12 +88,21 @@ class DataAdmin extends Component
         $this->email = $user->email;
         $this->divisi = $user->divisi;
         $this->sekolah = $user->sekolah;
+        $this->mentor_id = $user->mentor_id;
 
         // Password dikosongkan saat edit
         $this->password = '';
 
         $this->resetValidation();
         Flux::modal('tambah-anak')->show();
+    }
+
+    /**
+     * Get divisi options for dropdown
+     */
+    public function getDivisiOptions()
+    {
+        return \App\Models\DivisiAdmin::orderBy('nama_divisi')->get();
     }
 
     public function save()
@@ -106,6 +127,7 @@ class DataAdmin extends Component
             'password' => Hash::make($this->password),
             'divisi' => $this->divisi,
             'sekolah' => $this->sekolah,
+            'mentor_id' => $this->mentor_id,
         ]);
 
         $user->assignRole('murid');
@@ -121,6 +143,7 @@ class DataAdmin extends Component
             'email' => $this->email,
             'divisi' => $this->divisi,
             'sekolah' => $this->sekolah,
+            'mentor_id' => $this->mentor_id,
         ];
 
         if (!empty($this->password)) {
@@ -134,9 +157,13 @@ class DataAdmin extends Component
     public function render()
     {
         $students = User::role('murid')
+            ->with('mentor')
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
+                $searchTerm = '%' . $this->search . '%';
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('name', 'like', $searchTerm)
+                        ->orWhere('email', 'like', $searchTerm);
+                });
             })
             ->when($this->filterDivisi, function ($query) {
                 $query->where('divisi', $this->filterDivisi);
@@ -152,12 +179,25 @@ class DataAdmin extends Component
             return User::role('murid')
                 ->whereNotNull('sekolah')
                 ->distinct()
+                ->orderBy('sekolah')
                 ->pluck('sekolah');
+        });
+
+        // Get mentors for dropdown (cached for 1 hour)
+        $mentorList = cache()->remember('mentor_list', 3600, function () {
+            return \App\Models\Mentor::orderBy('nama_mentor')->get();
+        });
+
+        // Get divisi options for dropdown (cached for 1 hour)
+        $divisiOptions = cache()->remember('divisi_options', 3600, function () {
+            return $this->getDivisiOptions();
         });
 
         return view('livewire.data-admin', [
             'students' => $students,
             'sekolahList' => $sekolahList,
+            'mentorList' => $mentorList,
+            'divisiOptions' => $divisiOptions,
         ]);
     }
 }

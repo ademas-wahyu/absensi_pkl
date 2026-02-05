@@ -83,8 +83,8 @@
                         bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200
                         focus:ring-2 focus:ring-[#3526B3] dark:focus:ring-[#8615D9] focus:border-transparent">
                         <option value="">Pilih Divisi</option>
-                        @foreach($divisiList as $div)
-                            <option value="{{ $div }}">{{ $div }}</option>
+                        @foreach($divisiOptions as $divisi)
+                            <option value="{{ $divisi->nama_divisi }}">{{ $divisi->nama_divisi }}</option>
                         @endforeach
                     </select>
                     @error('divisi') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -94,11 +94,29 @@
                 <div>
                     <label
                         class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Sekolah/Universitas</label>
-                    <input type="text" wire:model="sekolah" class="w-full px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 
+                    <select wire:model="sekolah" class="w-full px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 
                         bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200
-                        focus:ring-2 focus:ring-[#3526B3] dark:focus:ring-[#8615D9] focus:border-transparent"
-                        placeholder="Nama sekolah atau universitas">
+                        focus:ring-2 focus:ring-[#3526B3] dark:focus:ring-[#8615D9] focus:border-transparent">
+                        <option value="">Pilih Sekolah</option>
+                        @foreach($sekolahList as $sekolah)
+                            <option value="{{ $sekolah }}">{{ $sekolah }}</option>
+                        @endforeach
+                    </select>
                     @error('sekolah') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                {{-- Mentor --}}
+                <div>
+                    <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Mentor</label>
+                    <select wire:model="mentor_id" class="w-full px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 
+                        bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200
+                        focus:ring-2 focus:ring-[#3526B3] dark:focus:ring-[#8615D9] focus:border-transparent">
+                        <option value="">Pilih Mentor (Opsional)</option>
+                        @foreach($mentorList as $mentor)
+                            <option value="{{ $mentor->id }}">{{ $mentor->nama_mentor }}</option>
+                        @endforeach
+                    </select>
+                    @error('mentor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 {{-- Buttons --}}
@@ -187,16 +205,17 @@
     <div
         class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-sm">
         <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
-            <thead class="text-xs uppercase">
-                <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20 text-[#3526B3] dark:text-[#8615D9]">
-                    <th class="px-4 py-3 font-semibold">No</th>
-                    <th class="px-4 py-3 font-semibold">Nama</th>
-                    <th class="px-4 py-3 font-semibold">Email</th>
-                    <th class="px-4 py-3 font-semibold">Divisi</th>
-                    <th class="px-4 py-3 font-semibold">Sekolah/Universitas</th>
-                    <th class="px-4 py-3 font-semibold">Aksi</th>
-                </tr>
-            </thead>
+                <thead class="text-xs uppercase">
+                    <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20 text-[#3526B3] dark:text-[#8615D9]">
+                        <th class="px-4 py-3 font-semibold">No</th>
+                        <th class="px-4 py-3 font-semibold">Nama</th>
+                        <th class="px-4 py-3 font-semibold">Email</th>
+                        <th class="px-4 py-3 font-semibold">Divisi</th>
+                        <th class="px-4 py-3 font-semibold">Sekolah/Universitas</th>
+                        <th class="px-4 py-3 font-semibold">Mentor</th>
+                        <th class="px-4 py-3 font-semibold">Aksi</th>
+                    </tr>
+                </thead>
             <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                 @forelse($students as $index => $student)
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors">
@@ -231,6 +250,15 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
+                            @if($student->mentor)
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                    {{ $student->mentor->nama_mentor }}
+                                </span>
+                            @else
+                                <span class="text-neutral-400 dark:text-neutral-500 italic">Belum ada</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3">
                             <flux:button variant="ghost" size="sm" wire:click="edit({{ $student->id }})"
                                 icon="pencil-square">
                             </flux:button>
@@ -238,7 +266,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-8 text-center text-neutral-500 dark:text-neutral-400">
+                        <td colspan="7" class="px-4 py-8 text-center text-neutral-500 dark:text-neutral-400">
                             @if($search || $filterDivisi || $filterSekolah)
                                 Tidak ada data yang sesuai dengan filter.
                             @else
