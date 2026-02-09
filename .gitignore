@@ -21,3 +21,4 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+DEBUGGING_REPORT.md

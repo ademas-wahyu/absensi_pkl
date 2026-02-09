@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\JurnalUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,7 +28,12 @@ class JurnalUsers extends Component
 
     public function prepareDelete($id)
     {
-        JurnalUser::find($id)?->delete();
+        $jurnal = JurnalUser::findOrFail($id);
+        
+        // ✅ Authorization check - users can only delete their own journals, admins can delete any
+        Gate::authorize('delete', $jurnal);
+        
+        $jurnal->delete();
     }
 
     public function render()

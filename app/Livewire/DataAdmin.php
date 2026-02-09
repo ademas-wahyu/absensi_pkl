@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Flux\Flux;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -83,6 +84,10 @@ class DataAdmin extends Component
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        
+        // ✅ Authorization check - only admins can edit users
+        Gate::authorize('update', $user);
+        
         $this->selectedUserId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
@@ -121,6 +126,9 @@ class DataAdmin extends Component
 
     public function createUser()
     {
+        // ✅ Authorization check - only admins can create users
+        Gate::authorize('create', User::class);
+        
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -137,6 +145,9 @@ class DataAdmin extends Component
     public function updateUser()
     {
         $user = User::findOrFail($this->selectedUserId);
+        
+        // ✅ Authorization check - only admins can update users
+        Gate::authorize('update', $user);
 
         $data = [
             'name' => $this->name,
