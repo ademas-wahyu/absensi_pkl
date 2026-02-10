@@ -2,15 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Models\AbsentAdmin as AbsentAdminModel;
 use Livewire\Component;
 
 class AbsentAdmin extends Component
 {
     public $absentAdmin;
 
-    public function mount()
+    public function mount(): void
     {
-        $this->absentAdmin = AbsentAdmin::all();
+        $this->absentAdmin = AbsentAdminModel::all();
     }
 
     public function render()

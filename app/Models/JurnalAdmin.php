@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class JurnalAdmin extends Model
 {
@@ -11,4 +12,9 @@ class JurnalAdmin extends Model
         'jurnal_date',
         'activity',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

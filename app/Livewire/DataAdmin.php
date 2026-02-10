@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Flux\Flux;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -32,16 +33,7 @@ class DataAdmin extends Component
 
     public $mentor_id = '';
 
-    // List divisi yang tersedia
-    public $divisiList = [
-        'SEO',
-        'Project',
-        'Technical Support',
-        'Media Sosial',
-        'Customer Service',
-        'Admin Pelunasan',
-        'Finance',
-    ];
+
 
     public $selectedUserId = null; // ID user yang sedang diedit
 
@@ -84,10 +76,10 @@ class DataAdmin extends Component
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        
+
         // ✅ Authorization check - only admins can edit users
         Gate::authorize('update', $user);
-        
+
         $this->selectedUserId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
@@ -126,26 +118,29 @@ class DataAdmin extends Component
 
     public function createUser()
     {
-        // ✅ Authorization check - only admins can create users
         Gate::authorize('create', User::class);
-        
-        $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'divisi' => $this->divisi,
-            'sekolah' => $this->sekolah,
-            'mentor_id' => $this->mentor_id,
-        ]);
 
-        $user->assignRole('murid');
+        DB::transaction(function () {
+            $user = User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => Hash::make($this->password),
+                'divisi' => $this->divisi,
+                'sekolah' => $this->sekolah,
+                'mentor_id' => $this->mentor_id,
+            ]);
+
+            $user->assignRole('murid');
+        });
+
+        $this->invalidateCache();
         session()->flash('success', 'Anak PKL berhasil ditambahkan!');
     }
 
     public function updateUser()
     {
         $user = User::findOrFail($this->selectedUserId);
-        
+
         // ✅ Authorization check - only admins can update users
         Gate::authorize('update', $user);
 
@@ -162,7 +157,15 @@ class DataAdmin extends Component
         }
 
         $user->update($data);
+        $this->invalidateCache();
         session()->flash('success', 'Data anak PKL berhasil diperbarui!');
+    }
+
+    private function invalidateCache(): void
+    {
+        cache()->forget('sekolah_list_murid');
+        cache()->forget('mentor_list');
+        cache()->forget('divisi_options');
     }
 
     public function render()

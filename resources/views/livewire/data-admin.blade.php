@@ -162,8 +162,8 @@
                     bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200
                     focus:ring-2 focus:ring-[#3526B3] dark:focus:ring-[#8615D9] focus:border-transparent">
                     <option value="">Semua Divisi</option>
-                    @foreach($divisiList as $divisi)
-                        <option value="{{ $divisi }}">{{ $divisi }}</option>
+                    @foreach($divisiOptions as $divisi)
+                        <option value="{{ $divisi->nama_divisi }}">{{ $divisi->nama_divisi }}</option>
                     @endforeach
                 </select>
             </div>
@@ -205,17 +205,17 @@
     <div
         class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-sm">
         <table class="w-full text-sm text-left text-neutral-700 dark:text-neutral-300">
-                <thead class="text-xs uppercase">
-                    <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20 text-[#3526B3] dark:text-[#8615D9]">
-                        <th class="px-4 py-3 font-semibold">No</th>
-                        <th class="px-4 py-3 font-semibold">Nama</th>
-                        <th class="px-4 py-3 font-semibold">Email</th>
-                        <th class="px-4 py-3 font-semibold">Divisi</th>
-                        <th class="px-4 py-3 font-semibold">Sekolah/Universitas</th>
-                        <th class="px-4 py-3 font-semibold">Mentor</th>
-                        <th class="px-4 py-3 font-semibold">Aksi</th>
-                    </tr>
-                </thead>
+            <thead class="text-xs uppercase">
+                <tr class="bg-[#3526B3]/10 dark:bg-[#8615D9]/20 text-[#3526B3] dark:text-[#8615D9]">
+                    <th class="px-4 py-3 font-semibold">No</th>
+                    <th class="px-4 py-3 font-semibold">Nama</th>
+                    <th class="px-4 py-3 font-semibold">Email</th>
+                    <th class="px-4 py-3 font-semibold">Divisi</th>
+                    <th class="px-4 py-3 font-semibold">Sekolah/Universitas</th>
+                    <th class="px-4 py-3 font-semibold">Mentor</th>
+                    <th class="px-4 py-3 font-semibold">Aksi</th>
+                </tr>
+            </thead>
             <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
                 @forelse($students as $index => $student)
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors">
@@ -224,7 +224,7 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-8 h-8 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                            flex items-center justify-center text-white font-semibold text-xs">
+                                                                                flex items-center justify-center text-white font-semibold text-xs">
                                     {{ strtoupper(substr($student->name, 0, 2)) }}
                                 </div>
                                 <span class="font-medium">{{ $student->name }}</span>
@@ -235,7 +235,7 @@
                             @if($student->divisi)
                                 <span
                                     class="px-2 py-1 rounded-full text-xs font-medium 
-                                                                                                                    bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                                                                                                            bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                     {{ $student->divisi }}
                                 </span>
                             @else
@@ -251,7 +251,8 @@
                         </td>
                         <td class="px-4 py-3">
                             @if($student->mentor)
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                <span
+                                    class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
                                     {{ $student->mentor->nama_mentor }}
                                 </span>
                             @else

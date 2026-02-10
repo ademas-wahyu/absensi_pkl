@@ -30,6 +30,7 @@ class JurnalUserInput extends Component
             'activity' => $this->activity,
         ]);
 
+        session()->flash('message', 'Jurnal berhasil disimpan!');
         // Reset form fields
         $this->reset();
         // Close modal
@@ -41,5 +42,5 @@ class JurnalUserInput extends Component
         return view('livewire.jurnal-user-input');
     }
 
-    
+
 }

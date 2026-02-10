@@ -21,6 +21,16 @@ class AbsentUserInput extends Component
      */
     public function verifyQrCode($token)
     {
+        // Cek apakah sudah absen hari ini
+        $existingAbsent = AbsentUser::where('user_id', auth()->id())
+            ->where('absent_date', now()->toDateString())
+            ->first();
+
+        if ($existingAbsent) {
+            $this->js("alert('Anda sudah absen hari ini!')");
+            return;
+        }
+
         $setting = \App\Models\Setting::where('key', 'attendance_token')->first();
 
         if (!$setting || $setting->value !== $token) {

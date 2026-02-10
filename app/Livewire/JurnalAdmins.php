@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\JurnalAdmin;
 use Livewire\Component;
 
 class JurnalAdmins extends Component
 {
     public $jurnalAdmin;
 
-    public function mount()
+    public function mount(): void
     {
         $this->jurnalAdmin = JurnalAdmin::all();
     }

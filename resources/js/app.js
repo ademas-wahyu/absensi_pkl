@@ -15,6 +15,8 @@
 
 import QRCode from 'qrcode';
 import { Html5Qrcode } from 'html5-qrcode';
+import Swal from 'sweetalert2';
 
 window.QRCode = QRCode;
 window.Html5Qrcode = Html5Qrcode;
+window.Swal = Swal;

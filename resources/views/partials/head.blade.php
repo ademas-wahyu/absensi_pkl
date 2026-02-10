@@ -3,8 +3,7 @@
 
 <title>{{ $title ?? config('app.name') }}</title>
 
-<link rel="icon" href="/favicon.jpg" sizes="any">
-<link rel="icon" href="/favicon.jpg" type="image/svg+xml">
+<link rel="icon" href="{{ asset('favicon.jpg') }}" type="image/jpeg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.bunny.net">
@@ -20,4 +19,3 @@
         document.documentElement.classList.remove('dark');
     }
 </script>
-

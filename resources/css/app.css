@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import '../../vendor/livewire/flux/dist/flux.css';
+@import "tailwindcss";
+@import "../../vendor/livewire/flux/dist/flux.css";
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -9,7 +9,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -37,7 +40,6 @@
 }
 
 @layer base {
-
     *,
     ::after,
     ::before,
@@ -52,7 +54,7 @@
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
@@ -64,3 +66,80 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/* ============================================
+   Login Mobile - Gradient Ungu-Biru
+   ============================================ */
+
+.login-gradient-header {
+    background: linear-gradient(135deg, #7b2ff7 0%, #4a5fe0 40%, #2196f3 100%);
+    border-radius: 0 0 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-gradient-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(123, 47, 247, 0.3) 0%,
+        transparent 50%,
+        rgba(33, 150, 243, 0.3) 100%
+    );
+    animation: login-shimmer 4s ease-in-out infinite alternate;
+}
+
+@keyframes login-shimmer {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.login-btn-gradient {
+    background: linear-gradient(135deg, #7b2ff7 0%, #4a5fe0 50%, #2196f3 100%);
+    border: none;
+    color: white;
+    border-radius: 9999px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+}
+
+.login-btn-gradient:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(123, 47, 247, 0.4);
+}
+
+.login-btn-gradient:active {
+    transform: translateY(0);
+}
+
+.login-input-field {
+    border: 1.5px solid #e0e0e0;
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    width: 100%;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    outline: none;
+    background: white;
+}
+
+.login-input-field:focus {
+    border-color: #7b2ff7;
+    box-shadow: 0 0 0 3px rgba(123, 47, 247, 0.1);
+}
+
+.login-input-field::placeholder {
+    color: #b0b0b0;
+}

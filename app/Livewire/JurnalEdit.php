@@ -4,8 +4,9 @@ namespace App\Livewire;
 
 use App\Models\JurnalUser;
 use Flux\Flux;
-use Livewire\Component;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class JurnalEdit extends Component
 {
@@ -23,38 +24,40 @@ class JurnalEdit extends Component
         return view('livewire.jurnal-edit');
     }
 
-   #[On('editJurnal')]
-public function loadJurnal($id = null) // Tambahkan default null untuk menghindari crash jika id kosong
-{
-    if (!$id) return;
+    #[On('editJurnal')]
+    public function loadJurnal($id = null) // Tambahkan default null untuk menghindari crash jika id kosong
+    {
+        if (!$id)
+            return;
 
-    $jurnal = JurnalUser::findOrFail($id);
-    
-    $this->jurnalId = $jurnal->id;
-    $this->jurnal_date = $jurnal->jurnal_date;
-    $this->activity = $jurnal->activity;
+        $jurnal = JurnalUser::findOrFail($id);
 
-    $this->resetValidation();
-    
-    // Memicu modal untuk terbuka (setelah data terisi)
-    $this->dispatch('show-edit-modal'); 
-}
+        $this->jurnalId = $jurnal->id;
+        $this->jurnal_date = $jurnal->jurnal_date;
+        $this->activity = $jurnal->activity;
+
+        $this->resetValidation();
+
+        // Memicu modal untuk terbuka (setelah data terisi)
+        $this->dispatch('show-edit-modal');
+    }
 
 
-   public function submit()
-{
-    $this->validate();
+    public function submit()
+    {
+        $this->validate();
 
-    $jurnal = \App\Models\JurnalUser::findOrFail($this->jurnalId);
-    $jurnal->update([
-        'jurnal_date' => $this->jurnal_date,
-        'activity' => $this->activity,
-    ]);
+        $jurnal = \App\Models\JurnalUser::findOrFail($this->jurnalId);
+        Gate::authorize('update', $jurnal);
+        $jurnal->update([
+            'jurnal_date' => $this->jurnal_date,
+            'activity' => $this->activity,
+        ]);
 
-    // Mengirim sinyal ke browser untuk menutup modal
-    $this->dispatch('close-edit-modal'); 
+        // Mengirim sinyal ke browser untuk menutup modal
+        $this->dispatch('close-edit-modal');
 
-    // Refresh tabel utama agar data terbaru muncul
-    $this->dispatch('jurnalUpdated');
-}
+        // Refresh tabel utama agar data terbaru muncul
+        $this->dispatch('jurnalUpdated');
+    }
 }

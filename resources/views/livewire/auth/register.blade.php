@@ -29,16 +29,18 @@
                 <flux:radio value="mentor" label="Mentor" />
             </flux:radio.group>
 
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
+            <div class="pt-2">
+                <button type="submit" class="login-btn-gradient w-full" data-test="register-user-button">
                     {{ __('Create account') }}
-                </flux:button>
+                </button>
             </div>
         </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
+        <div class="space-x-1 text-center text-sm text-gray-500">
             <span>{{ __('Already have an account?') }}</span>
-            <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+            <a href="{{ route('login') }}"
+                class="text-purple-600 hover:text-purple-700 font-semibold underline transition-colors"
+                wire:navigate>{{ __('Log in') }}</a>
         </div>
     </div>
 </x-layouts.auth>
