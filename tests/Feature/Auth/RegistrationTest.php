@@ -16,10 +16,22 @@ test('new users can register', function () {
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'divisi' => 'IT',
+        'sekolah' => 'SMK Tech',
     ]);
 
     $response->assertSessionHasNoErrors()
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
+
+    $this->assertDatabaseHas('users', [
+        'email' => 'test@example.com',
+        'divisi' => 'IT',
+        'sekolah' => 'SMK Tech',
+    ]);
+
+    $this->assertDatabaseHas('sekolahs', [
+        'nama_sekolah' => 'SMK Tech',
+    ]);
 });

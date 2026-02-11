@@ -23,7 +23,26 @@
             <flux:input name="password_confirmation" :label="__('Confirm password')" type="password" required
                 autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
 
+            <!-- Divisi -->
+            <flux:select name="divisi" :label="__('Divisi')" required :placeholder="__('Pilih Divisi')">
+                @foreach ($divisis as $divisi)
+                    <flux:select.option value="{{ $divisi->nama_divisi }}">{{ $divisi->nama_divisi }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            @error('divisi') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
+            <!-- Sekolah -->
+            <flux:input name="sekolah" :label="__('Sekolah')" :value="old('sekolah')" type="text" required
+                autocomplete="organization" :placeholder="__('Nama Sekolah')" />
+
+            <!-- Mentor (Optional) -->
+            <flux:select name="mentor_id" :label="__('Mentor (Optional)')" :placeholder="__('Pilih Mentor (Jika ada)')">
+                <flux:select.option value="">{{ __('Tidak ada / Belum tahu') }}</flux:select.option>
+                @foreach ($mentors as $mentor)
+                    <flux:select.option value="{{ $mentor->id }}">{{ $mentor->nama_mentor }}</flux:select.option>
+                @endforeach
+            </flux:select>
+            @error('mentor_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
             <div class="pt-2">
                 <button type="submit" class="login-btn-gradient w-full" data-test="register-user-button">
