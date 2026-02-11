@@ -101,17 +101,43 @@ class AbsentUserInput extends Component
         try {
             // Hapus header base64 jika ada
             $imageData = preg_replace('/^data:image\/\w+;base64,/', '', $imageBase64);
-            $imageData = base64_decode($imageData);
+            $decodedData = base64_decode($imageData);
 
-            if (!$imageData) {
+            if (!$decodedData) {
                 return null;
             }
 
-            // Generate nama file unik
-            $filename = 'selfies/' . $userId . '_' . now()->format('Y-m-d_His') . '.jpg';
+            // Validasi Ukuran File (Max 2MB)
+            // 2 * 1024 * 1024 = 2097152 bytes
+            if (strlen($decodedData) > 2097152) {
+                $this->js("alert('Ukuran file terlalu besar! Maksimal 2MB.');");
+                return null;
+            }
+
+            // Validasi Tipe File (MIME Type)
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            $mimeType = $finfo->buffer($decodedData);
+
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+            if (!in_array($mimeType, $allowedMimeTypes)) {
+                $this->js("alert('Format file tidak valid! Harap upload gambar (JPG, PNG, GIF, WEBP).');");
+                return null;
+            }
+
+            // Generate nama file unik dengan ekstensi yang benar
+            $extension = match ($mimeType) {
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png',
+                'image/gif' => 'gif',
+                'image/webp' => 'webp',
+                default => 'jpg'
+            };
+
+            $filename = 'selfies/' . $userId . '_' . now()->format('Y-m-d_His') . '.' . $extension;
 
             // Simpan ke storage
-            Storage::disk('public')->put($filename, $imageData);
+            Storage::disk('public')->put($filename, $decodedData);
 
             return $filename;
         } catch (\Exception $e) {

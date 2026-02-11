@@ -23,11 +23,7 @@
             <flux:input name="password_confirmation" :label="__('Confirm password')" type="password" required
                 autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
 
-            <!-- Role Selection -->
-            <flux:radio.group label="Register as" name="role" variant="segmented">
-                <flux:radio value="murid" label="Murid PKL" />
-                <flux:radio value="mentor" label="Mentor" />
-            </flux:radio.group>
+
 
             <div class="pt-2">
                 <button type="submit" class="login-btn-gradient w-full" data-test="register-user-button">

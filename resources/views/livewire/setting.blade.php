@@ -213,36 +213,47 @@
     {{--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> --}}
     <script>
+        {{-- Gunakan CDN untuk memastikan library terload --}}
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
+    <script>
         document.addEventListener('livewire:initialized', () => {
             const renderQr = (token) => {
                 const canvas = document.getElementById("qrcode-canvas");
                 if (!canvas) return;
 
-                // Clear canvas if needed, though toCanvas overwrites
-                if (token) {
-                    // Check if QRCode is loaded (it might take a moment if bunled differently, but usually fine in app.js module)
-                    if (window.QRCode) {
-                        window.QRCode.toCanvas(canvas, token, { width: 150, margin: 2 }, function (error) {
-                            if (error) console.error(error)
-                            console.log('success!');
-                        })
-                        const msg = document.getElementById('no-qr-msg');
-                        if (msg) msg.style.display = 'none';
-                    } else {
-                        console.error("QRCode library not found");
-                    }
+                console.log("Attempting to render QR for token:", token);
+
+                // Cek apakah library QRCode tersedia
+                if (typeof QRCode !== 'undefined') {
+                    QRCode.toCanvas(canvas, token, { width: 200, margin: 2 }, function (error) {
+                        if (error) {
+                            console.error('QR Generation Error:', error);
+                            alert('Gagal membuat QR Code.');
+                        } else {
+                            console.log('QR Code generated successfully!');
+                        }
+                    });
+                    
+                    const msg = document.getElementById('no-qr-msg');
+                    if (msg) msg.style.display = 'none';
+                } else {
+                    console.error("QRCode library missing!");
+                    alert("Library QR Code tidak terload. Periksa koneksi internet.");
                 }
             };
 
             // Init load
             if (@json($attendance_token)) {
-                renderQr(@json($attendance_token));
+                // Beri sedikit delay untuk memastikan DOM siap sepenuhnya
+                setTimeout(() => renderQr(@json($attendance_token)), 100);
             }
 
             Livewire.on('qr-code-generated', ({ token }) => {
-                renderQr(token);
+                setTimeout(() => renderQr(token), 100);
             });
         });
+    </script>
     </script>
 
     <!-- MODAL DIVISI -->

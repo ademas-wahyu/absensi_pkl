@@ -38,10 +38,7 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => $input['password'],
             ]);
 
-            $validRoles = ['murid', 'mentor'];
-            $role = isset($input['role']) && in_array($input['role'], $validRoles) ? $input['role'] : 'murid';
-
-            $user->assignRole($role);
+            $user->assignRole('murid');
 
             return $user;
         });
