@@ -31,9 +31,10 @@ class AbsentUserInput extends Component
             return;
         }
 
-        $setting = \App\Models\Setting::where('key', 'attendance_token')->first();
 
-        if (!$setting || $setting->value !== $token) {
+        $envToken = env('WFO_QR_TOKEN');
+
+        if (!$envToken || $envToken !== $token) {
             $this->js("alert('QR Code tidak valid!');");
             return;
         }
