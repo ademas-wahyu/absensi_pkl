@@ -73,6 +73,21 @@ class DataAdmin extends Component
         $this->resetPage();
     }
 
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterDivisi()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilterSekolah()
+    {
+        $this->resetPage();
+    }
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -173,10 +188,12 @@ class DataAdmin extends Component
         $students = User::role('murid')
             ->with('mentor')
             ->when($this->search, function ($query) {
-                $searchTerm = '%' . $this->search . '%';
+                // Gunakan pencarian case-insensitive yang kompatibel dengan berbagai driver database
+                // Jika SQLite (testing) gunakan like, jika Postgres gunakan ilike, jika MySQL default case-insensitive
+                $searchTerm = '%' . strtolower($this->search) . '%';
                 $query->where(function ($q) use ($searchTerm) {
-                    $q->where('name', 'like', $searchTerm)
-                        ->orWhere('email', 'like', $searchTerm);
+                    $q->where(DB::raw('LOWER(name)'), 'like', $searchTerm)
+                        ->orWhere(DB::raw('LOWER(email)'), 'like', $searchTerm);
                 });
             })
             ->when($this->filterDivisi, function ($query) {
