@@ -48,6 +48,7 @@ class AbsentUserInput extends Component
 
         Flux::modal('input-absent-user')->close();
         $this->dispatch('close-scanner');
+        $this->dispatch('absent-created');
         session()->flash('message', 'Absensi via QR Berhasil!');
     }
 
@@ -90,6 +91,7 @@ class AbsentUserInput extends Component
 
         Flux::modal('input-absent-user')->close();
         $this->dispatch('close-camera');
+        $this->dispatch('absent-created');
         session()->flash('message', 'Absensi via Selfie Berhasil!');
     }
 

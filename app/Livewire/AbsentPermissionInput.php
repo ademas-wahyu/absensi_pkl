@@ -28,6 +28,7 @@ class AbsentPermissionInput extends Component
         $this->reason = '';
 
         Flux::modal('input-permission')->close();
+        $this->dispatch('absent-created');
 
         // Refresh the parent component if needed, or just redirect/notify
         // Since the parent component (AbsentUsers) listens to DB changes usually via polling or refresh, 
