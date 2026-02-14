@@ -177,7 +177,7 @@
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700 text-center">
                                 <div class="inline-flex items-center gap-3">
                                     <flux:button type="button" wire:click="edit({{ $jurnalUser->id }})" variant="ghost"
-                                        size="sm" class="!p-0 !bg-transparent !border-0 !shadow-none" title="Edit">
+                                        size="sm" class="p-0! bg-transparent! border-0! shadow-none!" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
                                             fill="none" stroke="#002aff" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round">
