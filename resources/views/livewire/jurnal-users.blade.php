@@ -12,8 +12,22 @@
             </a>
         </div>
 
-        @role('murid')
-        <div class="flex items-center">
+        <div class="flex items-center gap-2">
+            <flux:modal.trigger name="export-jurnal">
+                <flux:button
+                    class="bg-white hover:bg-neutral-50 border border-neutral-300 text-neutral-700! dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-300!">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-1">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" x2="12" y1="15" y2="3" />
+                    </svg>
+                    Export Rekapan
+                </flux:button>
+            </flux:modal.trigger>
+
+            @role('murid')
             <flux:modal.trigger name="input-jurnal-user">
                 <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -25,9 +39,12 @@
                     Input Jurnal
                 </flux:button>
             </flux:modal.trigger>
+            @endrole
         </div>
-        @endrole
     </div>
+
+    {{-- Modal Export Rekapan Jurnal --}}
+    <livewire:export-jurnal />
 
     @role('murid')
     <livewire:jurnal-user-input />

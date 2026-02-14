@@ -54,8 +54,8 @@ class AbsentUsers extends Component
             })
             ->get();
 
-        $present = $absentsToday->where('status', 'hadir')->count();
-        $permission = $absentsToday->whereIn('status', ['izin', 'sakit'])->count();
+        $present = $absentsToday->filter(fn($a) => strtolower($a->status) === 'hadir')->count();
+        $permission = $absentsToday->filter(fn($a) => in_array(strtolower($a->status), ['izin', 'sakit']))->count();
         $alpha = $totalStudents - ($present + $permission);
 
         return [

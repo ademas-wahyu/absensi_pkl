@@ -13,10 +13,24 @@
         </div>
 
         {{-- Tombol Input Absent hanya untuk Murid --}}
-        @role('murid')
-        <div class="flex items-center">
+        <div class="flex items-center gap-2">
+            <flux:modal.trigger name="export-absensi">
+                <flux:button
+                    class="bg-white hover:bg-neutral-50 border border-neutral-300 text-neutral-700! dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-300!">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-1">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" x2="12" y1="15" y2="3" />
+                    </svg>
+                    Export Rekapan
+                </flux:button>
+            </flux:modal.trigger>
+
+            @role('murid')
             <flux:modal.trigger name="input-permission">
-                <flux:button class="bg-white hover:bg-neutral-50 border border-black text-black! mr-2">
+                <flux:button class="bg-white hover:bg-neutral-50 border border-black text-black!">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-file-text w-5 h-5 mr-1">
@@ -41,9 +55,12 @@
                     Absen
                 </flux:button>
             </flux:modal.trigger>
+            @endrole
         </div>
-        @endrole
     </div>
+
+    {{-- Modal Export Rekapan Absensi --}}
+    <livewire:export-absensi />
 
     {{-- Modal Input Absent untuk Murid --}}
     @role('murid')
@@ -198,18 +215,18 @@
                 @endphp
                 <div
                     class="relative w-full min-w-0 overflow-hidden rounded-xl
-                                                                                    border border-neutral-200 dark:border-neutral-700
-                                                                                    bg-white dark:bg-neutral-800
-                                                                                    shadow-md hover:shadow-xl transition-shadow duration-200">
+                                                                                            border border-neutral-200 dark:border-neutral-700
+                                                                                            bg-white dark:bg-neutral-800
+                                                                                            shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div
                         class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                                                                                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                                                                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                                                flex items-center justify-center text-white font-semibold text-lg">
+                                                                                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -230,10 +247,10 @@
                         <div class="mb-4">
                             @if($todayAbsent)
                                 <div class="flex items-center gap-2 p-3 rounded-lg
-                                                            @if(strtolower($todayAbsent->status) == 'hadir') bg-green-50 border border-green-200 dark:bg-green-900/20 dark:border-green-800
-                                                            @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) bg-yellow-50 border border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800
-                                                            @else bg-neutral-50 border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 
-                                                            @endif">
+                                                                        @if(strtolower($todayAbsent->status) == 'hadir') bg-green-50 border border-green-200 dark:bg-green-900/20 dark:border-green-800
+                                                                        @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) bg-yellow-50 border border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800
+                                                                        @else bg-neutral-50 border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 
+                                                                        @endif">
 
                                     {{-- Icon --}}
                                     @if(strtolower($todayAbsent->status) == 'hadir')
@@ -253,9 +270,9 @@
 
                                     <div>
                                         <p class="font-bold uppercase 
-                                                                    @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
-                                                                    @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
-                                                                    @endif">
+                                                                                @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
+                                                                                @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
+                                                                                @endif">
                                             {{ $todayAbsent->status }}
                                         </p>
                                         @if(strtolower($todayAbsent->status) != 'hadir' && $todayAbsent->reason)
@@ -466,10 +483,10 @@
                         {{-- Status Badge --}}
                         <div class="flex items-center gap-3">
                             <div class="p-3 rounded-full 
-                                                @if(strtolower($todayAbsent->status) == 'hadir') bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400
-                                                @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400
-                                                @else bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 
-                                                @endif">
+                                                        @if(strtolower($todayAbsent->status) == 'hadir') bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400
+                                                        @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400
+                                                        @else bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 
+                                                        @endif">
                                 @if(strtolower($todayAbsent->status) == 'hadir')
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2">
@@ -493,10 +510,10 @@
                             </div>
                             <div>
                                 <h4 class="text-2xl font-bold uppercase 
-                                                    @if(strtolower($todayAbsent->status) == 'hadir') text-green-600 dark:text-green-400
-                                                    @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-600 dark:text-yellow-400
-                                                    @else text-neutral-600 dark:text-neutral-400 
-                                                    @endif">
+                                                            @if(strtolower($todayAbsent->status) == 'hadir') text-green-600 dark:text-green-400
+                                                            @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-600 dark:text-yellow-400
+                                                            @else text-neutral-600 dark:text-neutral-400 
+                                                            @endif">
                                     {{ $todayAbsent->status }}
                                 </h4>
                                 <p class="text-sm text-neutral-500 dark:text-neutral-400">
