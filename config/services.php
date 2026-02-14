@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'wfo' => [
+        'qr_token' => env('WFO_QR_TOKEN'),
+    ],
+
 ];

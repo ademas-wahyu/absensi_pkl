@@ -7,7 +7,7 @@ new class extends Component {
 
     public function mount()
     {
-        $this->qrToken = env('WFO_QR_TOKEN');
+        $this->qrToken = config('services.wfo.qr_token');
     }
 }; ?>
 
@@ -17,13 +17,13 @@ new class extends Component {
         
         <div class="bg-white p-4 inline-block rounded-lg">
             <!-- QR Code Generation using API (simple & works without extra libs) -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ urlencode($qrToken) }}" 
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={{ urlencode($qrToken) }}&v={{ time() }}" 
                  alt="WFO QR Code" 
                  class="w-64 h-64" />
         </div>
 
         <p class="mt-6 text-sm text-gray-500 dark:text-gray-400 font-mono break-all max-w-md mx-auto">
-            Token: {{ substr($qrToken, 0, 10) }}...
+            Token: {{ $qrToken }}
         </p>
 
         <div class="mt-8">

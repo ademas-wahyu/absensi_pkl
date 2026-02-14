@@ -32,10 +32,20 @@ class AbsentUserInput extends Component
         }
 
 
-        $envToken = env('WFO_QR_TOKEN');
+        $envToken = config('services.wfo.qr_token');
 
-        if (!$envToken || $envToken !== $token) {
-            $this->js("alert('QR Code tidak valid!');");
+        // Normalize: urldecode in case scanner returns encoded value
+        $normalizedInput = trim(urldecode($token));
+        $normalizedEnv = trim($envToken ?? '');
+
+        \Log::info('QR Debug:', [
+            'env_token' => $normalizedEnv,
+            'input_token' => $normalizedInput,
+            'match' => hash_equals($normalizedEnv, $normalizedInput),
+        ]);
+
+        if (!$normalizedEnv || !hash_equals($normalizedEnv, $normalizedInput)) {
+            $this->js("alert('QR Code tidak valid! Pastikan Anda scan QR yang terbaru dari halaman admin.');");
             return;
         }
 
