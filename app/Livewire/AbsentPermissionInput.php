@@ -10,9 +10,29 @@ class AbsentPermissionInput extends Component
 {
     public $reason;
     public $status = 'Izin';
+    public bool $hasCheckedIn = false;
+
+    public function mount(): void
+    {
+        $this->hasCheckedIn = AbsentUser::where('user_id', auth()->id())
+            ->where('absent_date', now()->toDateString())
+            ->where('status', 'Hadir')
+            ->exists();
+    }
 
     public function save()
     {
+        // Cek ulang di backend untuk mencegah bypass
+        if (
+            AbsentUser::where('user_id', auth()->id())
+                ->where('absent_date', now()->toDateString())
+                ->where('status', 'Hadir')
+                ->exists()
+        ) {
+            Flux::toast('Anda sudah absen masuk hari ini, tidak bisa input izin.', variant: 'danger');
+            return;
+        }
+
         $this->validate([
             'reason' => 'required|string|max:255',
             'status' => 'required|in:Izin,Sakit',
@@ -29,11 +49,6 @@ class AbsentPermissionInput extends Component
 
         Flux::modal('input-permission')->close();
         $this->dispatch('absent-created');
-
-        // Refresh the parent component if needed, or just redirect/notify
-        // Since the parent component (AbsentUsers) listens to DB changes usually via polling or refresh, 
-        // we might need to dispatch an event or just let the page refresh naturally if wire:navigate isn't used for this flow.
-        // Assuming AbsentUsers re-renders or we want to show a success message.
 
         session()->flash('message', 'Izin berhasil dikirim.');
         $this->redirect(route('absent_users'), navigate: true);

@@ -114,7 +114,8 @@ class AbsentUsers extends Component
                 'absentUsers' => null,
                 'divisions' => $divisions,
                 'stats' => $this->stats,
-                'selectedDate' => $this->date, // Pass selected date to view
+                'selectedDate' => $this->date,
+                'hasCheckedInToday' => false,
             ]);
         } else {
             // Murid: hanya lihat absensi sendiri dengan pagination
@@ -134,6 +135,7 @@ class AbsentUsers extends Component
                 'stats' => [],
                 'todayAbsent' => $todayAbsent,
                 'selectedDate' => $this->date,
+                'hasCheckedInToday' => $todayAbsent && strtolower($todayAbsent->status) === 'hadir',
             ]);
         }
     }

@@ -29,20 +29,39 @@
             </flux:modal.trigger>
 
             @role('murid')
-            <flux:modal.trigger name="input-permission">
-                <flux:button class="bg-white hover:bg-neutral-50 border border-black text-black!">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-file-text w-5 h-5 mr-1">
-                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                        <path d="M10 9H8" />
-                        <path d="M16 13H8" />
-                        <path d="M16 17H8" />
-                    </svg>
-                    Izin
-                </flux:button>
-            </flux:modal.trigger>
+            @if($hasCheckedInToday)
+                <div x-data x-tooltip="Anda sudah absen masuk hari ini">
+                    <flux:button
+                        class="bg-white hover:bg-neutral-50 border border-black text-black! opacity-50 cursor-not-allowed"
+                        disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-file-text w-5 h-5 mr-1">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            <path d="M10 9H8" />
+                            <path d="M16 13H8" />
+                            <path d="M16 17H8" />
+                        </svg>
+                        Izin
+                    </flux:button>
+                </div>
+            @else
+                <flux:modal.trigger name="input-permission">
+                    <flux:button class="bg-white hover:bg-neutral-50 border border-black text-black!">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-file-text w-5 h-5 mr-1">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                            <path d="M10 9H8" />
+                            <path d="M16 13H8" />
+                            <path d="M16 17H8" />
+                        </svg>
+                        Izin
+                    </flux:button>
+                </flux:modal.trigger>
+            @endif
 
             <flux:modal.trigger name="input-absent-user">
                 <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
@@ -215,18 +234,18 @@
                 @endphp
                 <div
                     class="relative w-full min-w-0 overflow-hidden rounded-xl
-                                                                                                    border border-neutral-200 dark:border-neutral-700
-                                                                                                    bg-white dark:bg-neutral-800
-                                                                                                    shadow-md hover:shadow-xl transition-shadow duration-200">
+                                                                                                            border border-neutral-200 dark:border-neutral-700
+                                                                                                            bg-white dark:bg-neutral-800
+                                                                                                            shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div
                         class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                                                                                                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                                                                                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                                                                flex items-center justify-center text-white font-semibold text-lg">
+                                                                                                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -271,9 +290,9 @@
 
                                     <div>
                                         <p class="font-bold uppercase 
-                                                                                            @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
-                                                                                            @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
-                                                                                            @endif">
+                                                                                                        @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
+                                                                                                        @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
+                                                                                                        @endif">
                                             {{ $todayAbsent->status }}
                                         </p>
                                         @if(strtolower($todayAbsent->status) != 'hadir' && $todayAbsent->reason)
