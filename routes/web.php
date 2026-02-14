@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 // Route khusus Admin (setting)
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('setting', 'setting')->name('setting');
+    Volt::route('qr-wfo', 'show-qr-code')->name('qr-wfo');
 });
 
 // Route untuk kedua role (admin & murid)

@@ -31,10 +31,21 @@ class AbsentUserInput extends Component
             return;
         }
 
-        $setting = \App\Models\Setting::where('key', 'attendance_token')->first();
 
-        if (!$setting || $setting->value !== $token) {
-            $this->js("alert('QR Code tidak valid!');");
+        $envToken = config('services.wfo.qr_token');
+
+        // Normalize: urldecode in case scanner returns encoded value
+        $normalizedInput = trim(urldecode($token));
+        $normalizedEnv = trim($envToken ?? '');
+
+        \Log::info('QR Debug:', [
+            'env_token' => $normalizedEnv,
+            'input_token' => $normalizedInput,
+            'match' => hash_equals($normalizedEnv, $normalizedInput),
+        ]);
+
+        if (!$normalizedEnv || !hash_equals($normalizedEnv, $normalizedInput)) {
+            $this->js("alert('QR Code tidak valid! Pastikan Anda scan QR yang terbaru dari halaman admin.');");
             return;
         }
 
