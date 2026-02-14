@@ -22,7 +22,16 @@ class AbsentUser extends Model
         'latitude',
         'longitude',
         'verification_method',
+        'checkout_at',
+        'early_leave_reason',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'checkout_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the user that owns the absent record.

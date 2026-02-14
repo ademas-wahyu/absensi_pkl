@@ -63,17 +63,46 @@
                 </flux:modal.trigger>
             @endif
 
-            <flux:modal.trigger name="input-absent-user">
-                <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-plus-icon lucide-plus w-5 h-5" aria-hidden="true">
-                        <path d="M5 12h14" />
-                        <path d="M12 5v14" />
-                    </svg>
-                    Absen
-                </flux:button>
-            </flux:modal.trigger>
+            @if($hasCheckedOut)
+                <div x-data x-tooltip="Anda sudah absen masuk dan pulang hari ini">
+                    <flux:button
+                        class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! opacity-50 cursor-not-allowed"
+                        disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="w-5 h-5" aria-hidden="true">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        Selesai
+                    </flux:button>
+                </div>
+            @elseif($hasCheckedInToday)
+                <flux:modal.trigger name="input-absent-user">
+                    <flux:button class="bg-linear-to-r from-orange-500 to-red-500 text-white! hover:opacity-90">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="w-5 h-5" aria-hidden="true">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" x2="9" y1="12" y2="12" />
+                        </svg>
+                        Absen Pulang
+                    </flux:button>
+                </flux:modal.trigger>
+            @else
+                <flux:modal.trigger name="input-absent-user">
+                    <flux:button class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-plus-icon lucide-plus w-5 h-5" aria-hidden="true">
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                        </svg>
+                        Absen Masuk
+                    </flux:button>
+                </flux:modal.trigger>
+            @endif
             @endrole
         </div>
     </div>
@@ -234,18 +263,18 @@
                 @endphp
                 <div
                     class="relative w-full min-w-0 overflow-hidden rounded-xl
-                                                                                                            border border-neutral-200 dark:border-neutral-700
-                                                                                                            bg-white dark:bg-neutral-800
-                                                                                                            shadow-md hover:shadow-xl transition-shadow duration-200">
+                                                                                                                    border border-neutral-200 dark:border-neutral-700
+                                                                                                                    bg-white dark:bg-neutral-800
+                                                                                                                    shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
                     <div
                         class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                                                                                                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                                                                                                                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                                                                        flex items-center justify-center text-white font-semibold text-lg">
+                                                                                                                                flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -290,9 +319,9 @@
 
                                     <div>
                                         <p class="font-bold uppercase 
-                                                                                                        @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
-                                                                                                        @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
-                                                                                                        @endif">
+                                                                                                                    @if(strtolower($todayAbsent->status) == 'hadir') text-green-700 dark:text-green-300
+                                                                                                                    @elseif(in_array(strtolower($todayAbsent->status), ['izin', 'sakit'])) text-yellow-700 dark:text-yellow-300
+                                                                                                                    @endif">
                                             {{ $todayAbsent->status }}
                                         </p>
                                         @if(strtolower($todayAbsent->status) != 'hadir' && $todayAbsent->reason)
@@ -546,11 +575,24 @@
 
                         {{-- Details --}}
                         <div
-                            class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-auto p-4 rounded-lg bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-100 dark:border-neutral-700/50">
+                            class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full md:w-auto p-4 rounded-lg bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-100 dark:border-neutral-700/50">
                             <div>
                                 <p class="text-xs text-neutral-500 mb-1">Waktu Masuk</p>
                                 <p class="font-medium text-neutral-800 dark:text-neutral-200">
                                     {{ \Carbon\Carbon::parse($todayAbsent->created_at)->format('H:i') }} WIB
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-neutral-500 mb-1">Waktu Pulang</p>
+                                <p class="font-medium text-neutral-800 dark:text-neutral-200">
+                                    @if($todayAbsent->checkout_at)
+                                        {{ $todayAbsent->checkout_at->format('H:i') }} WIB
+                                        @if($todayAbsent->early_leave_reason)
+                                            <span class="text-xs text-yellow-600 dark:text-yellow-400 block mt-0.5">Pulang cepat</span>
+                                        @endif
+                                    @else
+                                        <span class="text-neutral-400">Belum pulang</span>
+                                    @endif
                                 </p>
                             </div>
                             <div>
