@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\AbsentUser;
+use App\Models\Setting;
 use Flux\Flux;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -76,9 +77,9 @@ class AbsentUserInput extends Component
     }
 
     /**
-     * Verify QR Code untuk absensi masuk
+     * Verify QR Code untuk absensi masuk dengan validasi lokasi
      */
-    public function verifyQrCode($token)
+    public function verifyQrCode($token, $latitude = null, $longitude = null)
     {
         $existingAbsent = AbsentUser::where('user_id', auth()->id())
             ->where('absent_date', now()->toDateString())
@@ -89,8 +90,8 @@ class AbsentUserInput extends Component
             return;
         }
 
+        // Validasi QR Token
         $envToken = config('services.wfo.qr_token');
-
         $normalizedInput = trim(urldecode($token));
         $normalizedEnv = trim($envToken ?? '');
 
@@ -99,11 +100,26 @@ class AbsentUserInput extends Component
             return;
         }
 
+        // Validasi lokasi GPS
+        if ($latitude && $longitude) {
+            $locationCheck = Setting::isWithinOfficeRadius((float) $latitude, (float) $longitude);
+
+            if (!$locationCheck['valid']) {
+                $this->js("alert('{$locationCheck['message']}');");
+                return;
+            }
+        } elseif (Setting::isLocationValidationEnabled()) {
+            $this->js("alert('Lokasi GPS tidak tersedia. Aktifkan GPS untuk melanjutkan absensi.');");
+            return;
+        }
+
         AbsentUser::create([
             'user_id' => auth()->id(),
             'absent_date' => now()->toDateString(),
             'status' => 'Hadir',
             'reason' => 'berangkat',
+            'latitude' => $latitude,
+            'longitude' => $longitude,
             'verification_method' => 'qr_code',
         ]);
 
@@ -114,7 +130,7 @@ class AbsentUserInput extends Component
     }
 
     /**
-     * Submit absensi masuk dengan selfie dan lokasi GPS
+     * Submit absensi masuk dengan selfie dan lokasi GPS (dengan validasi radius)
      */
     public function submitWithSelfie($imageBase64, $latitude, $longitude)
     {
@@ -126,6 +142,19 @@ class AbsentUserInput extends Component
 
         if ($existingAbsent) {
             $this->js("alert('Anda sudah absen hari ini!');");
+            return;
+        }
+
+        // Validasi lokasi GPS
+        if ($latitude && $longitude) {
+            $locationCheck = Setting::isWithinOfficeRadius((float) $latitude, (float) $longitude);
+
+            if (!$locationCheck['valid']) {
+                $this->js("alert('{$locationCheck['message']}');");
+                return;
+            }
+        } elseif (Setting::isLocationValidationEnabled()) {
+            $this->js("alert('Lokasi GPS tidak tersedia. Aktifkan GPS untuk melanjutkan absensi.');");
             return;
         }
 

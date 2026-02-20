@@ -317,10 +317,22 @@ class Setting extends Component
     // QR CODE PROPERTIES
     public $attendance_token = '';
 
+    // LOCATION PROPERTIES
+    public $office_latitude = '';
+    public $office_longitude = '';
+    public $office_radius = '';
+    public $location_validation_enabled = false;
+
     public function mount()
     {
         $setting = \App\Models\Setting::where('key', 'attendance_token')->first();
         $this->attendance_token = $setting ? $setting->value : '';
+
+        // Load location settings
+        $this->office_latitude = \App\Models\Setting::get('office_latitude', '-6.175110');
+        $this->office_longitude = \App\Models\Setting::get('office_longitude', '106.865039');
+        $this->office_radius = \App\Models\Setting::get('office_radius_meters', '100');
+        $this->location_validation_enabled = \App\Models\Setting::get('location_validation_enabled', 'true') === 'true';
     }
 
     public function generateQrCode()
@@ -340,6 +352,33 @@ class Setting extends Component
         $this->attendance_token = $token;
         session()->flash('message', 'QR Code berhasil diperbarui!');
         $this->dispatch('qr-code-generated', token: $this->attendance_token);
+    }
+
+    /**
+     * Save office location settings
+     */
+    public function saveLocationSettings(): void
+    {
+        $this->validate([
+            'office_latitude' => 'required|numeric|between:-90,90',
+            'office_longitude' => 'required|numeric|between:-180,180',
+            'office_radius' => 'required|integer|min:10|max:10000',
+        ], [
+            'office_latitude.required' => 'Latitude kantor wajib diisi.',
+            'office_latitude.between' => 'Latitude harus antara -90 sampai 90.',
+            'office_longitude.required' => 'Longitude kantor wajib diisi.',
+            'office_longitude.between' => 'Longitude harus antara -180 sampai 180.',
+            'office_radius.required' => 'Radius wajib diisi.',
+            'office_radius.min' => 'Radius minimal 10 meter.',
+            'office_radius.max' => 'Radius maksimal 10.000 meter (10km).',
+        ]);
+
+        \App\Models\Setting::set('office_latitude', (string) $this->office_latitude);
+        \App\Models\Setting::set('office_longitude', (string) $this->office_longitude);
+        \App\Models\Setting::set('office_radius_meters', (string) $this->office_radius);
+        \App\Models\Setting::set('location_validation_enabled', $this->location_validation_enabled ? 'true' : 'false');
+
+        session()->flash('message', 'Pengaturan lokasi berhasil disimpan!');
     }
 
     /**

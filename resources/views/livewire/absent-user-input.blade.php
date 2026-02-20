@@ -146,7 +146,8 @@
                                 config,
                                 (decodedText) => {
                                     self.html5QrcodeScanner.stop().then(() => {
-                                        $wire.call('verifyQrCode', decodedText);
+                                        // Kirim token QR + lokasi GPS untuk validasi radius
+                                        $wire.call('verifyQrCode', decodedText, self.latitude, self.longitude);
                                         self.html5QrcodeScanner = null;
                                         self.toggleQrButtons(false);
                                     });

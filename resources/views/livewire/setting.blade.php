@@ -167,11 +167,11 @@
 
     </div>
 
-    <!-- ROW 2: QR CODE -->
+    <!-- ROW 2: QR CODE & LOCATION -->
     <div class="mt-6 flex flex-col gap-4 md:flex-row md:gap-6">
         <!-- CARD 4 : QR ABSENSI -->
         <div class="flex flex-col
-           w-full md:w-1/3
+           w-full md:w-1/2
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
            bg-white dark:bg-neutral-800
@@ -206,6 +206,57 @@
                         <span class="font-medium text-sm">QR Code Aktif (Permanent)</span>
                     </div>
                 @endif
+            </div>
+        </div>
+
+        <!-- CARD 5 : LOKASI KANTOR -->
+        <div class="flex flex-col
+           w-full md:w-1/2
+           rounded-2xl
+           border border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           px-6 py-6
+           shadow-md hover:shadow-lg
+           transition">
+
+            <div class="mb-5 pl-4">
+                <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
+                    Lokasi Kantor
+                </h3>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                    Atur koordinat kantor untuk validasi radius absensi
+                </p>
+            </div>
+
+            <div class="flex-1 space-y-4 pl-4">
+                <flux:input wire:model="office_latitude" label="Latitude" placeholder="-6.175110" type="number" step="any" />
+                
+                <flux:input wire:model="office_longitude" label="Longitude" placeholder="106.865039" type="number" step="any" />
+                
+                <flux:input wire:model="office_radius" label="Radius (meter)" placeholder="100" type="number" />
+
+                <div class="flex items-center gap-3 py-2">
+                    <flux:checkbox wire:model="location_validation_enabled" id="location_enabled" />
+                    <label for="location_enabled" class="text-sm text-neutral-700 dark:text-neutral-300 cursor-pointer">
+                        Aktifkan validasi lokasi
+                    </label>
+                </div>
+
+                <div class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-900/50 p-3 rounded-lg">
+                    <p class="font-medium mb-1">💡 Tips:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Cari koordinat di <a href="https://www.google.com/maps" target="_blank" class="text-blue-500 hover:underline">Google Maps</a></li>
+                        <li>Klik lokasi kantor, copy koordinat yang muncul</li>
+                        <li>Radius 100m = user harus dalam jarak 100m dari titik kantor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="space-y-3 pl-4 mt-auto pt-5">
+                <flux:button wire:click="saveLocationSettings"
+                    class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
+                    Simpan Lokasi
+                </flux:button>
             </div>
         </div>
     </div>
