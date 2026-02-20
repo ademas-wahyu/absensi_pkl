@@ -11,25 +11,25 @@ use Livewire\Component;
 class Setting extends Component
 {
     // Properties untuk form input
-    public $nama_divisi = '';
+    public $nama_divisi = "";
 
-    public $deskripsi_divisi = '';
+    public $deskripsi_divisi = "";
 
-    public $nama_sekolah = '';
+    public $nama_sekolah = "";
 
-    public $alamat_sekolah = '';
+    public $alamat_sekolah = "";
 
-    public $no_telepon_sekolah = '';
+    public $no_telepon_sekolah = "";
 
-    public $nama_mentor = '';
+    public $nama_mentor = "";
 
-    public $email_mentor = '';
+    public $email_mentor = "";
 
-    public $no_telepon_mentor = '';
+    public $no_telepon_mentor = "";
 
-    public $divisi_id_mentor = '';
+    public $divisi_id_mentor = "";
 
-    public $keahlian_mentor = '';
+    public $keahlian_mentor = "";
 
     // Properties untuk modal state
     public $showDivisiModal = false;
@@ -70,23 +70,23 @@ class Setting extends Component
     public function saveDivisi(): void
     {
         $this->validate([
-            'nama_divisi' => 'required|string|max:255',
-            'deskripsi_divisi' => 'nullable|string',
+            "nama_divisi" => "required|string|max:255",
+            "deskripsi_divisi" => "nullable|string",
         ]);
 
         if ($this->editDivisiId) {
             $divisi = DivisiAdmin::query()->find($this->editDivisiId);
             $divisi->update([
-                'nama_divisi' => $this->nama_divisi,
-                'deskripsi' => $this->deskripsi_divisi,
+                "nama_divisi" => $this->nama_divisi,
+                "deskripsi" => $this->deskripsi_divisi,
             ]);
-            session()->flash('message', 'Divisi berhasil diupdate!');
+            session()->flash("message", "Divisi berhasil diupdate!");
         } else {
             DivisiAdmin::query()->create([
-                'nama_divisi' => $this->nama_divisi,
-                'deskripsi' => $this->deskripsi_divisi,
+                "nama_divisi" => $this->nama_divisi,
+                "deskripsi" => $this->deskripsi_divisi,
             ]);
-            session()->flash('message', 'Divisi berhasil ditambahkan!');
+            session()->flash("message", "Divisi berhasil ditambahkan!");
         }
 
         $this->closeDivisiModal();
@@ -114,7 +114,7 @@ class Setting extends Component
     public function deleteDivisi($id): void
     {
         DivisiAdmin::query()->find($id)->delete();
-        session()->flash('message', 'Divisi berhasil dihapus!');
+        session()->flash("message", "Divisi berhasil dihapus!");
     }
 
     /**
@@ -123,8 +123,8 @@ class Setting extends Component
     private function resetDivisiForm(): void
     {
         $this->editDivisiId = null;
-        $this->nama_divisi = '';
-        $this->deskripsi_divisi = '';
+        $this->nama_divisi = "";
+        $this->deskripsi_divisi = "";
         $this->resetErrorBag();
     }
 
@@ -153,26 +153,26 @@ class Setting extends Component
     public function saveSekolah(): void
     {
         $this->validate([
-            'nama_sekolah' => 'required|string|max:255',
-            'alamat_sekolah' => 'nullable|string',
-            'no_telepon_sekolah' => 'nullable|string|max:20',
+            "nama_sekolah" => "required|string|max:255",
+            "alamat_sekolah" => "nullable|string",
+            "no_telepon_sekolah" => "nullable|string|max:20",
         ]);
 
         if ($this->editSekolahId) {
             $sekolah = Sekolah::query()->find($this->editSekolahId);
             $sekolah->update([
-                'nama_sekolah' => $this->nama_sekolah,
-                'alamat' => $this->alamat_sekolah,
-                'no_telepon' => $this->no_telepon_sekolah,
+                "nama_sekolah" => $this->nama_sekolah,
+                "alamat" => $this->alamat_sekolah,
+                "no_telepon" => $this->no_telepon_sekolah,
             ]);
-            session()->flash('message', 'Sekolah berhasil diupdate!');
+            session()->flash("message", "Sekolah berhasil diupdate!");
         } else {
             Sekolah::query()->create([
-                'nama_sekolah' => $this->nama_sekolah,
-                'alamat' => $this->alamat_sekolah,
-                'no_telepon' => $this->no_telepon_sekolah,
+                "nama_sekolah" => $this->nama_sekolah,
+                "alamat" => $this->alamat_sekolah,
+                "no_telepon" => $this->no_telepon_sekolah,
             ]);
-            session()->flash('message', 'Sekolah berhasil ditambahkan!');
+            session()->flash("message", "Sekolah berhasil ditambahkan!");
         }
 
         $this->closeSekolahModal();
@@ -201,7 +201,7 @@ class Setting extends Component
     public function deleteSekolah($id): void
     {
         Sekolah::query()->find($id)->delete();
-        session()->flash('message', 'Sekolah berhasil dihapus!');
+        session()->flash("message", "Sekolah berhasil dihapus!");
     }
 
     /**
@@ -210,9 +210,9 @@ class Setting extends Component
     private function resetSekolahForm(): void
     {
         $this->editSekolahId = null;
-        $this->nama_sekolah = '';
-        $this->alamat_sekolah = '';
-        $this->no_telepon_sekolah = '';
+        $this->nama_sekolah = "";
+        $this->alamat_sekolah = "";
+        $this->no_telepon_sekolah = "";
         $this->resetErrorBag();
     }
 
@@ -241,32 +241,32 @@ class Setting extends Component
     public function saveMentor(): void
     {
         $this->validate([
-            'nama_mentor' => 'required|string|max:255',
-            'email_mentor' => 'nullable|email|max:255',
-            'no_telepon_mentor' => 'nullable|string|max:20',
-            'divisi_id_mentor' => 'required|exists:divisi_admins,id',
-            'keahlian_mentor' => 'nullable|string',
+            "nama_mentor" => "required|string|max:255",
+            "email_mentor" => "nullable|email|max:255",
+            "no_telepon_mentor" => "nullable|string|max:20",
+            "divisi_id_mentor" => "required|exists:divisi_admins,id",
+            "keahlian_mentor" => "nullable|string",
         ]);
 
         if ($this->editMentorId) {
             $mentor = Mentor::query()->find($this->editMentorId);
             $mentor->update([
-                'nama_mentor' => $this->nama_mentor,
-                'email' => $this->email_mentor,
-                'no_telepon' => $this->no_telepon_mentor,
-                'divisi_id' => $this->divisi_id_mentor,
-                'keahlian' => $this->keahlian_mentor,
+                "nama_mentor" => $this->nama_mentor,
+                "email" => $this->email_mentor,
+                "no_telepon" => $this->no_telepon_mentor,
+                "divisi_id" => $this->divisi_id_mentor,
+                "keahlian" => $this->keahlian_mentor,
             ]);
-            session()->flash('message', 'Mentor berhasil diupdate!');
+            session()->flash("message", "Mentor berhasil diupdate!");
         } else {
             Mentor::query()->create([
-                'nama_mentor' => $this->nama_mentor,
-                'email' => $this->email_mentor,
-                'no_telepon' => $this->no_telepon_mentor,
-                'divisi_id' => $this->divisi_id_mentor,
-                'keahlian' => $this->keahlian_mentor,
+                "nama_mentor" => $this->nama_mentor,
+                "email" => $this->email_mentor,
+                "no_telepon" => $this->no_telepon_mentor,
+                "divisi_id" => $this->divisi_id_mentor,
+                "keahlian" => $this->keahlian_mentor,
             ]);
-            session()->flash('message', 'Mentor berhasil ditambahkan!');
+            session()->flash("message", "Mentor berhasil ditambahkan!");
         }
 
         $this->closeMentorModal();
@@ -297,7 +297,7 @@ class Setting extends Component
     public function deleteMentor($id): void
     {
         Mentor::query()->find($id)->delete();
-        session()->flash('message', 'Mentor berhasil dihapus!');
+        session()->flash("message", "Mentor berhasil dihapus!");
     }
 
     /**
@@ -306,36 +306,55 @@ class Setting extends Component
     private function resetMentorForm(): void
     {
         $this->editMentorId = null;
-        $this->nama_mentor = '';
-        $this->email_mentor = '';
-        $this->no_telepon_mentor = '';
-        $this->divisi_id_mentor = '';
-        $this->keahlian_mentor = '';
+        $this->nama_mentor = "";
+        $this->email_mentor = "";
+        $this->no_telepon_mentor = "";
+        $this->divisi_id_mentor = "";
+        $this->keahlian_mentor = "";
         $this->resetErrorBag();
     }
 
     // QR CODE PROPERTIES
-    public $attendance_token = '';
+    public $attendance_token = "";
 
     // LOCATION PROPERTIES
-    public $office_latitude = '';
-    public $office_longitude = '';
-    public $office_radius = '';
+    public $office_latitude = "";
+    public $office_longitude = "";
+    public $office_radius = "";
     public $location_validation_enabled = false;
 
-    public function mount()
+    /**
+     * Initialize component state
+     */
+    public function mount(): void
     {
-        $setting = \App\Models\Setting::where('key', 'attendance_token')->first();
-        $this->attendance_token = $setting ? $setting->value : '';
+        $this->attendance_token = \App\Models\Setting::get(
+            "attendance_token",
+            "",
+        );
 
         // Load location settings
-        $this->office_latitude = \App\Models\Setting::get('office_latitude', '-6.175110');
-        $this->office_longitude = \App\Models\Setting::get('office_longitude', '106.865039');
-        $this->office_radius = \App\Models\Setting::get('office_radius_meters', '100');
-        $this->location_validation_enabled = \App\Models\Setting::get('location_validation_enabled', 'true') === 'true';
+        $this->office_latitude = \App\Models\Setting::get(
+            "office_latitude",
+            "-6.175110",
+        );
+        $this->office_longitude = \App\Models\Setting::get(
+            "office_longitude",
+            "106.865039",
+        );
+        $this->office_radius = \App\Models\Setting::get(
+            "office_radius_meters",
+            "100",
+        );
+        $this->location_validation_enabled =
+            \App\Models\Setting::get("location_validation_enabled", "true") ===
+            "true";
     }
 
-    public function generateQrCode()
+    /**
+     * Generate new QR code token for attendance
+     */
+    public function generateQrCode(): void
     {
         // Prevent regeneration if already exists
         if ($this->attendance_token) {
@@ -344,14 +363,11 @@ class Setting extends Component
 
         $token = \Illuminate\Support\Str::random(32);
 
-        \App\Models\Setting::updateOrCreate(
-            ['key' => 'attendance_token'],
-            ['value' => $token]
-        );
+        \App\Models\Setting::set("attendance_token", $token);
 
         $this->attendance_token = $token;
-        session()->flash('message', 'QR Code berhasil diperbarui!');
-        $this->dispatch('qr-code-generated', token: $this->attendance_token);
+        session()->flash("message", "QR Code berhasil diperbarui!");
+        $this->dispatch("qr-code-generated", token: $this->attendance_token);
     }
 
     /**
@@ -359,26 +375,43 @@ class Setting extends Component
      */
     public function saveLocationSettings(): void
     {
-        $this->validate([
-            'office_latitude' => 'required|numeric|between:-90,90',
-            'office_longitude' => 'required|numeric|between:-180,180',
-            'office_radius' => 'required|integer|min:10|max:10000',
-        ], [
-            'office_latitude.required' => 'Latitude kantor wajib diisi.',
-            'office_latitude.between' => 'Latitude harus antara -90 sampai 90.',
-            'office_longitude.required' => 'Longitude kantor wajib diisi.',
-            'office_longitude.between' => 'Longitude harus antara -180 sampai 180.',
-            'office_radius.required' => 'Radius wajib diisi.',
-            'office_radius.min' => 'Radius minimal 10 meter.',
-            'office_radius.max' => 'Radius maksimal 10.000 meter (10km).',
-        ]);
+        $this->validate(
+            [
+                "office_latitude" => "required|numeric|between:-90,90",
+                "office_longitude" => "required|numeric|between:-180,180",
+                "office_radius" => "required|integer|min:10|max:10000",
+            ],
+            [
+                "office_latitude.required" => "Latitude kantor wajib diisi.",
+                "office_latitude.between" =>
+                    "Latitude harus antara -90 sampai 90.",
+                "office_longitude.required" => "Longitude kantor wajib diisi.",
+                "office_longitude.between" =>
+                    "Longitude harus antara -180 sampai 180.",
+                "office_radius.required" => "Radius wajib diisi.",
+                "office_radius.min" => "Radius minimal 10 meter.",
+                "office_radius.max" => "Radius maksimal 10.000 meter (10km).",
+            ],
+        );
 
-        \App\Models\Setting::set('office_latitude', (string) $this->office_latitude);
-        \App\Models\Setting::set('office_longitude', (string) $this->office_longitude);
-        \App\Models\Setting::set('office_radius_meters', (string) $this->office_radius);
-        \App\Models\Setting::set('location_validation_enabled', $this->location_validation_enabled ? 'true' : 'false');
+        \App\Models\Setting::set(
+            "office_latitude",
+            (string) $this->office_latitude,
+        );
+        \App\Models\Setting::set(
+            "office_longitude",
+            (string) $this->office_longitude,
+        );
+        \App\Models\Setting::set(
+            "office_radius_meters",
+            (string) $this->office_radius,
+        );
+        \App\Models\Setting::set(
+            "location_validation_enabled",
+            $this->location_validation_enabled ? "true" : "false",
+        );
 
-        session()->flash('message', 'Pengaturan lokasi berhasil disimpan!');
+        session()->flash("message", "Pengaturan lokasi berhasil disimpan!");
     }
 
     /**
@@ -388,11 +421,11 @@ class Setting extends Component
     {
         $divisiList = DivisiAdmin::query()->latest()->get();
 
-        return view('livewire.setting', [
-            'divisiList' => $divisiList,
-            'sekolahList' => Sekolah::query()->latest()->get(),
-            'mentorList' => Mentor::query()->with('divisi')->latest()->get(),
-            'divisiOptions' => $divisiList,
+        return view("livewire.setting", [
+            "divisiList" => $divisiList,
+            "sekolahList" => Sekolah::query()->latest()->get(),
+            "mentorList" => Mentor::query()->with("divisi")->latest()->get(),
+            "divisiOptions" => $divisiList,
         ]);
     }
 }
