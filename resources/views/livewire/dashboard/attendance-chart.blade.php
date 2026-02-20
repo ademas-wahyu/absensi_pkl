@@ -162,7 +162,7 @@ new class extends Component {
     </div>
 
     <!-- Chart Loading State -->
-    <div wire:loading class="flex items-center justify-center py-12">
+    <div wire:loading class="flex items-center justify-center w-full h-[280px] sm:h-[320px] md:h-[350px]">
         <div class="flex flex-col items-center gap-3">
             <svg class="animate-spin h-8 w-8 text-[#3526B3] dark:text-[#8615D9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
