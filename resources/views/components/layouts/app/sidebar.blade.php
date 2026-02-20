@@ -86,6 +86,12 @@
             </flux:sidebar.item>
             @endrole
 
+            {{-- Jadwal (untuk semua role) --}}
+            <flux:sidebar.item icon="calendar" :href="route('jadwal')"
+                :current="request()->routeIs('jadwal')" wire:navigate class="{{ $navItemClasses }}">
+                {{ __('Jadwal') }}
+            </flux:sidebar.item>
+
             {{-- Divisi untuk Murid --}}
             @role('murid')
             <flux:sidebar.item icon="id-card" :href="route('divisi_users')"

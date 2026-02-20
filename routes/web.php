@@ -31,6 +31,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('divisi_users', 'divisi_users')->name('divisi_users');
 });
 
+// Route Jadwal - Admin dan Murid akses URL yang sama tapi view berbeda
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('jadwal', function () {
+        if (auth()->user()->hasRole('admin')) {
+            return view('schedule_admin');
+        }
+        return view('schedule_user');
+    })->name('jadwal');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

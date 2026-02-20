@@ -97,4 +97,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Mentor::class);
     }
+
+    /**
+     * Get the user's schedules.
+     *
+     * @return HasMany<Schedule,User>
+     */
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
