@@ -105,7 +105,7 @@ new class extends Component {
     <!-- Header with Title and Toggle -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-            <div class="p-2 rounded-lg bg-gradient-to-br from-[#3526B3]/10 to-[#8615D9]/10">
+            <div class="p-2 rounded-lg bg-linear-to-br from-[#3526B3]/10 to-[#8615D9]/10">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#3526B3] dark:text-[#8615D9]">
                     <line x1="18" y1="20" x2="18" y2="10"/>
                     <line x1="12" y1="20" x2="12" y2="4"/>
@@ -132,7 +132,7 @@ new class extends Component {
                 wire:click="$set('viewMode', 'weekly')"
                 class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-2
                     {{ $viewMode === 'weekly'
-                        ? 'bg-gradient-to-r from-[#3526B3] to-[#8615D9] text-white shadow-md'
+                        ? 'bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white shadow-md'
                         : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-700' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -147,7 +147,7 @@ new class extends Component {
                 wire:click="$set('viewMode', 'monthly')"
                 class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-2 border-l border-neutral-200 dark:border-neutral-700
                     {{ $viewMode === 'monthly'
-                        ? 'bg-gradient-to-r from-[#3526B3] to-[#8615D9] text-white shadow-md'
+                        ? 'bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white shadow-md'
                         : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-700' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -162,7 +162,7 @@ new class extends Component {
     </div>
 
     <!-- Chart Loading State -->
-    <div wire:loading class="flex items-center justify-center w-full h-[280px] sm:h-[320px] md:h-[350px]">
+    <div wire:loading class="flex items-center justify-center w-full h-70 sm:h-80 md:h-[350px]">
         <div class="flex flex-col items-center gap-3">
             <svg class="animate-spin h-8 w-8 text-[#3526B3] dark:text-[#8615D9]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -173,7 +173,7 @@ new class extends Component {
     </div>
 
     <!-- Chart Container -->
-    <div wire:loading.remove wire:ignore class="relative h-[280px] sm:h-[320px] md:h-[350px]">
+    <div wire:loading.remove wire:ignore class="relative h-70 sm:h-80 md:h-[350px]">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <canvas id="pklAttendanceChart"></canvas>
 
