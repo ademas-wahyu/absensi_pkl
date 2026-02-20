@@ -1,8 +1,8 @@
-<flux:modal name="export-absensi" class="md:w-[520px]">
+<flux:modal name="export-absensi" class="md:w-130">
     <div class="p-6">
         <!-- Header -->
         <div class="flex items-center gap-3 mb-6">
-            <div class="p-2 rounded-lg bg-gradient-to-br from-[#3526B3]/10 to-[#8615D9]/10">
+            <div class="p-2 rounded-lg bg-linear-to-br from-[#3526B3]/10 to-[#8615D9]/10">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#3526B3] dark:text-[#8615D9]">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="7 10 12 15 17 10"/>
@@ -19,7 +19,7 @@
         @if(session('error'))
             <div class="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
                 <div class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600 dark:text-red-400 shrink-0 mt-0.5">
                         <circle cx="12" cy="12" r="10"/>
                         <line x1="15" y1="9" x2="9" y2="15"/>
                         <line x1="9" y1="9" x2="15" y2="15"/>
@@ -32,7 +32,7 @@
         @if(session('info'))
             <div class="mb-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
                 <div class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5">
                         <circle cx="12" cy="12" r="10"/>
                         <line x1="12" y1="16" x2="12" y2="12"/>
                         <line x1="12" y1="8" x2="12.01" y2="8"/>
@@ -54,7 +54,7 @@
                         <input type="radio" wire:model="exportFormat" value="csv" class="peer sr-only">
                         <div class="p-4 rounded-xl border-2 border-neutral-200 dark:border-neutral-700
                             peer-checked:border-[#3526B3] dark:peer-checked:border-[#8615D9]
-                            peer-checked:bg-gradient-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
+                            peer-checked:bg-linear-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
                             hover:border-neutral-300 dark:hover:border-neutral-600
                             transition-all duration-200">
                             <div class="flex flex-col items-center gap-2">
@@ -86,7 +86,7 @@
                         <input type="radio" wire:model="exportFormat" value="excel" class="peer sr-only">
                         <div class="p-4 rounded-xl border-2 border-neutral-200 dark:border-neutral-700
                             peer-checked:border-[#3526B3] dark:peer-checked:border-[#8615D9]
-                            peer-checked:bg-gradient-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
+                            peer-checked:bg-linear-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
                             hover:border-neutral-300 dark:hover:border-neutral-600
                             transition-all duration-200">
                             <div class="flex flex-col items-center gap-2">
@@ -118,7 +118,7 @@
                         <input type="radio" wire:model="exportFormat" value="pdf" class="peer sr-only">
                         <div class="p-4 rounded-xl border-2 border-neutral-200 dark:border-neutral-700
                             peer-checked:border-[#3526B3] dark:peer-checked:border-[#8615D9]
-                            peer-checked:bg-gradient-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
+                            peer-checked:bg-linear-to-br peer-checked:from-[#3526B3]/5 peer-checked:to-[#8615D9]/5
                             hover:border-neutral-300 dark:hover:border-neutral-600
                             transition-all duration-200">
                             <div class="flex flex-col items-center gap-2">
@@ -217,7 +217,7 @@
                     Batal
                 </flux:button>
                 <flux:button type="submit"
-                    class="bg-gradient-to-r from-[#3526B3] to-[#8615D9] text-white hover:opacity-90 transition-opacity">
+                    class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white hover:opacity-90 transition-opacity">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                         <polyline points="7 10 12 15 17 10"/>
