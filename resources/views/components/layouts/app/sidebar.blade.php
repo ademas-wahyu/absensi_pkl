@@ -24,21 +24,21 @@
 
         @php
             $navItemClasses = '
-                                                                            text-zinc-700 dark:text-zinc-200
-                                                                            hover:text-white dark:hover:text-white
-                                                                            hover:!text-white dark:hover:!text-white
-                                                                            hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
-                                                                            hover:shadow-md hover:rounded-lg
+                                                                                        text-zinc-700 dark:text-zinc-200
+                                                                                        hover:text-white dark:hover:text-white
+                                                                                        hover:!text-white dark:hover:!text-white
+                                                                                        hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
+                                                                                        hover:shadow-md hover:rounded-lg
 
-                                                                            data-current:bg-linear-to-r
-                                                                            data-current:from-[#3526B3]
-                                                                            data-current:to-[#8615D9]
-                                                                            data-current:text-white
-                                                                            data-current:shadow-md
-                                                                            data-current:rounded-lg
+                                                                                        data-current:bg-linear-to-r
+                                                                                        data-current:from-[#3526B3]
+                                                                                        data-current:to-[#8615D9]
+                                                                                        data-current:text-white
+                                                                                        data-current:shadow-md
+                                                                                        data-current:rounded-lg
 
-                                                                            transition-all
-                                                                        ';
+                                                                                        transition-all
+                                                                                    ';
         @endphp
 
         <!-- NAVIGATION -->
@@ -138,12 +138,12 @@
 
             @php
                 $profileMenuClasses = '
-                                                                                                    text-zinc-700 dark:text-zinc-200
-                                                                                                    hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
-                                                                                                    hover:text-white dark:hover:text-white hover:!text-white dark:hover:!text-white
-                                                                                                    rounded-md
-                                                                                                    transition-colors
-                                                                                                ';
+                                                                                                                    text-zinc-700 dark:text-zinc-200
+                                                                                                                    hover:bg-linear-to-r hover:from-[#3526B3] hover:to-[#8615D9]
+                                                                                                                    hover:text-white dark:hover:text-white hover:!text-white dark:hover:!text-white
+                                                                                                                    rounded-md
+                                                                                                                    transition-colors
+                                                                                                                ';
             @endphp
 
             <flux:menu class="w-55">
@@ -188,15 +188,15 @@
                 <div class="relative">
                     <flux:modal.trigger name="input-absent-user">
                         <button class="flex flex-col items-center justify-center gap-1.5
-                                                px-8 py-4
-                                                bg-linear-to-r from-[#3526B3] to-[#8615D9]
-                                                hover:from-[#2a1f8f] hover:to-[#6b11ab]
-                                                text-white
-                                                rounded-full
-                                                shadow-2xl
-                                                transition-all
-                                                active:scale-95
-                                                hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)] cursor-pointer">
+                                                    px-8 py-4
+                                                    bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                                                    hover:from-[#2a1f8f] hover:to-[#6b11ab]
+                                                    text-white
+                                                    rounded-full
+                                                    shadow-2xl
+                                                    transition-all
+                                                    active:scale-95
+                                                    hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)] cursor-pointer">
                             <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -208,14 +208,14 @@
 
                     <!-- Tombol Hide (Panah Bawah) -->
                     <button id="hide-absen-btn" class="absolute -top-2 -right-2
-                                                   w-8 h-8
-                                                   bg-red-500 hover:bg-red-600
-                                                   text-white
-                                                   rounded-full
-                                                   shadow-lg
-                                                   flex items-center justify-center
-                                                   transition-all
-                                                   active:scale-95" onclick="toggleAbsenButton()">
+                                                       w-8 h-8
+                                                       bg-red-500 hover:bg-red-600
+                                                       text-white
+                                                       rounded-full
+                                                       shadow-lg
+                                                       flex items-center justify-center
+                                                       transition-all
+                                                       active:scale-95" onclick="toggleAbsenButton()">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="2.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -226,15 +226,16 @@
 
             <!-- Tombol Show (Collapsed State - Hidden by default) -->
             <button id="show-absen-btn" class="w-12 h-12
-                                           bg-linear-to-r from-[#3526B3] to-[#8615D9]
-                                           hover:from-[#2a1f8f] hover:to-[#6b11ab]
-                                           text-white
-                                           rounded-full
-                                           shadow-2xl
-                                           flex items-center justify-center
-                                           transition-all
-                                           active:scale-95
-                                           hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)]" onclick="toggleAbsenButton()">
+                                               bg-linear-to-r from-[#3526B3] to-[#8615D9]
+                                               hover:from-[#2a1f8f] hover:to-[#6b11ab]
+                                               text-white
+                                               rounded-full
+                                               shadow-2xl
+                                               flex items-center justify-center
+                                               transition-all
+                                               active:scale-95
+                                               hover:shadow-[0_20px_50px_rgba(53,38,179,0.5)]"
+                onclick="toggleAbsenButton()">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
@@ -250,29 +251,6 @@
     @include('partials.sweetalert')
 
     <script>
-        // Fungsi untuk mengatur tema
-        function applyTheme() {
-            const theme = localStorage.getItem('theme') ?? 'system';
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-
-        // Terapkan tema saat load
-        applyTheme();
-
-        // Dengarkan perubahan localStorage (untuk cross-tab atau jika diperlukan)
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'theme') {
-                applyTheme();
-            }
-        });
-
-        // Jika menggunakan Livewire navigasi, pastikan tema diterapkan setelah navigasi
-        document.addEventListener('livewire:navigated', applyTheme);
-
         // Toggle manual tombol absen
         function toggleAbsenButton() {
             const expandedBtn = document.getElementById('absen-btn-expanded');

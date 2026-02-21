@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-6">
         {{-- Header: Welcome back --}}
         <div class="flex w-full flex-col text-center">
-            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Welcome back !</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Welcome back !</h1>
         </div>
 
         <!-- Session Status -->
