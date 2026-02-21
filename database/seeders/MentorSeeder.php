@@ -19,6 +19,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08123456789',
                 'divisi_id' => 1, // IT Support
                 'keahlian' => 'Network Administration, Server Management, Troubleshooting',
+                'is_active' => true,
             ],
             [
                 'nama_mentor' => 'Siti Nurhaliza',
@@ -26,6 +27,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08234567890',
                 'divisi_id' => 2, // Frontend Development
                 'keahlian' => 'React, Vue.js, Tailwind CSS, JavaScript',
+                'is_active' => true,
             ],
             [
                 'nama_mentor' => 'Ahmad Zaki',
@@ -33,6 +35,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08345678901',
                 'divisi_id' => 3, // Backend Development
                 'keahlian' => 'Laravel, Node.js, PostgreSQL, REST API',
+                'is_active' => true,
             ],
             [
                 'nama_mentor' => 'Dewi Lestari',
@@ -40,6 +43,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08456789012',
                 'divisi_id' => 4, // UI/UX Design
                 'keahlian' => 'Figma, Adobe XD, User Research, Prototyping',
+                'is_active' => true,
             ],
             [
                 'nama_mentor' => 'Rizky Pratama',
@@ -47,6 +51,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08567890123',
                 'divisi_id' => 5, // Mobile Development
                 'keahlian' => 'Flutter, React Native, Kotlin, Swift',
+                'is_active' => true,
             ],
             [
                 'nama_mentor' => 'Maya Anggraini',
@@ -54,6 +59,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08678901234',
                 'divisi_id' => 6, // Quality Assurance
                 'keahlian' => 'Manual Testing, Automation Testing, Selenium',
+                'is_active' => false, // Non-aktif untuk di test di halaman arsip
             ],
             [
                 'nama_mentor' => 'Doni Hermawan',
@@ -61,6 +67,7 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08789012345',
                 'divisi_id' => 1, // IT Support
                 'keahlian' => 'System Administration, Cloud Computing, AWS',
+                'is_active' => false, // Non-aktif untuk di test di halaman arsip
             ],
             [
                 'nama_mentor' => 'Rina Kusuma',
@@ -68,11 +75,15 @@ class MentorSeeder extends Seeder
                 'no_telepon' => '08890123456',
                 'divisi_id' => 2, // Frontend Development
                 'keahlian' => 'Angular, TypeScript, SASS, Responsive Design',
+                'is_active' => true,
             ],
         ];
 
         foreach ($mentorData as $mentor) {
-            Mentor::query()->create($mentor);
+            Mentor::query()->firstOrCreate(
+                ['email' => $mentor['email']],
+                $mentor
+            );
         }
     }
 }

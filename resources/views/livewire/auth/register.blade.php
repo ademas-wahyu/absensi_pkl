@@ -5,7 +5,8 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6"
+            x-data="{ selectedDivisi: '{{ old('divisi') }}' }">
             @csrf
             <!-- Name -->
             <flux:input name="name" :label="__('Name')" :value="old('name')" type="text" required autofocus
@@ -24,7 +25,8 @@
                 autocomplete="new-password" :placeholder="__('Confirm password')" viewable />
 
             <!-- Divisi -->
-            <flux:select name="divisi" :label="__('Divisi')" required :placeholder="__('Pilih Divisi')">
+            <flux:select name="divisi" x-model="selectedDivisi" :label="__('Divisi')" required
+                :placeholder="__('Pilih Divisi')">
                 @foreach ($divisis as $divisi)
                     <flux:select.option value="{{ $divisi->nama_divisi }}">{{ $divisi->nama_divisi }}</flux:select.option>
                 @endforeach
@@ -36,13 +38,19 @@
                 autocomplete="organization" :placeholder="__('Nama Sekolah')" />
 
             <!-- Mentor (Optional) -->
-            <flux:select name="mentor_id" :label="__('Mentor (Optional)')" :placeholder="__('Pilih Mentor (Jika ada)')">
-                <flux:select.option value="">{{ __('Tidak ada / Belum tahu') }}</flux:select.option>
-                @foreach ($mentors as $mentor)
-                    <flux:select.option value="{{ $mentor->id }}">{{ $mentor->nama_mentor }}</flux:select.option>
-                @endforeach
-            </flux:select>
-            @error('mentor_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            <div x-show="selectedDivisi !== ''">
+                <flux:select name="mentor_id" :label="__('Mentor (Optional)')"
+                    :placeholder="__('Pilih Mentor (Jika ada)')">
+                    <flux:select.option value="">{{ __('Tidak ada / Belum tahu') }}</flux:select.option>
+                    @foreach ($mentors as $mentor)
+                        <flux:select.option value="{{ $mentor->id }}"
+                            x-show="selectedDivisi === '{{ $mentor->divisi->nama_divisi ?? '' }}'">
+                            {{ $mentor->nama_mentor }}
+                        </flux:select.option>
+                    @endforeach
+                </flux:select>
+                @error('mentor_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
 
             <div class="pt-2">
                 <button type="submit" class="login-btn-gradient w-full" data-test="register-user-button">

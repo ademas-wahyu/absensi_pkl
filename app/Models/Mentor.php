@@ -29,7 +29,25 @@ class Mentor extends Model
         'no_telepon',
         'divisi_id',
         'keahlian',
+        'is_active',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('is_active', false);
+    }
 
     /**
      * Get the divisi that owns the mentor.

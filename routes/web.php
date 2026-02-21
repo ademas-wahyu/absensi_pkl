@@ -17,6 +17,7 @@ Route::view('dashboard', 'dashboard')
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('daftar-anak', 'jumlah_anak')->name('jumlah_anak');
     Route::view('arsip-anak', 'archive_anak')->name('archive_anak');
+    Route::view('daftar-mentor', 'mentor_admin')->name('mentor_admin');
 });
 
 // Route khusus Admin (setting)
@@ -29,7 +30,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('absen', 'absent_users')->name('absent_users');
     Route::view('jurnal', 'jurnal_users')->name('jurnal_users');
-    Route::view('divisi_users', 'divisi_users')->name('divisi_users');
+    Route::view('divisi', 'divisi_users')->name('divisi');
 });
 
 // Route Jadwal - Admin dan Murid akses URL yang sama tapi view berbeda

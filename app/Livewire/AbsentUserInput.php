@@ -36,7 +36,7 @@ class AbsentUserInput extends Component
     /**
      * Submit checkout (absen pulang)
      */
-    public function submitCheckout()
+    public function submitCheckout($latitude = null, $longitude = null)
     {
         $today = AbsentUser::where('user_id', auth()->id())
             ->where('absent_date', now()->toDateString())
@@ -53,6 +53,20 @@ class AbsentUserInput extends Component
             return;
         }
 
+        // Validasi lokasi GPS saat checkout (wajib untuk WFO)
+        if ($today->verification_method === 'qr_code') {
+            if ($latitude && $longitude) {
+                $locationCheck = Setting::isWithinOfficeRadius((float) $latitude, (float) $longitude);
+                if (!$locationCheck['valid']) {
+                    Flux::toast("Checkout gagal: {$locationCheck['message']}", variant: 'danger');
+                    return;
+                }
+            } elseif (Setting::isLocationValidationEnabled()) {
+                Flux::toast('Lokasi GPS diperlukan untuk absen pulang WFO.', variant: 'danger');
+                return;
+            }
+        }
+
         // Jika sebelum jam 16:00, wajib isi alasan
         if (now()->hour < 16) {
             $this->validate([
@@ -65,6 +79,8 @@ class AbsentUserInput extends Component
         $today->update([
             'checkout_at' => now(),
             'early_leave_reason' => now()->hour < 16 ? $this->earlyLeaveReason : null,
+            'checkout_latitude' => $latitude,
+            'checkout_longitude' => $longitude,
         ]);
 
         $this->hasCheckedOut = true;
@@ -90,13 +106,11 @@ class AbsentUserInput extends Component
             return;
         }
 
-        // Validasi QR Token
-        $envToken = config('services.wfo.qr_token');
-        $normalizedInput = trim(urldecode($token));
-        $normalizedEnv = trim($envToken ?? '');
+        // Validasi QR Token menggunakan TOTP (dinamis, berubah setiap 5 menit)
+        $normalizedInput = trim($token);
 
-        if (!$normalizedEnv || !hash_equals($normalizedEnv, $normalizedInput)) {
-            $this->js("alert('QR Code tidak valid! Pastikan Anda scan QR yang terbaru dari halaman admin.');");
+        if (!Setting::verifyTotpToken($normalizedInput)) {
+            $this->js("alert('QR Code tidak valid atau sudah kedaluwarsa! Pastikan Anda scan QR yang terbaru dari layar admin.');");
             return;
         }
 

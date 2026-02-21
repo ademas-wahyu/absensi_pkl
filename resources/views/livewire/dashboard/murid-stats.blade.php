@@ -55,9 +55,8 @@ new class extends Component {
         shadow-md hover:shadow-xl transition-shadow duration-200
         aspect-video sm:aspect-video">
         <h1 class="text-base sm:text-lg font-semibold dark:text-gray-400 mt-2">Absensi</h1>
-        <svg xmlns="http://www.w3.org/2000/svg"
-            class="absolute top-7 right-7 w-15 h-15 text-black dark:text-gray-300" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-7 right-7 w-15 h-15 text-black dark:text-gray-300"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M8 2v4" />
             <path d="M16 2v4" />
@@ -116,11 +115,13 @@ new class extends Component {
         </svg>
         <div class="flex items-center gap-2 mt-2">
             <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Hari PKL:</p>
-            <span class="text-xs sm:text-sm font-bold text-[#3526B3] dark:text-[#8615D9]">{{ $totalWorkDays }} hari</span>
+            <span class="text-xs sm:text-sm font-bold text-[#3526B3] dark:text-[#8615D9]">{{ $totalWorkDays }}
+                hari</span>
         </div>
         <div class="flex items-center gap-2">
             <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Jurnal Diisi:</p>
-            <span class="text-xs sm:text-sm font-bold text-[#3526B3] dark:text-[#8615D9]">{{ $totalJurnalFilled }} jurnal</span>
+            <span class="text-xs sm:text-sm font-bold text-[#3526B3] dark:text-[#8615D9]">{{ $totalJurnalFilled }}
+                jurnal</span>
         </div>
         <a href="{{ route('jurnal_users') }}" wire:navigate class="absolute bottom-5 right-6 flex items-center gap-1
             text-xs sm:text-sm font-semibold
@@ -165,7 +166,7 @@ new class extends Component {
         </svg>
         <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">Dalam Divisi:</p>
         <p class="text-sm sm:text-base font-bold text-[#3526B3] dark:text-[#8615D9]">{{ $userDivisi }}</p>
-        <a href="{{ route('divisi_users') }}" wire:navigate class="absolute bottom-5 right-6 flex items-center gap-1
+        <a href="{{ route('divisi') }}" wire:navigate class="absolute bottom-5 right-6 flex items-center gap-1
             text-xs sm:text-sm font-semibold
             text-zinc-700 dark:text-zinc-200
             hover:text-[#3526B3] dark:hover:text-[#8615D9]

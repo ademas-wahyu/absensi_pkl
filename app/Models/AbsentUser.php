@@ -24,6 +24,9 @@ class AbsentUser extends Model
         'verification_method',
         'checkout_at',
         'early_leave_reason',
+        'checkout_latitude',
+        'checkout_longitude',
+        'checkout_selfie_path',
     ];
 
     protected function casts(): array

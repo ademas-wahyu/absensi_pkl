@@ -21,29 +21,15 @@ class Setting extends Component
 
     public $no_telepon_sekolah = "";
 
-    public $nama_mentor = "";
-
-    public $email_mentor = "";
-
-    public $no_telepon_mentor = "";
-
-    public $divisi_id_mentor = "";
-
-    public $keahlian_mentor = "";
-
     // Properties untuk modal state
     public $showDivisiModal = false;
 
     public $showSekolahModal = false;
 
-    public $showMentorModal = false;
-
     // Properties untuk edit mode
     public $editDivisiId = null;
 
     public $editSekolahId = null;
-
-    public $editMentorId = null;
 
     // DIVISI METHODS
     /**
@@ -216,103 +202,7 @@ class Setting extends Component
         $this->resetErrorBag();
     }
 
-    // MENTOR METHODS
-    /**
-     * Open mentor modal for creating new mentor
-     */
-    public function openMentorModal(): void
-    {
-        $this->resetMentorForm();
-        $this->showMentorModal = true;
-    }
-
-    /**
-     * Close mentor modal
-     */
-    public function closeMentorModal(): void
-    {
-        $this->showMentorModal = false;
-        $this->resetMentorForm();
-    }
-
-    /**
-     * Save mentor (create or update)
-     */
-    public function saveMentor(): void
-    {
-        $this->validate([
-            "nama_mentor" => "required|string|max:255",
-            "email_mentor" => "nullable|email|max:255",
-            "no_telepon_mentor" => "nullable|string|max:20",
-            "divisi_id_mentor" => "required|exists:divisi_admins,id",
-            "keahlian_mentor" => "nullable|string",
-        ]);
-
-        if ($this->editMentorId) {
-            $mentor = Mentor::query()->find($this->editMentorId);
-            $mentor->update([
-                "nama_mentor" => $this->nama_mentor,
-                "email" => $this->email_mentor,
-                "no_telepon" => $this->no_telepon_mentor,
-                "divisi_id" => $this->divisi_id_mentor,
-                "keahlian" => $this->keahlian_mentor,
-            ]);
-            session()->flash("message", "Mentor berhasil diupdate!");
-        } else {
-            Mentor::query()->create([
-                "nama_mentor" => $this->nama_mentor,
-                "email" => $this->email_mentor,
-                "no_telepon" => $this->no_telepon_mentor,
-                "divisi_id" => $this->divisi_id_mentor,
-                "keahlian" => $this->keahlian_mentor,
-            ]);
-            session()->flash("message", "Mentor berhasil ditambahkan!");
-        }
-
-        $this->closeMentorModal();
-    }
-
-    /**
-     * Edit existing mentor
-     *
-     * @param  int  $id
-     */
-    public function editMentor($id): void
-    {
-        $mentor = Mentor::query()->findOrFail($id);
-        $this->editMentorId = $id;
-        $this->nama_mentor = $mentor->nama_mentor;
-        $this->email_mentor = $mentor->email;
-        $this->no_telepon_mentor = $mentor->no_telepon;
-        $this->divisi_id_mentor = $mentor->divisi_id;
-        $this->keahlian_mentor = $mentor->keahlian;
-        $this->showMentorModal = true;
-    }
-
-    /**
-     * Delete mentor
-     *
-     * @param  int  $id
-     */
-    public function deleteMentor($id): void
-    {
-        Mentor::query()->find($id)->delete();
-        session()->flash("message", "Mentor berhasil dihapus!");
-    }
-
-    /**
-     * Reset mentor form
-     */
-    private function resetMentorForm(): void
-    {
-        $this->editMentorId = null;
-        $this->nama_mentor = "";
-        $this->email_mentor = "";
-        $this->no_telepon_mentor = "";
-        $this->divisi_id_mentor = "";
-        $this->keahlian_mentor = "";
-        $this->resetErrorBag();
-    }
+    // MENTOR METHODS REMOVED - Moved to MentorAdmin.php
 
     // QR CODE PROPERTIES
     public $attendance_token = "";
@@ -424,8 +314,6 @@ class Setting extends Component
         return view("livewire.setting", [
             "divisiList" => $divisiList,
             "sekolahList" => Sekolah::query()->latest()->get(),
-            "mentorList" => Mentor::query()->with("divisi")->latest()->get(),
-            "divisiOptions" => $divisiList,
         ]);
     }
 }

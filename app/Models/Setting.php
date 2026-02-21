@@ -79,9 +79,9 @@ class Setting extends Model
         $a =
             sin($deltaLat / 2) * sin($deltaLat / 2) +
             cos($lat1Rad) *
-                cos($lat2Rad) *
-                sin($deltaLon / 2) *
-                sin($deltaLon / 2);
+            cos($lat2Rad) *
+            sin($deltaLon / 2) *
+            sin($deltaLon / 2);
 
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 
@@ -126,9 +126,47 @@ class Setting extends Model
             "message" => $isWithinRadius
                 ? "Lokasi valid ({$distance}m dari kantor)."
                 : "Lokasi di luar radius! Anda berada di: {$locationName}. Jarak: " .
-                    round($distance) .
-                    "m, maksimal: {$office["radius"]}m.",
+                round($distance) .
+                "m, maksimal: {$office["radius"]}m.",
         ];
+    }
+
+    /**
+     * Generate TOTP token berdasarkan attendance_token + tanggal.
+     * Token berubah setiap hari (86400 detik).
+     */
+    public static function generateTotpToken(): string
+    {
+        $secret = static::get('attendance_token', '');
+        $timeWindow = (int) floor(time() / 86400);
+
+        return hash_hmac('sha256', (string) $timeWindow, $secret);
+    }
+
+    /**
+     * Hitung detik tersisa sebelum token TOTP berubah (pergantian hari).
+     */
+    public static function getTotpSecondsRemaining(): int
+    {
+        return 86400 - (time() % 86400);
+    }
+
+    /**
+     * Verifikasi TOTP token dengan toleransi ±1 window.
+     */
+    public static function verifyTotpToken(string $inputToken): bool
+    {
+        $secret = static::get('attendance_token', '');
+        if (empty($secret)) {
+            return false;
+        }
+
+        $currentWindow = (int) floor(time() / 86400);
+
+        // Cek window saat ini saja (berlaku 1 hari penuh)
+        $expected = hash_hmac('sha256', (string) $currentWindow, $secret);
+
+        return hash_equals($expected, trim($inputToken));
     }
 
     /**
@@ -139,10 +177,7 @@ class Setting extends Model
     {
         $cacheKey = "geocode_{$lat}_{$lon}";
 
-        return Cache::remember($cacheKey, now()->addDay(), function () use (
-            $lat,
-            $lon,
-        ) {
+        return Cache::remember($cacheKey, now()->addDay(), function () use ($lat, $lon, ) {
             try {
                 $response = Http::withHeaders([
                     "User-Agent" => "AbsensiPKL-App/1.0",

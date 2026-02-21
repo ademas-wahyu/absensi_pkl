@@ -65,6 +65,11 @@ class DataAdmin extends Component
         $this->resetValidation();
     }
 
+    public function updatedDivisi()
+    {
+        $this->mentor_id = '';
+    }
+
     public function resetFilters()
     {
         $this->search = '';
@@ -227,10 +232,17 @@ class DataAdmin extends Component
                 ->pluck('sekolah');
         });
 
-        // Get mentors for dropdown (cached for 1 hour)
-        $mentorList = cache()->remember('mentor_list', 3600, function () {
-            return \App\Models\Mentor::orderBy('nama_mentor')->get();
-        });
+        // Get active mentors filtered by selected divisi
+        $availableMentors = collect();
+        if ($this->divisi) {
+            $divisiModel = \App\Models\DivisiAdmin::where('nama_divisi', $this->divisi)->first();
+            if ($divisiModel) {
+                $availableMentors = \App\Models\Mentor::where('divisi_id', $divisiModel->id)
+                    ->where('is_active', true)
+                    ->orderBy('nama_mentor')
+                    ->get();
+            }
+        }
 
         // Get divisi options for dropdown (cached for 1 hour)
         $divisiOptions = cache()->remember('divisi_options', 3600, function () {
@@ -240,7 +252,7 @@ class DataAdmin extends Component
         return view('livewire.data-admin', [
             'students' => $students,
             'sekolahList' => $sekolahList,
-            'mentorList' => $mentorList,
+            'availableMentors' => $availableMentors,
             'divisiOptions' => $divisiOptions,
         ]);
     }

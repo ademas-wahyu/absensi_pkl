@@ -28,7 +28,7 @@
     <div class="flex flex-col gap-4 md:flex-row md:gap-6">
         <!-- CARD 1 : DIVISI -->
         <div class="flex flex-col
-           w-full md:flex-1
+           w-full md:w-1/2
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
            bg-white dark:bg-neutral-800
@@ -72,7 +72,7 @@
 
         <!-- CARD 2 : ASAL SEKOLAH -->
         <div class="flex flex-col
-           w-full md:flex-1
+           w-full md:w-1/2
            rounded-2xl
            border border-neutral-200 dark:border-neutral-700
            bg-white dark:bg-neutral-800
@@ -106,58 +106,6 @@
 
                 <div class="text-right">
                     <button wire:click="openSekolahModal" type="button" class="text-sm text-neutral-500 dark:text-neutral-400
-                              hover:text-[#3526B3] hover:underline transition">
-                        Lihat Detail →
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 3 : MENTOR -->
-        <div class="flex flex-col
-           w-full md:flex-1
-           rounded-2xl
-           border border-neutral-200 dark:border-neutral-700
-           bg-white dark:bg-neutral-800
-           px-6 py-6
-           shadow-md hover:shadow-lg
-           transition">
-
-            <div class="mb-5 pl-4">
-                <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">
-                    Nama Mentor
-                </h3>
-                <p class="text-sm text-neutral-500 dark:text-neutral-400">
-                    Atur nama mentor
-                </p>
-            </div>
-
-            <div class="flex-1 space-y-5 pl-4">
-                <flux:input wire:model="nama_mentor" label="Nama Mentor" placeholder="Budi Santoso" />
-
-                <flux:input wire:model="email_mentor" label="Email" placeholder="mentor@example.com" type="email" />
-
-                <flux:input wire:model="no_telepon_mentor" label="No. Telepon" placeholder="08123456789" />
-
-                <flux:select wire:model="divisi_id_mentor" label="Divisi" placeholder="Pilih Divisi">
-                    @foreach ($divisiOptions as $divisi)
-                        <option value="{{ $divisi->id }}">{{ $divisi->nama_divisi }}</option>
-                    @endforeach
-                </flux:select>
-
-                <flux:textarea wire:model="keahlian_mentor" label="Keahlian" placeholder="Frontend Development, UI/UX"
-                    rows="3" />
-            </div>
-
-            <!-- Buttons - Always at bottom -->
-            <div class="space-y-3 pl-4 mt-auto pt-5">
-                <flux:button wire:click="saveMentor"
-                    class="w-full bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white! hover:opacity-90">
-                    Simpan Perubahan
-                </flux:button>
-
-                <div class="text-right">
-                    <button wire:click="openMentorModal" type="button" class="text-sm text-neutral-500 dark:text-neutral-400
                               hover:text-[#3526B3] hover:underline transition">
                         Lihat Detail →
                     </button>
@@ -229,10 +177,12 @@
             </div>
 
             <div class="flex-1 space-y-4 pl-4">
-                <flux:input wire:model="office_latitude" label="Latitude" placeholder="-6.175110" type="number" step="any" />
-                
-                <flux:input wire:model="office_longitude" label="Longitude" placeholder="106.865039" type="number" step="any" />
-                
+                <flux:input wire:model="office_latitude" label="Latitude" placeholder="-6.175110" type="number"
+                    step="any" />
+
+                <flux:input wire:model="office_longitude" label="Longitude" placeholder="106.865039" type="number"
+                    step="any" />
+
                 <flux:input wire:model="office_radius" label="Radius (meter)" placeholder="100" type="number" />
 
                 <div class="flex items-center gap-3 py-2">
@@ -242,10 +192,12 @@
                     </label>
                 </div>
 
-                <div class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-900/50 p-3 rounded-lg">
+                <div
+                    class="text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-900/50 p-3 rounded-lg">
                     <p class="font-medium mb-1">💡 Tips:</p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li>Cari koordinat di <a href="https://www.google.com/maps" target="_blank" class="text-blue-500 hover:underline">Google Maps</a></li>
+                        <li>Cari koordinat di <a href="https://www.google.com/maps" target="_blank"
+                                class="text-blue-500 hover:underline">Google Maps</a></li>
                         <li>Klik lokasi kantor, copy koordinat yang muncul</li>
                         <li>Radius 100m = user harus dalam jarak 100m dari titik kantor</li>
                     </ul>
@@ -264,44 +216,44 @@
     {{--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> --}}
     <script>
-        {{-- Gunakan CDN untuk memastikan library terload --}}
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+        { { --Gunakan CDN untuk memastikan library terload-- } }
+        <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <script>
         document.addEventListener('livewire:initialized', () => {
             const renderQr = (token) => {
                 const canvas = document.getElementById("qrcode-canvas");
-                if (!canvas) return;
+        if (!canvas) return;
 
-                console.log("Attempting to render QR for token:", token);
+        console.log("Attempting to render QR for token:", token);
 
-                // Cek apakah library QRCode tersedia
-                if (typeof QRCode !== 'undefined') {
-                    QRCode.toCanvas(canvas, token, { width: 200, margin: 2 }, function (error) {
-                        if (error) {
-                            console.error('QR Generation Error:', error);
-                            alert('Gagal membuat QR Code.');
-                        } else {
-                            console.log('QR Code generated successfully!');
-                        }
-                    });
-                    
-                    const msg = document.getElementById('no-qr-msg');
-                    if (msg) msg.style.display = 'none';
+        // Cek apakah library QRCode tersedia
+        if (typeof QRCode !== 'undefined') {
+            QRCode.toCanvas(canvas, token, { width: 200, margin: 2 }, function (error) {
+                if (error) {
+                    console.error('QR Generation Error:', error);
+                    alert('Gagal membuat QR Code.');
                 } else {
-                    console.error("QRCode library missing!");
-                    alert("Library QR Code tidak terload. Periksa koneksi internet.");
+                    console.log('QR Code generated successfully!');
+                }
+            });
+
+        const msg = document.getElementById('no-qr-msg');
+        if (msg) msg.style.display = 'none';
+                } else {
+            console.error("QRCode library missing!");
+        alert("Library QR Code tidak terload. Periksa koneksi internet.");
                 }
             };
 
-            // Init load
-            if (@json($attendance_token)) {
-                // Beri sedikit delay untuk memastikan DOM siap sepenuhnya
-                setTimeout(() => renderQr(@json($attendance_token)), 100);
+        // Init load
+        if (@json($attendance_token)) {
+            // Beri sedikit delay untuk memastikan DOM siap sepenuhnya
+            setTimeout(() => renderQr(@json($attendance_token)), 100);
             }
 
-            Livewire.on('qr-code-generated', ({ token }) => {
-                setTimeout(() => renderQr(token), 100);
+        Livewire.on('qr-code-generated', ({token}) => {
+            setTimeout(() => renderQr(token), 100);
             });
         });
     </script>
@@ -417,68 +369,4 @@
         </flux:modal>
     @endif
 
-    <!-- MODAL MENTOR -->
-    @if ($showMentorModal)
-        <flux:modal wire:model="showMentorModal" class="w-[calc(100vw-2rem)] max-w-7xl space-y-6">
-            <div>
-                <flux:heading size="lg">Data Mentor</flux:heading>
-                <flux:subheading>Daftar semua mentor yang terdaftar</flux:subheading>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="text-xs uppercase bg-neutral-100 dark:bg-neutral-700">
-                        <tr>
-                            <th class="px-6 py-3">No</th>
-                            <th class="px-6 py-3">Nama Mentor</th>
-                            <th class="px-6 py-3">Email</th>
-                            <th class="px-6 py-3">No. Telepon</th>
-                            <th class="px-6 py-3">Divisi</th>
-                            <th class="px-6 py-3">Keahlian</th>
-                            <th class="px-6 py-3">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($mentorList as $index => $mentor)
-                            <tr class="border-b dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800">
-                                <td class="px-6 py-4">{{ $index + 1 }}</td>
-                                <td class="px-6 py-4 font-medium">{{ $mentor->nama_mentor }}</td>
-                                <td class="px-6 py-4">{{ $mentor->email ?? '-' }}</td>
-                                <td class="px-6 py-4">{{ $mentor->no_telepon ?? '-' }}</td>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="px-2 py-1 text-xs rounded-full bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
-                                        {{ $mentor->divisi->nama_divisi ?? '-' }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">{{ $mentor->keahlian ?? '-' }}</td>
-                                <td class="px-6 py-4">
-                                    <div class="flex gap-2">
-                                        <flux:button wire:click="editMentor({{ $mentor->id }})" size="sm" variant="ghost">
-                                            Edit
-                                        </flux:button>
-                                        <flux:button wire:click="deleteMentor({{ $mentor->id }})"
-                                            wire:confirm="Apakah Anda yakin ingin menghapus mentor ini?" size="sm"
-                                            variant="danger">
-                                            Hapus
-                                        </flux:button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="px-6 py-8 text-center text-neutral-500">
-                                    Belum ada data mentor
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="flex gap-2 justify-end">
-                <flux:button wire:click="closeMentorModal" variant="ghost">Tutup</flux:button>
-            </div>
-        </flux:modal>
-    @endif
 </div>

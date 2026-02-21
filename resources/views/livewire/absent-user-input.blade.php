@@ -24,7 +24,32 @@
 
         @elseif($isCheckout)
             {{-- Form Checkout / Absen Pulang --}}
-            <div class="space-y-6 p-2">
+            <div class="space-y-6 p-2" x-data="{
+                    checkoutLat: null,
+                    checkoutLng: null,
+                    locationStatus: 'loading',
+                    isSubmitting: false,
+                    init() {
+                        if ('geolocation' in navigator) {
+                            navigator.geolocation.getCurrentPosition(
+                                (pos) => {
+                                    this.checkoutLat = pos.coords.latitude;
+                                    this.checkoutLng = pos.coords.longitude;
+                                    this.locationStatus = 'granted';
+                                },
+                                () => { this.locationStatus = 'denied'; },
+                                { enableHighAccuracy: true, timeout: 10000 }
+                            );
+                        } else {
+                            this.locationStatus = 'unsupported';
+                        }
+                    },
+                    async doCheckout() {
+                        this.isSubmitting = true;
+                        await $wire.call('submitCheckout', this.checkoutLat, this.checkoutLng);
+                        this.isSubmitting = false;
+                    }
+                }">
                 <div>
                     <flux:heading size="lg">Absen Pulang</flux:heading>
                     <p class="text-sm text-neutral-500 mt-1">Konfirmasi absen pulang Anda.</p>
@@ -44,6 +69,28 @@
                                 x-text="new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'}) + ' WIB'">
                             </p>
                         </div>
+                    </div>
+                </div>
+
+                {{-- GPS Status Indicator --}}
+                <div class="p-3 rounded-lg border" :class="{
+                        'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800': locationStatus === 'granted',
+                        'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800': locationStatus === 'loading',
+                        'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800': locationStatus === 'denied' || locationStatus === 'unsupported'
+                    }">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" class="shrink-0">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span class="text-sm" x-show="locationStatus === 'loading'">Mengambil lokasi GPS...</span>
+                        <span class="text-sm text-green-700 dark:text-green-300" x-show="locationStatus === 'granted'">📍
+                            Lokasi GPS tersedia</span>
+                        <span class="text-sm text-red-700 dark:text-red-300" x-show="locationStatus === 'denied'">⚠️ Izinkan
+                            akses lokasi untuk checkout</span>
+                        <span class="text-sm text-red-700 dark:text-red-300" x-show="locationStatus === 'unsupported'">⚠️
+                            Browser tidak mendukung GPS</span>
                     </div>
                 </div>
 
@@ -74,15 +121,16 @@
                     <flux:modal.close>
                         <flux:button variant="ghost">Batal</flux:button>
                     </flux:modal.close>
-                    <flux:button wire:click="submitCheckout" variant="primary"
-                        class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white!">
+                    <flux:button @click="doCheckout()" variant="primary"
+                        class="bg-linear-to-r from-[#3526B3] to-[#8615D9] text-white!" x-bind:disabled="isSubmitting">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" class="mr-1">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                             <polyline points="16 17 21 12 16 7" />
                             <line x1="21" x2="9" y1="12" y2="12" />
                         </svg>
-                        Absen Pulang
+                        <span x-show="!isSubmitting">Absen Pulang</span>
+                        <span x-show="isSubmitting">Memproses...</span>
                     </flux:button>
                 </div>
             </div>
@@ -90,181 +138,181 @@
         @else
             {{-- Form Absen Masuk (QR / Selfie) --}}
             <div class="space-y-6" x-data="{
-                        activeTab: 'qr',
-                        cameraActive: false,
-                        capturedImage: null,
-                        latitude: null,
-                        longitude: null,
-                        locationStatus: null,
-                        locationGranted: false,
-                        isSubmitting: false,
-                        html5QrcodeScanner: null,
-                        cameraStream: null,
+                            activeTab: 'qr',
+                            cameraActive: false,
+                            capturedImage: null,
+                            latitude: null,
+                            longitude: null,
+                            locationStatus: null,
+                            locationGranted: false,
+                            isSubmitting: false,
+                            html5QrcodeScanner: null,
+                            cameraStream: null,
 
-                        init() {
-                            this.requestLocation();
-                            window.addEventListener('close-scanner', () => this.stopQrScanner());
-                            window.addEventListener('close-camera', () => this.stopCamera());
-                        },
-
-                        requestLocation() {
-                            if ('geolocation' in navigator) {
-                                navigator.geolocation.getCurrentPosition(
-                                    (position) => {
-                                        this.latitude = position.coords.latitude;
-                                        this.longitude = position.coords.longitude;
-                                        this.locationGranted = true;
-                                        this.locationStatus = '📍 Lokasi: ' + this.latitude.toFixed(6) + ', ' + this.longitude.toFixed(6);
-                                    },
-                                    (error) => {
-                                        console.error('Geolocation error:', error);
-                                        this.locationStatus = '⚠️ Lokasi tidak tersedia';
-                                        this.locationGranted = false;
-                                    },
-                                    { enableHighAccuracy: true, timeout: 10000 }
-                                );
-                            } else {
-                                this.locationStatus = '⚠️ Browser tidak mendukung GPS';
-                            }
-                        },
-
-                        startQrScanner() {
-                            if (this.html5QrcodeScanner === null) {
-                                if (window.Html5Qrcode) {
-                                    this.html5QrcodeScanner = new window.Html5Qrcode('reader');
-                                } else {
-                                    alert('Library scanner belum dimuat. Silahkan refresh halaman.');
-                                    return;
-                                }
-                            }
-
-                            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-                            const self = this;
-
-                            this.html5QrcodeScanner.start(
-                                { facingMode: 'environment' },
-                                config,
-                                (decodedText) => {
-                                    self.html5QrcodeScanner.stop().then(() => {
-                                        // Kirim token QR + lokasi GPS untuk validasi radius
-                                        $wire.call('verifyQrCode', decodedText, self.latitude, self.longitude);
-                                        self.html5QrcodeScanner = null;
-                                        self.toggleQrButtons(false);
-                                    });
-                                },
-                                () => {}
-                            ).catch(err => {
-                                console.error('Error starting scanner', err);
-                                alert('Gagal membuka kamera: ' + err);
-                                self.toggleQrButtons(false);
-                            });
-
-                            this.toggleQrButtons(true);
-                        },
-
-                        stopQrScanner() {
-                            if (this.html5QrcodeScanner) {
-                                const self = this;
-                                this.html5QrcodeScanner.stop().then(() => {
-                                    self.html5QrcodeScanner = null;
-                                    self.toggleQrButtons(false);
-                                }).catch(err => console.log(err));
-                            }
-                        },
-
-                        toggleQrButtons(isScanning) {
-                            const btnStart = document.getElementById('btn-start-scan');
-                            const btnStop = document.getElementById('btn-stop-scan');
-                            if (btnStart && btnStop) {
-                                if (isScanning) {
-                                    btnStart.classList.add('hidden');
-                                    btnStop.classList.remove('hidden');
-                                } else {
-                                    btnStart.classList.remove('hidden');
-                                    btnStop.classList.add('hidden');
-                                }
-                            }
-                        },
-
-                        async startCamera() {
-                            try {
+                            init() {
                                 this.requestLocation();
+                                window.addEventListener('close-scanner', () => this.stopQrScanner());
+                                window.addEventListener('close-camera', () => this.stopCamera());
+                            },
 
-                                this.cameraStream = await navigator.mediaDevices.getUserMedia({
-                                    video: {
-                                        facingMode: 'user',
-                                        width: { ideal: 1280 },
-                                        height: { ideal: 720 }
+                            requestLocation() {
+                                if ('geolocation' in navigator) {
+                                    navigator.geolocation.getCurrentPosition(
+                                        (position) => {
+                                            this.latitude = position.coords.latitude;
+                                            this.longitude = position.coords.longitude;
+                                            this.locationGranted = true;
+                                            this.locationStatus = '📍 Lokasi: ' + this.latitude.toFixed(6) + ', ' + this.longitude.toFixed(6);
+                                        },
+                                        (error) => {
+                                            console.error('Geolocation error:', error);
+                                            this.locationStatus = '⚠️ Lokasi tidak tersedia';
+                                            this.locationGranted = false;
+                                        },
+                                        { enableHighAccuracy: true, timeout: 10000 }
+                                    );
+                                } else {
+                                    this.locationStatus = '⚠️ Browser tidak mendukung GPS';
+                                }
+                            },
+
+                            startQrScanner() {
+                                if (this.html5QrcodeScanner === null) {
+                                    if (window.Html5Qrcode) {
+                                        this.html5QrcodeScanner = new window.Html5Qrcode('reader');
+                                    } else {
+                                        alert('Library scanner belum dimuat. Silahkan refresh halaman.');
+                                        return;
                                     }
+                                }
+
+                                const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                                const self = this;
+
+                                this.html5QrcodeScanner.start(
+                                    { facingMode: 'environment' },
+                                    config,
+                                    (decodedText) => {
+                                        self.html5QrcodeScanner.stop().then(() => {
+                                            // Kirim token QR + lokasi GPS untuk validasi radius
+                                            $wire.call('verifyQrCode', decodedText, self.latitude, self.longitude);
+                                            self.html5QrcodeScanner = null;
+                                            self.toggleQrButtons(false);
+                                        });
+                                    },
+                                    () => {}
+                                ).catch(err => {
+                                    console.error('Error starting scanner', err);
+                                    alert('Gagal membuka kamera: ' + err);
+                                    self.toggleQrButtons(false);
                                 });
 
-                                this.$refs.selfieVideo.srcObject = this.cameraStream;
-                                this.cameraActive = true;
-                            } catch (err) {
-                                console.error('Camera error:', err);
-                                alert('Gagal membuka kamera. Pastikan izin kamera diaktifkan.');
-                            }
-                        },
+                                this.toggleQrButtons(true);
+                            },
 
-                        stopCamera() {
-                            if (this.cameraStream) {
-                                this.cameraStream.getTracks().forEach(track => track.stop());
-                                this.cameraStream = null;
-                            }
-                            this.cameraActive = false;
-                        },
+                            stopQrScanner() {
+                                if (this.html5QrcodeScanner) {
+                                    const self = this;
+                                    this.html5QrcodeScanner.stop().then(() => {
+                                        self.html5QrcodeScanner = null;
+                                        self.toggleQrButtons(false);
+                                    }).catch(err => console.log(err));
+                                }
+                            },
 
-                        capturePhoto() {
-                            const video = this.$refs.selfieVideo;
-                            const canvas = this.$refs.selfieCanvas;
-                            const ctx = canvas.getContext('2d');
+                            toggleQrButtons(isScanning) {
+                                const btnStart = document.getElementById('btn-start-scan');
+                                const btnStop = document.getElementById('btn-stop-scan');
+                                if (btnStart && btnStop) {
+                                    if (isScanning) {
+                                        btnStart.classList.add('hidden');
+                                        btnStop.classList.remove('hidden');
+                                    } else {
+                                        btnStart.classList.remove('hidden');
+                                        btnStop.classList.add('hidden');
+                                    }
+                                }
+                            },
 
-                            canvas.width = video.videoWidth;
-                            canvas.height = video.videoHeight;
-                            ctx.drawImage(video, 0, 0);
+                            async startCamera() {
+                                try {
+                                    this.requestLocation();
 
-                            this.capturedImage = canvas.toDataURL('image/jpeg', 0.8);
-                            this.stopCamera();
-                        },
+                                    this.cameraStream = await navigator.mediaDevices.getUserMedia({
+                                        video: {
+                                            facingMode: 'user',
+                                            width: { ideal: 1280 },
+                                            height: { ideal: 720 }
+                                        }
+                                    });
 
-                        retakePhoto() {
-                            this.capturedImage = null;
-                            this.startCamera();
-                        },
+                                    this.$refs.selfieVideo.srcObject = this.cameraStream;
+                                    this.cameraActive = true;
+                                } catch (err) {
+                                    console.error('Camera error:', err);
+                                    alert('Gagal membuka kamera. Pastikan izin kamera diaktifkan.');
+                                }
+                            },
 
-                        async submitSelfie() {
-                            if (!this.capturedImage) {
-                                alert('Silakan ambil foto terlebih dahulu.');
-                                return;
-                            }
+                            stopCamera() {
+                                if (this.cameraStream) {
+                                    this.cameraStream.getTracks().forEach(track => track.stop());
+                                    this.cameraStream = null;
+                                }
+                                this.cameraActive = false;
+                            },
 
-                            if (!this.locationGranted) {
-                                alert('Lokasi diperlukan untuk absensi. Silakan izinkan akses lokasi.');
-                                this.requestLocation();
-                                return;
-                            }
+                            capturePhoto() {
+                                const video = this.$refs.selfieVideo;
+                                const canvas = this.$refs.selfieCanvas;
+                                const ctx = canvas.getContext('2d');
 
-                            this.isSubmitting = true;
+                                canvas.width = video.videoWidth;
+                                canvas.height = video.videoHeight;
+                                ctx.drawImage(video, 0, 0);
 
-                            try {
-                                await $wire.call('submitWithSelfie', this.capturedImage, this.latitude, this.longitude);
+                                this.capturedImage = canvas.toDataURL('image/jpeg', 0.8);
+                                this.stopCamera();
+                            },
+
+                            retakePhoto() {
                                 this.capturedImage = null;
-                                this.isSubmitting = false;
-                            } catch (err) {
-                                console.error('Submit error:', err);
-                                alert('Gagal mengirim absensi. Silakan coba lagi.');
-                                this.isSubmitting = false;
-                            }
-                        },
+                                this.startCamera();
+                            },
 
-                        setTab(tab) {
-                            this.activeTab = tab;
-                            $wire.call('setTab', tab);
-                            if (tab !== 'qr') {
-                                this.stopQrScanner();
+                            async submitSelfie() {
+                                if (!this.capturedImage) {
+                                    alert('Silakan ambil foto terlebih dahulu.');
+                                    return;
+                                }
+
+                                if (!this.locationGranted) {
+                                    alert('Lokasi diperlukan untuk absensi. Silakan izinkan akses lokasi.');
+                                    this.requestLocation();
+                                    return;
+                                }
+
+                                this.isSubmitting = true;
+
+                                try {
+                                    await $wire.call('submitWithSelfie', this.capturedImage, this.latitude, this.longitude);
+                                    this.capturedImage = null;
+                                    this.isSubmitting = false;
+                                } catch (err) {
+                                    console.error('Submit error:', err);
+                                    alert('Gagal mengirim absensi. Silakan coba lagi.');
+                                    this.isSubmitting = false;
+                                }
+                            },
+
+                            setTab(tab) {
+                                this.activeTab = tab;
+                                $wire.call('setTab', tab);
+                                if (tab !== 'qr') {
+                                    this.stopQrScanner();
+                                }
                             }
-                        }
-                    }">
+                        }">
 
                 <!-- TAB SELECTOR -->
                 <div class="flex border-b border-neutral-200 dark:border-neutral-700">

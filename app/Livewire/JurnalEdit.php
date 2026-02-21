@@ -14,10 +14,27 @@ class JurnalEdit extends Component
     public $jurnal_date;
     public $activity;
 
-    protected $rules = [
-        'jurnal_date' => 'required|date',
-        'activity' => 'required|string|min:5',
-    ];
+    protected function rules()
+    {
+        return [
+            'jurnal_date' => [
+                'required',
+                'date',
+                'before_or_equal:today',
+                'after_or_equal:' . now()->subDays(3)->toDateString(),
+            ],
+            'activity' => 'required|string|min:20',
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'jurnal_date.before_or_equal' => 'Tanggal jurnal tidak boleh di masa depan.',
+            'jurnal_date.after_or_equal' => 'Tanggal jurnal maksimal 3 hari ke belakang.',
+            'activity.min' => 'Aktivitas jurnal minimal 20 karakter.',
+        ];
+    }
 
     public function render()
     {
@@ -46,6 +63,17 @@ class JurnalEdit extends Component
     public function submit()
     {
         $this->validate();
+
+        // Cek duplikasi tanggal (kecuali jurnal yang sedang diedit)
+        $exists = JurnalUser::where('user_id', auth()->id())
+            ->where('jurnal_date', $this->jurnal_date)
+            ->where('id', '!=', $this->jurnalId)
+            ->exists();
+
+        if ($exists) {
+            Flux::toast('Sudah ada jurnal lain untuk tanggal ini.', variant: 'danger');
+            return;
+        }
 
         $jurnal = \App\Models\JurnalUser::findOrFail($this->jurnalId);
         Gate::authorize('update', $jurnal);

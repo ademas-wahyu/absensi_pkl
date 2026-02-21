@@ -72,8 +72,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::twoFactorChallengeView(fn() => view('livewire.auth.two-factor-challenge'));
         Fortify::confirmPasswordView(fn() => view('livewire.auth.confirm-password'));
         Fortify::registerView(function () {
-            $divisis = \App\Models\DivisiAdmin::all();
-            $mentors = \App\Models\Mentor::all();
+            $divisis = \App\Models\DivisiAdmin::orderBy('nama_divisi')->get();
+            $mentors = \App\Models\Mentor::with('divisi')
+                ->where('is_active', true)
+                ->orderBy('nama_mentor')
+                ->get();
             return view('livewire.auth.register', compact('divisis', 'mentors'));
         });
         Fortify::resetPasswordView(fn() => view('livewire.auth.reset-password'));

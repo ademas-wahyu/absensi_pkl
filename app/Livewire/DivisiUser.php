@@ -10,11 +10,11 @@ class DivisiUser extends Component
     // controls whether the profile modal is visible
     public bool $show = false;
 
-    // User data properties
-    public string $name = '';
-    public string $email = '';
-    public string $divisi = '';
+    // Divisi data properties
+    public string $divisiName = '';
     public string $description = '';
+    public $mentors = [];
+    public $students = [];
 
     /**
      * Mount the component and load user data
@@ -22,42 +22,32 @@ class DivisiUser extends Component
     public function mount(): void
     {
         $user = Auth::user();
-        
+
         if ($user) {
-            $this->name = $user->name;
-            $this->email = $user->email;
-            $this->divisi = $user->divisi ?? 'Belum ditugaskan';
-            $this->description = $this->getDivisiDescription($user->divisi);
+            $this->divisiName = $user->divisi ?? 'Belum ditugaskan';
+
+            if ($this->divisiName !== 'Belum ditugaskan') {
+                $divisiModel = \App\Models\DivisiAdmin::where('nama_divisi', $this->divisiName)->first();
+                $this->description = $divisiModel ? ($divisiModel->deskripsi ?? 'Deskripsi tidak tersedia') : 'Deskripsi tidak tersedia';
+
+                if ($divisiModel) {
+                    $this->mentors = \App\Models\Mentor::where('divisi_id', $divisiModel->id)
+                        ->where('is_active', true)
+                        ->orderBy('nama_mentor')
+                        ->get();
+                }
+
+                $this->students = \App\Models\User::role('murid')
+                    ->where('divisi', $this->divisiName)
+                    ->where('is_active', true)
+                    ->orderBy('name')
+                    ->get();
+            } else {
+                $this->description = 'Anda belum memiliki divisi.';
+                $this->mentors = collect();
+                $this->students = collect();
+            }
         }
-    }
-
-    /**
-     * Get divisi description from DivisiAdmin model
-     */
-    private function getDivisiDescription(?string $divisiName): string
-    {
-        if (!$divisiName) {
-            return 'Belum ada deskripsi';
-        }
-
-        $divisi = \App\Models\DivisiAdmin::where('nama_divisi', $divisiName)->first();
-        return $divisi ? $divisi->deskripsi : 'Deskripsi tidak tersedia';
-    }
-
-    /**
-     * Open profile modal
-     */
-    public function openProfile(): void
-    {
-        $this->show = true;
-    }
-
-    /**
-     * Close profile modal
-     */
-    public function closeProfile(): void
-    {
-        $this->show = false;
     }
 
     public function render()
