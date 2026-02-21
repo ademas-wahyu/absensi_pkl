@@ -238,7 +238,7 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-8 h-8 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                                    flex items-center justify-center text-white font-semibold text-xs">
+                                                                                                    flex items-center justify-center text-white font-semibold text-xs">
                                     {{ strtoupper(substr($student->name, 0, 2)) }}
                                 </div>
                                 <span class="font-medium">{{ $student->name }}</span>
@@ -249,7 +249,7 @@
                             @if($student->divisi)
                                 <span
                                     class="px-2 py-1 rounded-full text-xs font-medium 
-                                                                                                                                    bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
+                                                                                                                                                                    bg-[#3526B3]/10 text-[#3526B3] dark:bg-[#8615D9]/20 dark:text-[#8615D9]">
                                     {{ $student->divisi }}
                                 </span>
                             @else
@@ -274,9 +274,30 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
-                            <flux:button variant="ghost" size="sm" wire:click="edit({{ $student->id }})"
-                                icon="pencil-square">
-                            </flux:button>
+                            <div class="flex items-center gap-2">
+                                <flux:button variant="ghost" size="sm" wire:click="edit({{ $student->id }})"
+                                    icon="pencil-square" title="Edit Data">
+                                </flux:button>
+                                <flux:button variant="ghost" size="sm"
+                                    class="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                    icon="archive-box-x-mark" title="Non-Aktifkan" x-on:click.prevent="
+                                            Swal.fire({
+                                                title: 'Nonaktifkan Anak PKL?',
+                                                text: 'Anak ini tidak akan muncul lagi di daftar aktif.',
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3526B3',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Ya, Nonaktifkan!',
+                                                cancelButtonText: 'Batal'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $wire.deactivateUser({{ $student->id }});
+                                                }
+                                            })
+                                        ">
+                                </flux:button>
+                            </div>
                         </td>
                     </tr>
                 @empty

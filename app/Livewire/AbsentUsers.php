@@ -37,7 +37,7 @@ class AbsentUsers extends Component
             return [];
         }
 
-        $query = User::role('murid');
+        $query = User::role('murid')->active();
 
         if ($this->divisi) {
             $query->where('divisi', $this->divisi);
@@ -73,11 +73,13 @@ class AbsentUsers extends Component
         if ($this->isAdmin) {
             // Dropdown Divisi
             $divisions = User::role('murid')
+                ->active()
                 ->whereNotNull('divisi')
                 ->distinct()
                 ->pluck('divisi');
 
             $students = User::role('murid')
+                ->active()
                 ->when($this->search, function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%')
                         ->orWhere('email', 'like', '%' . $this->search . '%');

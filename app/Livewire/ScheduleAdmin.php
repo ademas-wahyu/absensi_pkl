@@ -290,7 +290,7 @@ class ScheduleAdmin extends Component
         }
 
         // Ambil semua user murid berdasarkan divisi yang dipilih
-        $usersQuery = User::role('murid');
+        $usersQuery = User::role('murid')->active();
         if ($this->bulkDivisi !== '') {
             $usersQuery->where('divisi', $this->bulkDivisi);
         }
@@ -356,7 +356,7 @@ class ScheduleAdmin extends Component
         }
 
         // Ambil semua user murid (filter divisi jika ada)
-        $usersQuery = User::role('murid');
+        $usersQuery = User::role('murid')->active();
         if ($this->autoDivisi !== '') {
             $usersQuery->where('divisi', $this->autoDivisi);
         }
@@ -448,7 +448,7 @@ class ScheduleAdmin extends Component
         }
 
         // Ambil user murid (filter divisi jika ada)
-        $usersQuery = User::role('murid');
+        $usersQuery = User::role('murid')->active();
         if ($this->autoDivisi !== '') {
             $usersQuery->where('divisi', $this->autoDivisi);
         }
@@ -677,6 +677,7 @@ class ScheduleAdmin extends Component
     public function students()
     {
         return User::role('murid')
+            ->active()
             ->with([
                 'schedules' => function ($query) {
                     $query->whereMonth('date', $this->currentMonth)
@@ -762,6 +763,7 @@ class ScheduleAdmin extends Component
     {
         return cache()->remember('sekolah_list_murid', 3600, function () {
             return User::role('murid')
+                ->active()
                 ->whereNotNull('sekolah')
                 ->distinct()
                 ->orderBy('sekolah')

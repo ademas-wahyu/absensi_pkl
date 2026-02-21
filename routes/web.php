@@ -16,6 +16,7 @@ Route::view('dashboard', 'dashboard')
 // Route khusus Admin (daftar anak)
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('daftar-anak', 'jumlah_anak')->name('jumlah_anak');
+    Route::view('arsip-anak', 'archive_anak')->name('archive_anak');
 });
 
 // Route khusus Admin (setting)

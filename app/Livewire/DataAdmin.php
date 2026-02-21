@@ -176,6 +176,17 @@ class DataAdmin extends Component
         session()->flash('success', 'Data anak PKL berhasil diperbarui!');
     }
 
+    public function deactivateUser($id)
+    {
+        $user = User::findOrFail($id);
+        Gate::authorize('update', $user);
+
+        $user->update(['is_active' => false]);
+
+        $this->invalidateCache();
+        session()->flash('success', 'Akun anak PKL berhasil dinonaktifkan!');
+    }
+
     private function invalidateCache(): void
     {
         cache()->forget('sekolah_list_murid');
@@ -186,6 +197,7 @@ class DataAdmin extends Component
     public function render()
     {
         $students = User::role('murid')
+            ->active()
             ->with('mentor')
             ->when($this->search, function ($query) {
                 // Gunakan pencarian case-insensitive yang kompatibel dengan berbagai driver database
@@ -208,6 +220,7 @@ class DataAdmin extends Component
         // Get unique sekolah for filter dropdown (cached for 1 hour)
         $sekolahList = cache()->remember('sekolah_list_murid', 3600, function () {
             return User::role('murid')
+                ->active()
                 ->whereNotNull('sekolah')
                 ->distinct()
                 ->orderBy('sekolah')

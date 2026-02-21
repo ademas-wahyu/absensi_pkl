@@ -84,6 +84,7 @@ class ExportAbsensi extends Component
     private function writeAdminCsv($handle, $start, $end)
     {
         $students = User::role("murid")
+            ->active()
             ->with([
                 "absents" => function ($q) use ($start, $end) {
                     $q->whereBetween("absent_date", [$start, $end])->orderBy(
@@ -132,13 +133,13 @@ class ExportAbsensi extends Component
                 fputcsv($handle, [
                     $absent->absent_date,
                     $absent->created_at
-                        ? $absent->created_at->format("H:i") . " WIB"
-                        : "-",
+                    ? $absent->created_at->format("H:i") . " WIB"
+                    : "-",
                     ucfirst($absent->status),
                     $absent->reason ?? "-",
                     $absent->verification_method === "selfie"
-                        ? "Selfie"
-                        : "QR Code",
+                    ? "Selfie"
+                    : "QR Code",
                 ]);
             }
 
@@ -164,13 +165,13 @@ class ExportAbsensi extends Component
                     fputcsv($handle, [
                         $absent->absent_date,
                         $absent->created_at
-                            ? $absent->created_at->format("H:i") . " WIB"
-                            : "-",
+                        ? $absent->created_at->format("H:i") . " WIB"
+                        : "-",
                         ucfirst($absent->status),
                         $absent->reason ?? "-",
                         $absent->verification_method === "selfie"
-                            ? "Selfie"
-                            : "QR Code",
+                        ? "Selfie"
+                        : "QR Code",
                     ]);
                 }
             });
@@ -245,6 +246,7 @@ class ExportAbsensi extends Component
 
         if ($isAdmin) {
             $students = User::role("murid")
+                ->active()
                 ->with([
                     "absents" => function ($q) use ($start, $end) {
                         $q->whereBetween("absent_date", [
