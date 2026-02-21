@@ -77,10 +77,14 @@ class JurnalEdit extends Component
 
         $jurnal = \App\Models\JurnalUser::findOrFail($this->jurnalId);
         Gate::authorize('update', $jurnal);
+
         $jurnal->update([
-            'jurnal_date' => $this->jurnal_date,
-            'activity' => $this->activity,
+            'is_pending_edit' => true,
+            'pending_jurnal_date' => $this->jurnal_date,
+            'pending_activity' => $this->activity,
         ]);
+
+        session()->flash('success', 'Edit jurnal berhasil dikirim dan menunggu persetujuan mentor.');
 
         // Mengirim sinyal ke browser untuk menutup modal
         $this->dispatch('close-edit-modal');

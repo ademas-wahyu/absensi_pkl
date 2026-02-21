@@ -87,7 +87,8 @@
                     </div>
                     <div class="relative z-10">
                         <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Sudah Mengisi Jurnal</p>
-                        <h3 class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">{{ $stats['sudah_mengisi'] ?? 0 }}
+                        <h3 class="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
+                            {{ $stats['sudah_mengisi'] ?? 0 }}
                         </h3>
                     </div>
                 </div>
@@ -126,7 +127,8 @@
                     </div>
                     <div class="relative z-10">
                         <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Belum Mengisi Jurnal</p>
-                        <h3 class="text-2xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $stats['belum_mengisi'] ?? 0 }}</h3>
+                        <h3 class="text-2xl font-bold text-red-600 dark:text-red-400 mt-1">
+                            {{ $stats['belum_mengisi'] ?? 0 }}</h3>
                     </div>
                 </div>
             </div>
@@ -181,20 +183,18 @@
                     // Cari jurnal pada tanggal yang dipilih
                     $todayJurnal = $student->jurnals->firstWhere('jurnal_date', $selectedDate);
                 @endphp
-                <div
-                    class="relative w-full min-w-0 overflow-hidden rounded-xl
-                                                            border border-neutral-200 dark:border-neutral-700
-                                                            bg-white dark:bg-neutral-800
-                                                            shadow-md hover:shadow-xl transition-shadow duration-200">
+                <div class="relative w-full min-w-0 overflow-hidden rounded-xl
+                                                                    border border-neutral-200 dark:border-neutral-700
+                                                                    bg-white dark:bg-neutral-800
+                                                                    shadow-md hover:shadow-xl transition-shadow duration-200">
 
                     {{-- Header Card --}}
-                    <div
-                        class="p-4 border-b border-neutral-200 dark:border-neutral-700
-                                                        bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
+                    <div class="p-4 border-b border-neutral-200 dark:border-neutral-700
+                                                                bg-linear-to-r from-[#3526B3]/10 to-[#8615D9]/10">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-12 h-12 rounded-full bg-linear-to-br from-[#3526B3] to-[#8615D9] 
-                                                                flex items-center justify-center text-white font-semibold text-lg">
+                                                                        flex items-center justify-center text-white font-semibold text-lg">
                                 {{ strtoupper(substr($student->name, 0, 2)) }}
                             </div>
                             <div>
@@ -214,7 +214,8 @@
 
                         <div class="mb-4">
                             @if($todayJurnal)
-                                <div class="flex items-center gap-2 p-3 rounded-lg border bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800">
+                                <div
+                                    class="flex items-center gap-2 p-3 rounded-lg border bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800">
                                     {{-- Icon --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" class="text-green-600 dark:text-green-400">
@@ -328,7 +329,15 @@
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
                                 {{ \Carbon\Carbon::parse($jurnalUser->jurnal_date)->format('d M Y') }}
                             </td>
-                            <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">{{ $jurnalUser->activity }}
+                            <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700">
+                                {{ $jurnalUser->activity }}
+                                @if($jurnalUser->is_pending_edit)
+                                    <br>
+                                    <span
+                                        class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 mt-1">
+                                        Menunggu Persetujuan
+                                    </span>
+                                @endif
                             </td>
                             <td class="border border-neutral-300 px-4 py-2 dark:border-neutral-700 text-center">
                                 <div class="inline-flex items-center gap-3">

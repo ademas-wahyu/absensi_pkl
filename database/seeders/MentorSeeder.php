@@ -14,76 +14,47 @@ class MentorSeeder extends Seeder
     {
         $mentorData = [
             [
-                'nama_mentor' => 'Budi Santoso',
-                'email' => 'budi.santoso@company.com',
-                'no_telepon' => '08123456789',
-                'divisi_id' => 1, // IT Support
-                'keahlian' => 'Network Administration, Server Management, Troubleshooting',
-                'is_active' => true,
-            ],
-            [
-                'nama_mentor' => 'Siti Nurhaliza',
-                'email' => 'siti.nurhaliza@company.com',
-                'no_telepon' => '08234567890',
-                'divisi_id' => 2, // Frontend Development
-                'keahlian' => 'React, Vue.js, Tailwind CSS, JavaScript',
-                'is_active' => true,
-            ],
-            [
-                'nama_mentor' => 'Ahmad Zaki',
-                'email' => 'ahmad.zaki@company.com',
-                'no_telepon' => '08345678901',
-                'divisi_id' => 3, // Backend Development
-                'keahlian' => 'Laravel, Node.js, PostgreSQL, REST API',
-                'is_active' => true,
-            ],
-            [
-                'nama_mentor' => 'Dewi Lestari',
-                'email' => 'dewi.lestari@company.com',
-                'no_telepon' => '08456789012',
-                'divisi_id' => 4, // UI/UX Design
-                'keahlian' => 'Figma, Adobe XD, User Research, Prototyping',
-                'is_active' => true,
-            ],
-            [
-                'nama_mentor' => 'Rizky Pratama',
-                'email' => 'rizky.pratama@company.com',
-                'no_telepon' => '08567890123',
-                'divisi_id' => 5, // Mobile Development
-                'keahlian' => 'Flutter, React Native, Kotlin, Swift',
-                'is_active' => true,
-            ],
-            [
-                'nama_mentor' => 'Maya Anggraini',
-                'email' => 'maya.anggraini@company.com',
-                'no_telepon' => '08678901234',
-                'divisi_id' => 6, // Quality Assurance
-                'keahlian' => 'Manual Testing, Automation Testing, Selenium',
-                'is_active' => false, // Non-aktif untuk di test di halaman arsip
-            ],
-            [
-                'nama_mentor' => 'Doni Hermawan',
-                'email' => 'doni.hermawan@company.com',
-                'no_telepon' => '08789012345',
-                'divisi_id' => 1, // IT Support
-                'keahlian' => 'System Administration, Cloud Computing, AWS',
-                'is_active' => false, // Non-aktif untuk di test di halaman arsip
-            ],
-            [
-                'nama_mentor' => 'Rina Kusuma',
-                'email' => 'rina.kusuma@company.com',
-                'no_telepon' => '08890123456',
-                'divisi_id' => 2, // Frontend Development
-                'keahlian' => 'Angular, TypeScript, SASS, Responsive Design',
+                'nama_mentor' => 'Mentor User',
+                'email' => 'mentor@example.com',
+                'no_telepon' => '081234567890',
+                'divisi_id' => 1, // Project
+                'keahlian' => 'General Mentoring',
                 'is_active' => true,
             ],
         ];
 
         foreach ($mentorData as $mentor) {
-            Mentor::query()->firstOrCreate(
+            $mentorRecord = Mentor::query()->firstOrCreate(
                 ['email' => $mentor['email']],
                 $mentor
             );
+
+            // Buat akun User untuk mentor agar bisa login
+            if ($mentorRecord->is_active) {
+                // Ambil nama divisi untuk diset ke User
+                $divisiName = \App\Models\DivisiAdmin::find($mentorRecord->divisi_id)?->nama_divisi;
+
+                $user = \App\Models\User::firstOrCreate(
+                    ['email' => $mentor['email']],
+                    [
+                        'name' => $mentor['nama_mentor'],
+                        'password' => 'password', // Password default 'password'
+                        'email_verified_at' => now(),
+                        'divisi' => $divisiName,
+                        'is_active' => true,
+                    ]
+                );
+
+                // Jika user sudah ada (firstOrCreate tidak membuat baru, tapi update data divisinya supaya sinkron)
+                if ($user->divisi !== $divisiName) {
+                    $user->update(['divisi' => $divisiName]);
+                }
+
+                // Berikan role mentor
+                if (!$user->hasRole('mentor')) {
+                    $user->assignRole('mentor');
+                }
+            }
         }
     }
 }

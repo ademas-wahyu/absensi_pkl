@@ -13,6 +13,9 @@ class JurnalUser extends Model
         'user_id',
         'jurnal_date',
         'activity',
+        'is_pending_edit',
+        'pending_jurnal_date',
+        'pending_activity',
     ];
 
     /**

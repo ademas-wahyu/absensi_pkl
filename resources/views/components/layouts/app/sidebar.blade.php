@@ -94,6 +94,14 @@
             </flux:sidebar.item>
             @endrole
 
+            {{-- Khusus Mentor --}}
+            @hasanyrole('mentor|admin')
+            <flux:sidebar.item icon="clipboard-document-check" :href="route('persetujuan_jurnal')"
+                :current="request()->routeIs('persetujuan_jurnal')" wire:navigate class="{{ $navItemClasses }}">
+                {{ __('Persetujuan Jurnal') }}
+            </flux:sidebar.item>
+            @endhasanyrole
+
             {{-- Jadwal (untuk semua role) --}}
             <flux:sidebar.item icon="calendar" :href="route('jadwal')" :current="request()->routeIs('jadwal')"
                 wire:navigate class="{{ $navItemClasses }}">

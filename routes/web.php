@@ -20,6 +20,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('daftar-mentor', 'mentor_admin')->name('mentor_admin');
 });
 
+// Route khusus Mentor (persetujuan)
+Route::middleware(['auth', 'verified', 'role:mentor|admin'])->group(function () {
+    Route::get('/persetujuan', \App\Livewire\PersetujuanJurnal::class)->name('persetujuan_jurnal');
+});
+
 // Route khusus Admin (setting)
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::view('setting', 'setting')->name('setting');
